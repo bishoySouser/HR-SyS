@@ -39,10 +39,11 @@ class JobCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::column('created_at');
+        CRUD::column('id');
+        CRUD::column('title');
         CRUD::column('max_salary');
         CRUD::column('min_salary');
-        CRUD::column('title');
+        CRUD::column('created_at');
         CRUD::column('updated_at');
 
         /**
@@ -62,9 +63,29 @@ class JobCrudController extends CrudController
     {
         CRUD::setValidation(JobRequest::class);
 
-        CRUD::field('max_salary');
-        CRUD::field('min_salary');
+        // CRUD::field('title'); 
         CRUD::field('title');
+        CRUD::addField([
+            'name' => 'min_salary',
+            'type' => 'number',
+            'default' => 1000,
+            'attributes' => [
+                "step" => "any",
+                'min' => 1000,
+            ],
+            'prefix' => "L.E",
+        ]);
+        
+        CRUD::addField([
+            'name' => 'max_salary',
+            'type' => 'number',
+            'attributes' => [
+                "step" => "any",
+                'min' => 1000,
+            ],
+            'prefix' => "L.E",
+        ]);
+        // CRUD::field('min_salary')->type('number');
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:
