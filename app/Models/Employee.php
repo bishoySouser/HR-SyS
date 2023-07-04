@@ -17,11 +17,11 @@ class Employee extends Model
     |--------------------------------------------------------------------------
     */
 
-    protected $table = 'employees';
+    protected $table = 'employes';
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
-    // protected $fillable = [];
+    protected $fillable = [];
     // protected $hidden = [];
     // protected $dates = [];
 
@@ -36,12 +36,28 @@ class Employee extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
+    public function jobs()
+    {
+        return $this->belongsTo(Job::class);
+    }
+
+    public function departments(){
+        return $this->belongsTo(Department::class);
+    }
+
+    public function manager() {
+        return $this->belongsTo(Employee::class);
+    }
 
     /*
     |--------------------------------------------------------------------------
     | SCOPES
     |--------------------------------------------------------------------------
     */
+    public function getFullNameAttribute()
+    {
+        return "{$this->first_name} {$this->last_name}";
+    }
 
     /*
     |--------------------------------------------------------------------------

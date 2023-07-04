@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\EmployeeRequest;
+use App\Http\Requests\DepartmentRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
 /**
- * Class EmployeeCrudController
+ * Class DepartmentCrudController
  * @package App\Http\Controllers\Admin
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
-class EmployeeCrudController extends CrudController
+class DepartmentCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
@@ -26,9 +26,14 @@ class EmployeeCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\Employee::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/employee');
-        CRUD::setEntityNameStrings('employee', 'employees');
+        CRUD::setModel(\App\Models\Department::class);
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/department');
+        CRUD::setEntityNameStrings('department', 'departments');
+    }
+
+    protected function setupShowOperation()
+    {
+        $this->setupListOperation();
     }
 
     /**
@@ -39,11 +44,17 @@ class EmployeeCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        
-        CRUD::column('full_name');
+        CRUD::column('name');
+        $this->crud->addClause('with', ['manager']);
+        $this->crud->addColumn([
+            'label' => 'Manager',
+            'type' => 'text',
+            'name' => 'manager.full_name', // Assuming the column name is 'name' in the Backpack table
+        ]);
         CRUD::column('created_at');
         CRUD::column('updated_at');
-        CRUD::column('manager_id');
+        
+
         /**
          * Columns can be defined using the fluent syntax or array syntax:
          * - CRUD::column('price')->type('number');
@@ -59,63 +70,16 @@ class EmployeeCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(EmployeeRequest::class);
-        
-        CRUD::field('first_name');
-        CRUD::field('last_name');
-        CRUD::field('email')->type('email');
-        CRUD::field('phone_number');
-        CRUD::field('hire_date')->type('date');
-        CRUD::addField([
-            'label'     => "Job",
-            'type' => 'select',
-            'name' => 'job_id',
-            'entity'    => 'jobs',
-            'attribute' => 'title',
-            'model'     => "App\Models\Job",
-        ]); 
-        CRUD::addField([
-            'name' => 'salary',
-            'type' => 'number',
-            'attributes' => [
-                "step" => "any",
-                'min' => 1000,
-            ],
-            'prefix' => "L.E",
-        ]);
+        CRUD::setValidation(DepartmentRequest::class);
 
-        
-
+        CRUD::field('name');
         CRUD::addField([
-            'label'     => "departments",
-            'type' => 'select',
-            'name' => 'department_id',
-            'entity'    => 'departments',
-            'model'     => "App\Models\Department",
-        ]);
-
-        CRUD::addField([
-            'name'        => 'role',
-            'label'       => 'Role',
-            'type'        => 'radio',
-            'options'     => [
-                0 => 'Manager',
-                1 => 'Employee'
-            ],
-            'default'     => 1
-        ],);
-        
-        CRUD::addField([
-            'label'     => "Manager",
-            'type' => 'select',
-            'name' => 'manager_id',
-            'entity'    => 'manager',
-            'model'     => "App\Models\Employee",
-        ]);
-
-        CRUD::field('username');
-        CRUD::field('password')->type('password');
-
+                'label'     => "Manager",
+                'type' => 'select',
+                'name' => 'manager_id',
+                'entity'    => 'manager',
+                'model'     => "App\Models\Employee",
+            ]); 
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:

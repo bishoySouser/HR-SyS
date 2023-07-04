@@ -2,10 +2,9 @@
 
 namespace App\Http\Requests;
 
-use App\Rules\SalaryRange;
 use Illuminate\Foundation\Http\FormRequest;
 
-class EmployeeRequest extends FormRequest
+class DepartmentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,13 +25,8 @@ class EmployeeRequest extends FormRequest
     public function rules()
     {
         return [
-            'first_name' => 'required|min:5|max:255',
-            'last_name' => 'required|min:5|max:255',
-            'email' => 'required|email',
-            'phone_number' => 'required|email',
-            'job_id' => 'required|exists:jobs,id',
-            'salary' =>  ['required', new SalaryRange($this->job_id)],
-
+            'name' => 'required|min:5|max:255',
+            'manager_id' => 'required|exists:employes,id'
         ];
     }
 

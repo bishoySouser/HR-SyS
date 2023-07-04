@@ -6,7 +6,7 @@ use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Job extends Model
+class Department extends Model
 {
     use CrudTrait;
     use HasFactory;
@@ -17,7 +17,7 @@ class Job extends Model
     |--------------------------------------------------------------------------
     */
 
-    protected $table = 'jobs';
+    protected $table = 'departments';
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
@@ -36,11 +36,9 @@ class Job extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
-    public function employee()
-    {
+    public function manager() {
         return $this->belongsTo(Employee::class);
     }
-
     /*
     |--------------------------------------------------------------------------
     | SCOPES
