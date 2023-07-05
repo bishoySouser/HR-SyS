@@ -51,6 +51,12 @@ class EmployeeCrudController extends CrudController
          */
     }
 
+
+    public function create(){
+        
+        return view("admin.employee.create", $this->data);
+    }
+
     /**
      * Define what happens when the Create operation is loaded.
      * 
@@ -90,7 +96,7 @@ class EmployeeCrudController extends CrudController
             'label'     => "departments",
             'type' => 'select',
             'name' => 'department_id',
-            'entity'    => 'departments',
+            'entity'    => 'department',
             'model'     => "App\Models\Department",
         ]);
 

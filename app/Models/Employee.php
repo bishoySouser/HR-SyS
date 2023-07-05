@@ -41,7 +41,7 @@ class Employee extends Model
         return $this->belongsTo(Job::class);
     }
 
-    public function departments(){
+    public function department(){
         return $this->belongsTo(Department::class);
     }
 

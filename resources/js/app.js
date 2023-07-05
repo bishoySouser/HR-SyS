@@ -5,5 +5,5 @@ import './bootstrap';
  */
 // CREATE
 crud.field('role').onChange(function(field) {
-    crud.field('manager_id').show(field.value == 0);
+    crud.field('manager_id').disable(field.value == 0);
 }).change();
