@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests\EmployeeRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Backpack\CRUD\app\Library\Widget;
 
 /**
  * Class EmployeeCrudController
@@ -53,7 +54,12 @@ class EmployeeCrudController extends CrudController
 
 
     public function create(){
-        
+        // Widget::add([
+        //     'type'     => 'script',
+        //     'content'  => 'js/custom/employee.js',
+        //     // optional
+        //     // 'stack'    => 'before_scripts', // default is after_scripts
+        // ])->to('after_content');
         return view("admin.employee.create", $this->data);
     }
 
