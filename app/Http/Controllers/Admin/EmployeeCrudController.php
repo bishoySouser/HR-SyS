@@ -60,6 +60,7 @@ class EmployeeCrudController extends CrudController
         //     // optional
         //     // 'stack'    => 'before_scripts', // default is after_scripts
         // ])->to('after_content');
+      
         return view("admin.employee.create", $this->data);
     }
 
@@ -95,8 +96,6 @@ class EmployeeCrudController extends CrudController
             ],
             'prefix' => "L.E",
         ]);
-
-        
 
         CRUD::addField([
             'label'     => "departments",
