@@ -32,7 +32,6 @@ class EmployeeRequest extends FormRequest
             'phone_number' => 'required|email',
             'job_id' => 'required|exists:jobs,id',
             'salary' =>  ['required', new SalaryRange($this->job_id)],
-
         ];
     }
 

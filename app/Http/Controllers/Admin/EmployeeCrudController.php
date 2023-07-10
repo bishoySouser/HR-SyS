@@ -3,9 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\EmployeeRequest;
+use App\Models\Department;
+use App\Models\Employee;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Backpack\CRUD\app\Library\Widget;
+use App\Models\Job;
+use Illuminate\Http\Request;
 
 /**
  * Class EmployeeCrudController
@@ -52,16 +56,20 @@ class EmployeeCrudController extends CrudController
          */
     }
 
-
     public function create(){
-        // Widget::add([
-        //     'type'     => 'script',
-        //     'content'  => 'js/custom/employee.js',
-        //     // optional
-        //     // 'stack'    => 'before_scripts', // default is after_scripts
-        // ])->to('after_content');
+        $jobs = Job::select('id', 'title', 'min_salary', 'max_salary')->get();
+
+        $departments = Department::select('id', 'name', 'manager_id')->with('manager')->get();
+
+        $employes = Employee::select('full_name')->get();
+        
+        $data = [
+            'jobs' => $jobs,
+            'departments' => $departments,
+            'employes' => $employes,
+        ];
       
-        return view("admin.employee.create", $this->data);
+        return view("admin.employee.create", compact('data') );
     }
 
     /**
@@ -133,6 +141,13 @@ class EmployeeCrudController extends CrudController
          * - CRUD::field('price')->type('number');
          * - CRUD::addField(['name' => 'price', 'type' => 'number'])); 
          */
+    }
+
+    public function store(EmployeeRequest $request)
+    {
+        // CRUD::setValidation(EmployeeRequest::class);
+
+        return 'employee form is ready to validate';
     }
 
     /**
