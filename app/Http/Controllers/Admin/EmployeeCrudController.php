@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Abstracts\RedirectManager;
 use App\Http\Requests\EmployeeRequest;
 use App\Models\Department;
 use App\Models\Employee;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use App\Repositories\Employee\EmployeeInterface;
 use Backpack\CRUD\app\Library\Widget;
 use App\Models\Job;
 use Illuminate\Http\Request;
@@ -24,6 +26,13 @@ class EmployeeCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
 
+    protected $employeeInterface;
+
+    public function __construct(EmployeeInterface $employeeInterface)
+    {
+        parent::__construct();
+        $this->employeeInterface = $employeeInterface;
+    }
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
      * 
@@ -145,9 +154,14 @@ class EmployeeCrudController extends CrudController
 
     public function store(EmployeeRequest $request)
     {
-        // CRUD::setValidation(EmployeeRequest::class);
+        $inputData = $request->except(['_save_action', '_http_referrer']);
+        $employee = $this->employeeInterface->create($request->all());
 
-        return 'employee form is ready to validate';
+        // $employee->id;
+        $urlRedirect = new RedirectManager();
+        return $urlRedirect->redirectWithAction($request->input('_save_action'));
+        
+        return 'employee created';
     }
 
     /**

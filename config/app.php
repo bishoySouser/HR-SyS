@@ -159,7 +159,7 @@ return [
         /*
          * Package Service Providers...
          */
-
+        Cuongnd88\LaraRepo\LaraRepoServiceProvider::class,
         /*
          * Application Service Providers...
          */

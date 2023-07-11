@@ -26,12 +26,21 @@ class EmployeeRequest extends FormRequest
     public function rules()
     {
         return [
-            'first_name' => 'required|min:5|max:255',
-            'last_name' => 'required|min:5|max:255',
-            'email' => 'required|email',
-            'phone_number' => 'required|email',
+            'full_name' => 'required|string',
+            'email' => 'required|email|unique:employes,email',
+            'phone_number' => 'nullable|string|max:20',
+            'national_id' => 'required|string',
+            'birthday' => 'required|date',
+            'location' => 'required|string',
+            'gender' => 'required|in:male,female',
+            'contract_period' => 'required|string',
+            'hire_date' => 'nullable|date',
+            'grades' => 'required|in:junior,associate,senior',
+            'top_management' => 'required|in:ceo,operation director,manager,employee',
             'job_id' => 'required|exists:jobs,id',
-            'salary' =>  ['required', new SalaryRange($this->job_id)],
+            'salary' =>  ['required', 'numeric', new SalaryRange($this->job_id)],
+            'manager_id' => 'nullable|exists:employes,id',
+            'department_id' => 'exists:departments,id',
         ];
     }
 

@@ -13,9 +13,7 @@
                 </ul>
             </div>
 
-        <form @submit.prevent="submitForm">
-                
-                <input type="hidden" name="_http_referrer" value="{{ url()->previous() }}">
+        <form @submit.prevent="submitForm('save_and_back')">
 
                 <div class="card">
                     <div class="card-body row">
@@ -88,7 +86,7 @@
 
                         <div class="form-group col-sm-12 required" element="div" bp-field-wrapper="true" bp-field-name="job_id" bp-field-type="select">
                             <label>Jobs</label>
-                            <select v-model="formData.job" class="form-control">
+                            <select v-model="formData.job_id" class="form-control">
                                 <option value="" disabled>-</option>
                                 <option v-for="item in jobs" :value="item.id">{{ item.title }}</option>
                             </select>
@@ -181,13 +179,20 @@
             salary: null,
             manager_id: null,
             department_id: null,
+            _save_action: '',
+            _http_referrer: ''
             // Add other form fields here with default values if needed
         },
         errors: {}
       }
     },
     methods: {
-        submitForm() {
+        submitForm(submitFeedback) {
+            this.errors = {}
+
+            this.formData._save_action = submitFeedback;
+            this.formData._http_referrer = this.urls.previous;
+
             axios.post('/admin/employee', this.formData)
             .then(response => {
                 // Handle the success response
