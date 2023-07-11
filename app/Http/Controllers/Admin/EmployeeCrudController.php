@@ -158,10 +158,17 @@ class EmployeeCrudController extends CrudController
         $employee = $this->employeeInterface->create($request->all());
 
         // $employee->id;
-        $urlRedirect = new RedirectManager();
-        return $urlRedirect->redirectWithAction($request->input('_save_action'));
+        $redirectManager_obj = new RedirectManager();
+        $redirect_url =  $redirectManager_obj->redirectWithAction(
+                                                    $request->input('_save_action'),
+                                                    $request->input('_http_referrer'),
+                                                    $employee->id,
+                                                );
+                                    
         
-        return 'employee created';
+        return response()->json([
+            'redirect_url' => $redirect_url,
+        ]);
     }
 
     /**

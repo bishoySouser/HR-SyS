@@ -127,9 +127,9 @@
                             <div class="btn-group" role="group">
                                 <button id="bpSaveButtonsGroup" type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span><span class="sr-only">▼</span></button>
                                 <div class="dropdown-menu" aria-labelledby="bpSaveButtonsGroup">
-                                    <button type="button" class="dropdown-item" data-value="save_and_edit">Save and edit this item</button>
-                                    <button type="button" class="dropdown-item" data-value="save_and_new">Save and new item</button>
-                                    <button type="button" class="dropdown-item" data-value="save_and_preview">Save and preview</button>
+                                    <button type="button" class="dropdown-item" @click="submitForm('save_and_edit')">Save and edit this item</button>
+                                    <button type="button" class="dropdown-item" @click="submitForm('save_and_new')">Save and new item</button>
+                                    <button type="button" class="dropdown-item" @click="submitForm('save_and_preview')">Save and preview</button>
                                 </div>
                             </div>
                         </div>
@@ -197,6 +197,7 @@
             .then(response => {
                 // Handle the success response
                 console.log(response.data);
+                window.location.href = response.data.redirect_url;
             })
             .catch(error => {
                 // Handle the error
