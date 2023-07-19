@@ -5,7 +5,7 @@
   $breadcrumbs = [
       'Admin' => backpack_url('dashboard'),
       'Employes' => backpack_url('employee'),
-      'Add' => false,
+      'Edit' => false,
   ];
 @endphp
 
@@ -13,7 +13,7 @@
 <section class="container-fluid">
     <h2>
         <span class="text-capitalize">employes</span>
-        <small>Add employes. </small>
+        <small>Edit employes. </small>
         <small><a href="{{backpack_url('employee')}}" class="d-print-none font-sm"><i class="la la-angle-double-left"></i> Back to all  <span>employes</span></a></small>
     </h2>
 </section>
@@ -23,16 +23,15 @@
             
           
 
-            <employee-create
+            <employee-edit
+                :employee="{{ $data['employee'] }}"
                 :jobs="{{ $data['jobs'] }}"
-                :departments ="{{$data['departments']}}"
+                :departments ="{{ $data['departments'] }}"
                 :managers ="{{$data['employes']}}"
                 :urls="{
-                    previous: '{{url('admin/employee')}}'
+                        previous: '{{url('admin/employee')}}'
                 }"
-               
-                
-            ></employee-create>
+            ></employee-edit>
             
      
 

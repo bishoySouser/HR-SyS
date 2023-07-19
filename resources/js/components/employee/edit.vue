@@ -19,37 +19,37 @@
                     <div class="card-body row">
                         <div class="form-group col-sm-12 required" element="div" bp-field-wrapper="true" bp-field-name="full_name" bp-field-type="text">
                             <label>Full Name</label>
-                            <input type="text" v-model="formData.full_name" class="form-control">
+                            <input type="text" v-model="employee.full_name" class="form-control">
                         </div>
 
                         <div class="form-group col-sm-12 required" element="div" bp-field-wrapper="true" bp-field-name="email" bp-field-type="email">
                             <label>Email</label>
-                            <input type="email" v-model="formData.email" class="form-control">
+                            <input type="email" v-model="employee.email" class="form-control">
                         </div>
 
                         <div class="form-group col-sm-12 required" element="div" bp-field-wrapper="true" bp-field-name="phone_number" bp-field-type="tel">
                             <label>Phone Number</label>
-                            <input type="tel" v-model="formData.phone_number" class="form-control">
+                            <input type="tel" v-model="employee.phone_number" class="form-control">
                         </div>
 
                         <div class="form-group col-sm-12 required" element="div" bp-field-wrapper="true" bp-field-name="national_id" bp-field-type="text">
                             <label>National ID</label>
-                            <input type="text" v-model="formData.national_id" class="form-control">
+                            <input type="text" v-model="employee.national_id" class="form-control">
                         </div>
 
                         <div class="form-group col-sm-12 required" element="div" bp-field-wrapper="true" bp-field-name="birthday" bp-field-type="date">
                             <label>Birthday</label>
-                            <input type="date" v-model="formData.birthday" class="form-control">
+                            <input type="date" v-model="employee.birthday" class="form-control">
                         </div>
 
                         <div class="form-group col-sm-12 required" element="div" bp-field-wrapper="true" bp-field-name="location" bp-field-type="text">
                             <label>Location</label>
-                            <input type="text" v-model="formData.location" class="form-control">
+                            <input type="text" v-model="employee.location" class="form-control">
                         </div>
 
                         <div class="form-group col-sm-12 required" element="div" bp-field-wrapper="true" bp-field-name="gender" bp-field-type="select">
                             <label>Gender</label>
-                            <select v-model="formData.gender" class="form-control">
+                            <select v-model="employee.gender" class="form-control">
                                 <option value="male">Male</option>
                                 <option value="female">Female</option>
                             </select>
@@ -57,17 +57,17 @@
 
                         <div class="form-group col-sm-12 required" element="div" bp-field-wrapper="true" bp-field-name="contract_period" bp-field-type="text">
                             <label>Contract Period</label>
-                            <input type="text" v-model="formData.contract_period" class="form-control">
+                            <input type="text" v-model="employee.contract_period" class="form-control">
                         </div>
 
                         <div class="form-group col-sm-12 required" element="div" bp-field-wrapper="true" bp-field-name="hire_date" bp-field-type="date">
                             <label>Hire Date</label>
-                            <input type="date" v-model="formData.hire_date" class="form-control" required>
+                            <input type="date" v-model="employee.hire_date" class="form-control" required>
                         </div>
 
                         <div class="form-group col-sm-12 required" element="div" bp-field-wrapper="true" bp-field-name="top_management" bp-field-type="select">
                             <label>Top management</label>
-                            <select v-model="formData.top_management" class="form-control">
+                            <select v-model="employee.top_management" class="form-control">
                                 <option value="ceo">ceo</option>
                                 <option value="operation director">operation director</option>
                                 <option value="manager">manager</option>
@@ -77,7 +77,7 @@
 
                         <div class="form-group col-sm-12 required" element="div" bp-field-wrapper="true" bp-field-name="grades" bp-field-type="select">
                             <label>Grades</label>
-                            <select v-model="formData.grades" class="form-control">
+                            <select v-model="employee.grades" class="form-control">
                                 <option value="junior">junior</option>
                                 <option value="associate">associate</option>
                                 <option value="senior">senior</option>
@@ -86,7 +86,7 @@
 
                         <div class="form-group col-sm-12 required" element="div" bp-field-wrapper="true" bp-field-name="job_id" bp-field-type="select">
                             <label>Jobs</label>
-                            <select v-model="formData.job_id" class="form-control">
+                            <select v-model="employee.job_id" class="form-control">
                                 <option value="" disabled>-</option>
                                 <option v-for="item in jobs" :value="item.id">{{ item.title }}</option>
                             </select>
@@ -94,12 +94,12 @@
 
                         <div class="form-group col-sm-12 required" element="div" bp-field-wrapper="true" bp-field-name="salary" bp-field-type="number">
                             <label>Salary</label>
-                            <input type="number" v-model="formData.salary" class="form-control" min="1000">
+                            <input type="number" v-model="employee.salary" class="form-control" min="1000">
                         </div>
 
                         <div class="form-group col-sm-12 required" element="div" bp-field-wrapper="true" bp-field-name="departments" bp-field-type="select">
                             <label>Departments</label>
-                            <select v-model="formData.department_id" class="form-control">
+                            <select v-model="employee.department_id" class="form-control">
                                 <option value="" disabled>-</option>
                                 <option v-for="item in departments" :value="item.id">{{ item.name }}</option>
                             </select>
@@ -107,7 +107,7 @@
 
                         <div class="form-group col-sm-12 required" element="div" bp-field-wrapper="true" bp-field-name="manager_id" bp-field-type="select">
                             <label>Manager</label>
-                            <select v-model="formData.manager_id" class="form-control">
+                            <select v-model="employee.manager_id" class="form-control">
                                 <option value="">-</option>
                                 <option v-for="item in managers" :value="item.id">{{ item.full_name }}</option>
                                
@@ -148,6 +148,9 @@
   export default {
     name: 'EmployeeCreate',
     props: {
+        employee: {
+            type:Object
+        },
         jobs: {
             type:Array
         },
@@ -163,26 +166,6 @@
     },
     data() {
       return {
-        formData: {
-            full_name: '',
-            email: '',
-            phone_number: '',
-            national_id: '',
-            birthday: null,
-            location: '',
-            gender: 'male',
-            contract_period: '',
-            hire_date: new Date().toISOString().slice(0, 10),
-            grades: 'junior',
-            top_management: 'employee',
-            job_id: null,
-            salary: null,
-            manager_id: null,
-            department_id: null,
-            _save_action: '',
-            _http_referrer: ''
-            // Add other form fields here with default values if needed
-        },
         errors: {}
       }
     },
@@ -190,25 +173,25 @@
         submitForm(submitFeedback) {
             this.errors = {}
 
-            this.formData._save_action = submitFeedback;
-            this.formData._http_referrer = this.urls.previous;
+            this.employee._save_action = submitFeedback;
+            this.employee._http_referrer = this.urls.previous;
 
-            axios.post('/admin/employee', this.formData)
-            .then(response => {
-                // Handle the success response
-                console.log(response.data);
-                window.location.href = response.data.redirect_url;
-            })
-            .catch(error => {
-                // Handle the error
-                if (error.code = 'ERR_BAD_REQUEST' && error.response.status == 422) {
-                    this.errors = error.response.data.errors
-                    const element = this.$refs.errors;
-                    
-                    this.scrollToElement()
-                }
-                console.error(error);
-            });
+            axios.put('/admin/employee/' + this.employee.id, this.employee)
+                .then(response => {
+                    // Handle the success response for update
+                    console.log(response.data);
+                    window.location.href = response.data.redirect_url;
+                })
+                .catch(error => {
+                    // Handle the error
+                    if (error.code === 'ERR_BAD_REQUEST' && error.response.status === 422) {
+                        this.errors = error.response.data.errors;
+                        const element = this.$refs.errors;
+                        
+                        this.scrollToElement();
+                    }
+                    console.error(error);
+                });
         },
         scrollToElement() {
             const element = this.$refs.top;

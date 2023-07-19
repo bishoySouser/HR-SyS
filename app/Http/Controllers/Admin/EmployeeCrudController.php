@@ -43,6 +43,7 @@ class EmployeeCrudController extends CrudController
         CRUD::setModel(\App\Models\Employee::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/employee');
         CRUD::setEntityNameStrings('employee', 'employees');
+        
     }
 
     /**
@@ -58,6 +59,10 @@ class EmployeeCrudController extends CrudController
         CRUD::column('created_at');
         CRUD::column('updated_at');
         CRUD::column('manager_id');
+        CRUD::setOperationSetting('lineButtonsAsDropdown', true);
+        
+        $this->crud->addButtonFromModelFunction('line', 'open_google', 'openVacations', 'end');
+
         /**
          * Columns can be defined using the fluent syntax or array syntax:
          * - CRUD::column('price')->type('number');
@@ -65,12 +70,17 @@ class EmployeeCrudController extends CrudController
          */
     }
 
+    /**
+     * Define what happens when the create operation is loaded.
+     * 
+     * @return void
+     */
     public function create(){
         $jobs = Job::select('id', 'title', 'min_salary', 'max_salary')->get();
 
         $departments = Department::select('id', 'name', 'manager_id')->with('manager')->get();
 
-        $employes = Employee::select('full_name')->get();
+        $employes = Employee::select('id', 'full_name')->get();
         
         $data = [
             'jobs' => $jobs,
@@ -79,6 +89,30 @@ class EmployeeCrudController extends CrudController
         ];
       
         return view("admin.employee.create", compact('data') );
+    }
+
+    /**
+     * Define what happens when the edit operation is loaded.
+     * 
+     * @return void
+     */
+    public function edit($id){
+        $employee = Employee::findOrFail($id);
+
+        $jobs = Job::select('id', 'title', 'min_salary', 'max_salary')->get();
+
+        $departments = Department::select('id', 'name', 'manager_id')->with('manager')->get();
+
+        $employes = Employee::select('id', 'full_name')->get();
+        
+        $data = [
+            'employee' => $employee,
+            'jobs' => $jobs,
+            'departments' => $departments,
+            'employes' => $employes,
+        ];
+      
+        return view("admin.employee.edit", compact('data') );
     }
 
     /**
@@ -152,12 +186,43 @@ class EmployeeCrudController extends CrudController
          */
     }
 
+
+    /**
+     * Define what happens when the Store operation is loaded.
+     * 
+     * @param $request
+     * @return Response
+     */
     public function store(EmployeeRequest $request)
     {
         $inputData = $request->except(['_save_action', '_http_referrer']);
         $employee = $this->employeeInterface->create($request->all());
 
         // $employee->id;
+        $redirectManager_obj = new RedirectManager();
+        $redirect_url =  $redirectManager_obj->redirectWithAction(
+                                                    $request->input('_save_action'),
+                                                    $request->input('_http_referrer'),
+                                                    $employee->id,
+                                                );
+                                    
+        
+        return response()->json([
+            'redirect_url' => $redirect_url,
+        ]);
+    }
+
+    /**
+     * Define what happens when the Update operation is loaded.
+     * 
+     * @param $request
+     * @return Response
+     */
+    public function Update(EmployeeRequest $request)
+    {
+        $inputData = $request->except(['_save_action', '_http_referrer']);
+        $employee = $this->employeeInterface->update($request->input('id'), $request->all());
+
         $redirectManager_obj = new RedirectManager();
         $redirect_url =  $redirectManager_obj->redirectWithAction(
                                                     $request->input('_save_action'),

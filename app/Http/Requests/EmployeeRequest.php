@@ -25,9 +25,8 @@ class EmployeeRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $rules = [
             'full_name' => 'required|string',
-            'email' => 'required|email|unique:employes,email',
             'phone_number' => 'nullable|string|max:20',
             'national_id' => 'required|string',
             'birthday' => 'required|date',
@@ -42,7 +41,18 @@ class EmployeeRequest extends FormRequest
             'manager_id' => 'nullable|exists:employes,id',
             'department_id' => 'exists:departments,id',
         ];
+
+        if ($this->getMethod() == 'POST') {
+            // Include email validation for new employee creation
+            $rules['email'] = 'required|email|unique:employes,email';
+        } else if ($this->getMethod() == 'PUT' || $this->getMethod() == 'PATCH') {
+            // Exclude email validation for existing employee updates
+            $rules['email'] = 'sometimes|email|unique:employes,email,' . $this->id;
+        }
+
+        return $rules;
     }
+
 
     /**
      * Get the validation attributes that apply to the request.
