@@ -25,7 +25,9 @@ class VacationBalanceRequest extends FormRequest
     public function rules()
     {
         return [
-            // 'name' => 'required|min:5|max:255'
+            'year' => 'required|numeric',
+            'employee_id' => 'required|exists:employes,id',
+            'remaining_days' => 'required|numeric|min:1',
         ];
     }
 

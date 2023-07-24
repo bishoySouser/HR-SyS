@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\VacationRequest;
+use App\Models\Employee;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
@@ -64,10 +65,38 @@ class VacationCrudController extends CrudController
     {
         CRUD::setValidation(VacationRequest::class);
 
-        CRUD::field('balance_id');
-        CRUD::field('start_date');
-        CRUD::field('end_date');
-        CRUD::field('duration');
+        // CRUD::addField([
+        //     'name' => 'balance_id',
+        //     'label' => 'Balance ID',
+        //     'type' => 'number',
+        // ]);
+        CRUD::addField([
+            'label'     => "Balance",
+            'type' => 'select',
+            'name' => 'balance_id',
+            'entity'    => 'balanceEmployeeOfCurrentYear',
+            'attribute' => 'employee.full_name',
+            'model'     => "App\Models\VacationBalance"
+        ]);
+    
+        CRUD::addField([
+            'name' => 'start_date',
+            'label' => 'Start Date',
+            'type' => 'date',
+        ]);
+    
+        CRUD::addField([
+            'name' => 'end_date',
+            'label' => 'End Date',
+            'type' => 'date',
+        ]);
+    
+        CRUD::addField([
+            'name' => 'duration',
+            'label' => 'Duration',
+            'type' => 'number',
+        ]);
+    
         CRUD::addField([
             'name' => 'status',
             'label' => 'Status',
