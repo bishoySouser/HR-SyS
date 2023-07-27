@@ -22,4 +22,6 @@ Route::group([
     Route::crud('vacation-balance', 'VacationBalanceCrudController');
     Route::crud('vacation', 'VacationCrudController');
     Route::crud('attendance', 'AttendanceCrudController');
+    Route::crud('work-from-home', 'WorkFromHomeCrudController');
+    Route::crud('excuse', 'ExcuseCrudController');
 }); // this should be the absolute last line of this file
