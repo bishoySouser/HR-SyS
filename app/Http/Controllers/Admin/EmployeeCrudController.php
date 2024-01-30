@@ -35,7 +35,7 @@ class EmployeeCrudController extends CrudController
     }
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
-     * 
+     *
      * @return void
      */
     public function setup()
@@ -43,57 +43,54 @@ class EmployeeCrudController extends CrudController
         CRUD::setModel(\App\Models\Employee::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/employee');
         CRUD::setEntityNameStrings('employee', 'employees');
-        
+
     }
 
     /**
      * Define what happens when the List operation is loaded.
-     * 
+     *
      * @see  https://backpackforlaravel.com/docs/crud-operation-list-entries
      * @return void
      */
     protected function setupListOperation()
     {
-        
-        CRUD::column('full_name');
-        CRUD::column('created_at');
-        CRUD::column('updated_at');
-        CRUD::column('manager_id');
-        CRUD::setOperationSetting('lineButtonsAsDropdown', true);
-        
-        $this->crud->addButtonFromModelFunction('line', 'open_google', 'openVacations', 'end');
 
-        /**
-         * Columns can be defined using the fluent syntax or array syntax:
-         * - CRUD::column('price')->type('number');
-         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']); 
-         */
+        CRUD::column('id');
+        CRUD::column('full_name');
+        CRUD::column('hire_date');
+        CRUD::column('manager_id');
+        CRUD::column('department_id');
+        CRUD::column('updated_at');
+        CRUD::column('created_at');
+        CRUD::setOperationSetting('lineButtonsAsDropdown', true);
+
+        $this->crud->addButtonFromModelFunction('line', 'open_google', 'openVacations', 'end');
     }
 
     /**
      * Define what happens when the create operation is loaded.
-     * 
+     *
      * @return void
      */
-    public function create(){
-        $jobs = Job::select('id', 'title', 'min_salary', 'max_salary')->get();
+    // public function create(){
+    //     $jobs = Job::select('id', 'title', 'min_salary', 'max_salary')->get();
 
-        $departments = Department::select('id', 'name', 'manager_id')->with('manager')->get();
+    //     $departments = Department::select('id', 'name', 'manager_id')->with('manager')->get();
 
-        $employes = Employee::select('id', 'full_name')->get();
-        
-        $data = [
-            'jobs' => $jobs,
-            'departments' => $departments,
-            'employes' => $employes,
-        ];
-      
-        return view("admin.employee.create", compact('data') );
-    }
+    //     $employes = Employee::select('id', 'full_name')->get();
+
+    //     $data = [
+    //         'jobs' => $jobs,
+    //         'departments' => $departments,
+    //         'employes' => $employes,
+    //     ];
+
+    //     return view("admin.employee.create", compact('data') );
+    // }
 
     /**
      * Define what happens when the edit operation is loaded.
-     * 
+     *
      * @return void
      */
     public function edit($id){
@@ -104,40 +101,55 @@ class EmployeeCrudController extends CrudController
         $departments = Department::select('id', 'name', 'manager_id')->with('manager')->get();
 
         $employes = Employee::select('id', 'full_name')->get();
-        
+
         $data = [
             'employee' => $employee,
             'jobs' => $jobs,
             'departments' => $departments,
             'employes' => $employes,
         ];
-      
+
         return view("admin.employee.edit", compact('data') );
     }
 
     /**
      * Define what happens when the Create operation is loaded.
-     * 
+     *
      * @see https://backpackforlaravel.com/docs/crud-operation-create
      * @return void
      */
     protected function setupCreateOperation()
     {
         CRUD::setValidation(EmployeeRequest::class);
-        
-        CRUD::field('first_name');
-        CRUD::field('last_name');
+
+        CRUD::field('full_name');
         CRUD::field('email')->type('email');
         CRUD::field('phone_number');
+
+        CRUD::field('national_id');
+        CRUD::field('birthday')->type('date');
+        CRUD::field('location');
+        CRUD::addField([
+            'name'        => 'gender',
+            'label'       => 'Gender',
+            'type'        => 'select_from_array',
+            'options'     => [
+                'male' => 'male',
+                'female' => 'female',
+            ],
+            'default'     => 'male'
+        ],);
+
         CRUD::field('hire_date')->type('date');
+        CRUD::field('contract_period');
         CRUD::addField([
             'label'     => "Job",
             'type' => 'select',
             'name' => 'job_id',
-            'entity'    => 'jobs',
+            'entity'    => 'job',
             'attribute' => 'title',
             'model'     => "App\Models\Job",
-        ]); 
+        ]);
         CRUD::addField([
             'name' => 'salary',
             'type' => 'number',
@@ -149,24 +161,51 @@ class EmployeeCrudController extends CrudController
         ]);
 
         CRUD::addField([
-            'label'     => "departments",
+            'label'     => "Department",
             'type' => 'select',
             'name' => 'department_id',
             'entity'    => 'department',
+            'attribute'    => 'name',
             'model'     => "App\Models\Department",
+        ]);
+
+        CRUD::addField([
+            'name'        => 'top_management',
+            'label'       => 'Top management',
+            'type'        => 'select_from_array',
+            'options'     => [
+                'ceo' => 'ceo',
+                'operation director' => 'operation director',
+                'manager' => 'manager',
+                'employee' => 'employee',
+            ],
+            'default'     => 'employee'
+        ]);
+
+        CRUD::addField([
+            'name'        => 'grades',
+            'label'       => 'Grade',
+            'type'        => 'select_from_array',
+            'options'     => [
+                'junior' => 'junior',
+                'associate' => 'associate',
+                'senior' => 'senior',
+            ],
+            'default'     => 'junior'
         ]);
 
         CRUD::addField([
             'name'        => 'role',
             'label'       => 'Role',
-            'type'        => 'radio',
+            'type'        => 'select_from_array',
             'options'     => [
-                0 => 'Manager',
-                1 => 'Employee'
+                'manager' => 'manager',
+                'employee' => 'employee',
             ],
-            'default'     => 1
+            'default'     => 'employee'
         ],);
-        
+
+
         CRUD::addField([
             'label'     => "Manager",
             'type' => 'select',
@@ -175,51 +214,51 @@ class EmployeeCrudController extends CrudController
             'model'     => "App\Models\Employee",
         ]);
 
-        CRUD::field('username');
-        CRUD::field('password')->type('password');
+
+
+        // CRUD::field('username');
+        // CRUD::field('password')->type('password');
 
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:
          * - CRUD::field('price')->type('number');
-         * - CRUD::addField(['name' => 'price', 'type' => 'number'])); 
+         * - CRUD::addField(['name' => 'price', 'type' => 'number']));
          */
     }
 
 
     /**
      * Define what happens when the Store operation is loaded.
-     * 
+     *
      * @param $request
      * @return Response
      */
     public function store(EmployeeRequest $request)
     {
-        $inputData = $request->except(['_save_action', '_http_referrer']);
+        $request->except(['_save_action', '_http_referrer']);
         $employee = $this->employeeInterface->create($request->all());
 
-        // $employee->id;
         $redirectManager_obj = new RedirectManager();
         $redirect_url =  $redirectManager_obj->redirectWithAction(
-                                                    $request->input('_save_action'),
+                                                    'save_and_preview',
                                                     $request->input('_http_referrer'),
                                                     $employee->id,
                                                 );
-                                    
-        
-        return response()->json([
-            'redirect_url' => $redirect_url,
-        ]);
+
+
+        return redirect($redirect_url);
     }
 
     /**
      * Define what happens when the Update operation is loaded.
-     * 
+     *
      * @param $request
      * @return Response
      */
     public function Update(EmployeeRequest $request)
     {
+        return $request->all();
         $inputData = $request->except(['_save_action', '_http_referrer']);
         $employee = $this->employeeInterface->update($request->input('id'), $request->all());
 
@@ -229,8 +268,8 @@ class EmployeeCrudController extends CrudController
                                                     $request->input('_http_referrer'),
                                                     $employee->id,
                                                 );
-                                    
-        
+
+
         return response()->json([
             'redirect_url' => $redirect_url,
         ]);
@@ -238,7 +277,7 @@ class EmployeeCrudController extends CrudController
 
     /**
      * Define what happens when the Update operation is loaded.
-     * 
+     *
      * @see https://backpackforlaravel.com/docs/crud-operation-update
      * @return void
      */

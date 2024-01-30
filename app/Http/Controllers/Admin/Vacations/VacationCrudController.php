@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Vacations;
 
 use App\Http\Requests\VacationRequest;
 use App\Models\Employee;
@@ -22,7 +22,7 @@ class VacationCrudController extends CrudController
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
-     * 
+     *
      * @return void
      */
     public function setup()
@@ -34,7 +34,7 @@ class VacationCrudController extends CrudController
 
     /**
      * Define what happens when the List operation is loaded.
-     * 
+     *
      * @see  https://backpackforlaravel.com/docs/crud-operation-list-entries
      * @return void
      */
@@ -51,13 +51,13 @@ class VacationCrudController extends CrudController
         /**
          * Columns can be defined using the fluent syntax or array syntax:
          * - CRUD::column('price')->type('number');
-         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']); 
+         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']);
          */
     }
 
     /**
      * Define what happens when the Create operation is loaded.
-     * 
+     *
      * @see https://backpackforlaravel.com/docs/crud-operation-create
      * @return void
      */
@@ -78,25 +78,25 @@ class VacationCrudController extends CrudController
             'attribute' => 'employee.full_name',
             'model'     => "App\Models\VacationBalance"
         ]);
-    
+
         CRUD::addField([
             'name' => 'start_date',
             'label' => 'Start Date',
             'type' => 'date',
         ]);
-    
+
         CRUD::addField([
             'name' => 'end_date',
             'label' => 'End Date',
             'type' => 'date',
         ]);
-    
+
         CRUD::addField([
             'name' => 'duration',
             'label' => 'Duration',
             'type' => 'number',
         ]);
-    
+
         CRUD::addField([
             'name' => 'status',
             'label' => 'Status',
@@ -108,13 +108,13 @@ class VacationCrudController extends CrudController
         /**
          * Fields can be defined using the fluent syntax or array syntax:
          * - CRUD::field('price')->type('number');
-         * - CRUD::addField(['name' => 'price', 'type' => 'number'])); 
+         * - CRUD::addField(['name' => 'price', 'type' => 'number']));
          */
     }
 
     /**
      * Define what happens when the Update operation is loaded.
-     * 
+     *
      * @see https://backpackforlaravel.com/docs/crud-operation-update
      * @return void
      */
