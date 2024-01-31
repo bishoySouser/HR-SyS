@@ -215,64 +215,6 @@ class EmployeeCrudController extends CrudController
         ]);
 
 
-
-        // CRUD::field('username');
-        // CRUD::field('password')->type('password');
-
-
-        /**
-         * Fields can be defined using the fluent syntax or array syntax:
-         * - CRUD::field('price')->type('number');
-         * - CRUD::addField(['name' => 'price', 'type' => 'number']));
-         */
-    }
-
-
-    /**
-     * Define what happens when the Store operation is loaded.
-     *
-     * @param $request
-     * @return Response
-     */
-    public function store(EmployeeRequest $request)
-    {
-        $request->except(['_save_action', '_http_referrer']);
-        $employee = $this->employeeInterface->create($request->all());
-
-        $redirectManager_obj = new RedirectManager();
-        $redirect_url =  $redirectManager_obj->redirectWithAction(
-                                                    'save_and_preview',
-                                                    $request->input('_http_referrer'),
-                                                    $employee->id,
-                                                );
-
-
-        return redirect($redirect_url);
-    }
-
-    /**
-     * Define what happens when the Update operation is loaded.
-     *
-     * @param $request
-     * @return Response
-     */
-    public function Update(EmployeeRequest $request)
-    {
-        return $request->all();
-        $inputData = $request->except(['_save_action', '_http_referrer']);
-        $employee = $this->employeeInterface->update($request->input('id'), $request->all());
-
-        $redirectManager_obj = new RedirectManager();
-        $redirect_url =  $redirectManager_obj->redirectWithAction(
-                                                    $request->input('_save_action'),
-                                                    $request->input('_http_referrer'),
-                                                    $employee->id,
-                                                );
-
-
-        return response()->json([
-            'redirect_url' => $redirect_url,
-        ]);
     }
 
     /**
@@ -283,6 +225,51 @@ class EmployeeCrudController extends CrudController
      */
     protected function setupUpdateOperation()
     {
-        $this->setupCreateOperation();
+
     }
+
+
+    /**
+     * Define what happens when the Store operation is loaded.
+     *
+     * @param $request
+     * @return Response
+     */
+    // public function store(EmployeeRequest $request)
+    // {
+    //     $request->except(['_save_action', '_http_referrer']);
+    //     $employee = $this->employeeInterface->create($request->all());
+
+    //     $redirectManager_obj = new RedirectManager();
+    //     $redirect_url =  $redirectManager_obj->redirectWithAction(
+    //                                                 'save_and_preview',
+    //                                                 $request->input('_http_referrer'),
+    //                                                 $employee->id,
+    //                                             );
+
+
+    //     return redirect($redirect_url);
+    // }
+
+    /**
+     * Define what happens when the Update operation is loaded.
+     *
+     * @param $request
+     * @return Response
+     */
+    // public function update(EmployeeRequest $request)
+    // {
+
+
+
+    //     // $this->crud->removeAllButtons();
+
+    //     // Optionally, you can also remove the button from a specific tab
+    //     // $this->crud->removeButtonFromStack('save_and_edit', 'bottom');
+    //     // $this->crud->removeButtonFromStack('save_and_edit', 'bottom');
+    //     // $this->setupCreateOperation();
+    //     // return parent::update($request);
+    // }
+
+
 }

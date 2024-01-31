@@ -4,12 +4,12 @@
 
             <div class="alert alert-danger pb-0" v-if="errors &&  Object.keys(errors).length > 0">
                 <ul class="list-unstyled">
-                    
+
                     <li v-for="error in errors">
                         <i class="la la-info-circle"></i>
                         {{ error[0] }}
                     </li>
-                    
+
                 </ul>
             </div>
 
@@ -110,7 +110,7 @@
                             <select v-model="employee.manager_id" class="form-control">
                                 <option value="">-</option>
                                 <option v-for="item in managers" :value="item.id">{{ item.full_name }}</option>
-                               
+
                             </select>
                         </div>
 
@@ -118,32 +118,32 @@
 
                             <input type="hidden" name="_save_action" value="save_and_back">
                                         <div class="btn-group" role="group">
-                            
+
                             <button type="submit" class="btn btn-success">
                                 <span class="la la-save" role="presentation" aria-hidden="true"></span> &nbsp;
                                 <span data-value="save_and_back">Save and back</span>
                             </button>
-                    
-                            <div class="btn-group" role="group">
+
+                            <!-- <div class="btn-group" role="group">
                                 <button id="bpSaveButtonsGroup" type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span><span class="sr-only">▼</span></button>
                                 <div class="dropdown-menu" aria-labelledby="bpSaveButtonsGroup">
                                     <button type="button" class="dropdown-item" @click="submitForm('save_and_edit')">Save and edit this item</button>
                                     <button type="button" class="dropdown-item" @click="submitForm('save_and_new')">Save and new item</button>
                                     <button type="button" class="dropdown-item" @click="submitForm('save_and_preview')">Save and preview</button>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                         <a :href="urls.previous"  class="btn btn-default"><span class="la la-ban"></span> &nbsp;Cancel</a>
-                        
-                    </div>      
+
+                    </div>
                 </div>
             </div>
         </form>
         </div>
         </div>
-    
+
   </template>
-  
+
   <script>
   export default {
     name: 'EmployeeCreate',
@@ -187,7 +187,7 @@
                     if (error.code === 'ERR_BAD_REQUEST' && error.response.status === 422) {
                         this.errors = error.response.data.errors;
                         const element = this.$refs.errors;
-                        
+
                         this.scrollToElement();
                     }
                     console.error(error);
@@ -203,7 +203,7 @@
 
   };
   </script>
-  
+
   <style scoped>
   h1 {
     color: blue;
