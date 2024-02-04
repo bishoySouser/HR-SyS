@@ -124,14 +124,14 @@
                                 <span data-value="save_and_back">Save and back</span>
                             </button>
 
-                            <!-- <div class="btn-group" role="group">
+                            <div class="btn-group" role="group">
                                 <button id="bpSaveButtonsGroup" type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span><span class="sr-only">▼</span></button>
                                 <div class="dropdown-menu" aria-labelledby="bpSaveButtonsGroup">
                                     <button type="button" class="dropdown-item" @click="submitForm('save_and_edit')">Save and edit this item</button>
                                     <button type="button" class="dropdown-item" @click="submitForm('save_and_new')">Save and new item</button>
                                     <button type="button" class="dropdown-item" @click="submitForm('save_and_preview')">Save and preview</button>
                                 </div>
-                            </div> -->
+                            </div>
                         </div>
                         <a :href="urls.previous"  class="btn btn-default"><span class="la la-ban"></span> &nbsp;Cancel</a>
 

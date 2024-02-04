@@ -62,54 +62,10 @@ class EmployeeCrudController extends CrudController
         CRUD::column('department_id');
         CRUD::column('updated_at');
         CRUD::column('created_at');
+
         CRUD::setOperationSetting('lineButtonsAsDropdown', true);
 
-        $this->crud->addButtonFromModelFunction('line', 'open_google', 'openVacations', 'end');
-    }
-
-    /**
-     * Define what happens when the create operation is loaded.
-     *
-     * @return void
-     */
-    // public function create(){
-    //     $jobs = Job::select('id', 'title', 'min_salary', 'max_salary')->get();
-
-    //     $departments = Department::select('id', 'name', 'manager_id')->with('manager')->get();
-
-    //     $employes = Employee::select('id', 'full_name')->get();
-
-    //     $data = [
-    //         'jobs' => $jobs,
-    //         'departments' => $departments,
-    //         'employes' => $employes,
-    //     ];
-
-    //     return view("admin.employee.create", compact('data') );
-    // }
-
-    /**
-     * Define what happens when the edit operation is loaded.
-     *
-     * @return void
-     */
-    public function edit($id){
-        $employee = Employee::findOrFail($id);
-
-        $jobs = Job::select('id', 'title', 'min_salary', 'max_salary')->get();
-
-        $departments = Department::select('id', 'name', 'manager_id')->with('manager')->get();
-
-        $employes = Employee::select('id', 'full_name')->get();
-
-        $data = [
-            'employee' => $employee,
-            'jobs' => $jobs,
-            'departments' => $departments,
-            'employes' => $employes,
-        ];
-
-        return view("admin.employee.edit", compact('data') );
+        // $this->crud->addButtonFromModelFunction('line', 'open_google', 'openVacations', 'end');
     }
 
     /**
@@ -226,50 +182,22 @@ class EmployeeCrudController extends CrudController
     protected function setupUpdateOperation()
     {
 
+        $this->setupCreateOperation();
+
+        $this->crud->replaceSaveActions([
+            'name' => 'save_and_preview',
+            'visible' => function($crud) {
+                return $crud->hasAccess('update');
+            },
+            'redirect' => function($crud, $request, $itemId) {
+                // Return the dynamically determined redirect URL
+                return $crud->route . '/' . $itemId . '/show';
+            },
+        ]);
+
+
+        // $this->crud->removeButtonFromStack('save_and_edit', 'bottom');
+
     }
-
-
-    /**
-     * Define what happens when the Store operation is loaded.
-     *
-     * @param $request
-     * @return Response
-     */
-    // public function store(EmployeeRequest $request)
-    // {
-    //     $request->except(['_save_action', '_http_referrer']);
-    //     $employee = $this->employeeInterface->create($request->all());
-
-    //     $redirectManager_obj = new RedirectManager();
-    //     $redirect_url =  $redirectManager_obj->redirectWithAction(
-    //                                                 'save_and_preview',
-    //                                                 $request->input('_http_referrer'),
-    //                                                 $employee->id,
-    //                                             );
-
-
-    //     return redirect($redirect_url);
-    // }
-
-    /**
-     * Define what happens when the Update operation is loaded.
-     *
-     * @param $request
-     * @return Response
-     */
-    // public function update(EmployeeRequest $request)
-    // {
-
-
-
-    //     // $this->crud->removeAllButtons();
-
-    //     // Optionally, you can also remove the button from a specific tab
-    //     // $this->crud->removeButtonFromStack('save_and_edit', 'bottom');
-    //     // $this->crud->removeButtonFromStack('save_and_edit', 'bottom');
-    //     // $this->setupCreateOperation();
-    //     // return parent::update($request);
-    // }
-
 
 }
