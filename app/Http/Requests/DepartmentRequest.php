@@ -26,7 +26,7 @@ class DepartmentRequest extends FormRequest
     {
         return [
             'name' => 'required|min:5|max:255',
-            'manager_id' => 'required|exists:employes,id'
+            'manager_id' => 'nullable|exists:employes,id'
         ];
     }
 

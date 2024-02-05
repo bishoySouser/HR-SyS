@@ -44,7 +44,10 @@ class Department extends CrudController
      */
     protected function setupListOperation()
     {
+        CRUD::column('id');
         CRUD::column('name');
+
+        // CRUD::column('name')->remove();
         $this->crud->addClause('with', ['manager']);
         $this->crud->addColumn([
             'label' => 'Manager',
@@ -55,11 +58,6 @@ class Department extends CrudController
         CRUD::column('updated_at');
 
 
-        /**
-         * Columns can be defined using the fluent syntax or array syntax:
-         * - CRUD::column('price')->type('number');
-         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']);
-         */
     }
 
     /**
@@ -73,19 +71,9 @@ class Department extends CrudController
         CRUD::setValidation(DepartmentRequest::class);
 
         CRUD::field('name');
-        CRUD::addField([
-                'label'     => "Manager",
-                'type' => 'select',
-                'name' => 'manager_id',
-                'entity'    => 'manager',
-                'model'     => "App\Models\Employee",
-            ]);
 
-        /**
-         * Fields can be defined using the fluent syntax or array syntax:
-         * - CRUD::field('price')->type('number');
-         * - CRUD::addField(['name' => 'price', 'type' => 'number']));
-         */
+        CRUD::removeSaveActions(['save_and_back','save_and_preview']);
+
     }
 
     /**
@@ -97,5 +85,35 @@ class Department extends CrudController
     protected function setupUpdateOperation()
     {
         $this->setupCreateOperation();
+        CRUD::addField([
+                'label'     => "Manager",
+                'type' => 'select',
+                'name' => 'manager_id',
+                'entity'    => 'manager',
+                'model'     => "App\Models\Employee",
+        ]);
+
+        CRUD::orderSaveAction('save_and_new', 1);
+
+        CRUD::addSaveAction([
+            'name' => 'save_action_one',
+            'redirect' => function($crud, $request, $itemId) {
+                return $crud->route;
+            }, // what's the redirect URL, where the user will be taken after saving?
+
+            // OPTIONAL:
+            'button_text' => 'Save and back', // override text appearing on the button
+            // You can also provide translatable texts, for example:
+            // 'button_text' => trans('backpack::crud.save_action_one'),
+            'visible' => function($crud) {
+                return true;
+            }, // customize when this save action is visible for the current operation
+            'referrer_url' => function($crud, $request, $itemId) {
+                return $crud->route;
+            }, // override http_referrer_url
+            'order' => 1, // change the order save actions are in
+        ]);
+
+
     }
 }
