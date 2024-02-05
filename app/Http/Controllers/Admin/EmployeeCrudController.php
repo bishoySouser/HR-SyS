@@ -82,7 +82,7 @@ class EmployeeCrudController extends CrudController
         CRUD::field('email')->type('email');
         CRUD::field('phone_number');
 
-        CRUD::field('national_id');
+        CRUD::field('national_id')->label('National ID');
         CRUD::field('birthday')->type('date');
         CRUD::field('location');
         CRUD::addField([
@@ -97,7 +97,28 @@ class EmployeeCrudController extends CrudController
         ],);
 
         CRUD::field('hire_date')->type('date');
-        CRUD::field('contract_period');
+
+        CRUD::addField([
+            'name'        => 'contract_periods',
+            'label'       => 'Contract periods',
+            'type'        => 'select_from_array',
+            'options'     => [
+                'fixed-term contract' => 'fixed-term contract',
+                'indefinite/termless contract' => 'indefinite/termless contract',
+                'renewable contract' => 'renewable contract',
+                'evergreen contract' => 'evergreen contract',
+                'month-to-month contract' => 'month-to-month contract',
+                'project-based contract' => 'project-based contract',
+                'performance-based contract' => 'performance-based contract',
+                'trial/probationary period' => 'trial/probationary period',
+                'fixed-price contract' => 'fixed-price contract',
+                'milestone-based contract' => 'milestone-based contract',
+                'lease agreement period' => 'lease agreement period',
+                'license agreement period' => 'license agreement period',
+            ],
+            'default'     => 'male'
+        ],);
+
         CRUD::addField([
             'label'     => "Job",
             'type' => 'select',
@@ -105,7 +126,14 @@ class EmployeeCrudController extends CrudController
             'entity'    => 'job',
             'attribute' => 'title',
             'model'     => "App\Models\Job",
+            'options'   => function ($query) {
+                // Modify the query to get the muted array of jobs (title and name)
+                // print_r($query->get());
+                // dd('--');
+                return $query->get(['id', \DB::raw('CONCAT(upper(grades), " ", lower(title)) as title')]);
+            },
         ]);
+
         CRUD::addField([
             'name' => 'salary',
             'type' => 'number',
@@ -124,43 +152,6 @@ class EmployeeCrudController extends CrudController
             'attribute'    => 'name',
             'model'     => "App\Models\Department",
         ]);
-
-        CRUD::addField([
-            'name'        => 'top_management',
-            'label'       => 'Top management',
-            'type'        => 'select_from_array',
-            'options'     => [
-                'ceo' => 'ceo',
-                'operation director' => 'operation director',
-                'manager' => 'manager',
-                'employee' => 'employee',
-            ],
-            'default'     => 'employee'
-        ]);
-
-        CRUD::addField([
-            'name'        => 'grades',
-            'label'       => 'Grade',
-            'type'        => 'select_from_array',
-            'options'     => [
-                'junior' => 'junior',
-                'associate' => 'associate',
-                'senior' => 'senior',
-            ],
-            'default'     => 'junior'
-        ]);
-
-        CRUD::addField([
-            'name'        => 'role',
-            'label'       => 'Role',
-            'type'        => 'select_from_array',
-            'options'     => [
-                'manager' => 'manager',
-                'employee' => 'employee',
-            ],
-            'default'     => 'employee'
-        ],);
-
 
         CRUD::addField([
             'label'     => "Manager",

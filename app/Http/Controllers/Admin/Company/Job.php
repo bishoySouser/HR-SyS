@@ -62,7 +62,15 @@ class Job extends CrudController
             'name'        => 'grades',
             'label'       => 'Grade',
             'type'        => 'select_from_array',
-            'options'     => ['internship' ,'junior', 'executive', 'senior', 'team-lead', 'manager', 'ceo'],
+            'options'     => [
+                'internship' => 'internship',
+                'junior' => 'junior',
+                'executive' => 'executive',
+                'senior' => 'senior',
+                'team-lead' => 'team-lead',
+                'manager' => 'manager',
+                'ceo' => 'ceo'
+            ],
             'default'     => 'junior'
         ]);
         CRUD::field('title');

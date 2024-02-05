@@ -25,6 +25,7 @@ class JobRequest extends FormRequest
     public function rules()
     {
         return [
+            'grades' => 'required',
             'title' => 'required',
             'min_salary' => 'required|numeric',
             'max_salary' => 'required|numeric',

@@ -28,7 +28,7 @@ class Employee extends Model
                         'national_id',
                         'birthday',
                         'location',
-                        'contract_period',
+                        'contract_periods',
                         'hire_date',
                         'grades',
                         'top_management',
