@@ -21,10 +21,22 @@ class CreateEmployesTable extends Migration
             $table->date('birthday');
             $table->string('location');
             $table->enum('gender', ['male', 'female'])->default('male');
-            $table->string('contract_period');
+            $table->enum('contract_periods', [
+                    'fixed-term contract',
+                    'indefinite/termless contract',
+                    'renewable contract',
+                    'evergreen contract',
+                    'month-to-month contract',
+                    'project-based contract',
+                    'performance-based contract',
+                    'trial/probationary period',
+                    'fixed-price contract',
+                    'milestone-based contract',
+                    'lease agreement period',
+                    'license agreement period'
+                ]
+            )->default('renewable contract');
             $table->date('hire_date')->nullable();
-            $table->enum('grades', ['junior', 'associate', 'senior'])->default('junior');
-            $table->enum('top_management', ['ceo', 'operation director', 'manager', 'employee'])->default('employee');
             $table->foreignId('job_id')->constrained('jobs');
             $table->decimal('salary', 10, 2)->nullable();
             $table->foreignId('manager_id')->nullable()->constrained('employes');

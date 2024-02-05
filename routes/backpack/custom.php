@@ -16,12 +16,14 @@ Route::group([
     ),
     'namespace'  => 'App\Http\Controllers\Admin',
 ], function () { // custom admin routes
+    Route::crud('department', 'Company\Department');
+    Route::crud('job', 'Company\Job');
+
+
     Route::crud('vacation-balance', 'Vacations\VacationBalanceCrudController');
     Route::crud('vacation', 'Vacations\VacationCrudController');
-
     Route::crud('employee', 'EmployeeCrudController');
-    Route::crud('job', 'JobCrudController');
-    Route::crud('department', 'DepartmentCrudController');
+
     Route::crud('attendance', 'AttendanceCrudController');
     Route::crud('work-from-home', 'WorkFromHomeCrudController');
     Route::crud('excuse', 'ExcuseCrudController');

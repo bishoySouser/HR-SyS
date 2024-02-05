@@ -16,12 +16,12 @@ class DepartmentSeeder extends Seeder
     public function run(): void
     {
         $departments = [
-            [
-                'name' => 'ux',
-            ],
-            [
-                'name' => 'accounts',
-            ]
+            // [
+            //     'name' => 'ux',
+            // ],
+            // [
+            //     'name' => 'accounts',
+            // ]
         ];
 
         // Insert users into the database

@@ -14,6 +14,7 @@ class CreateJobsTable extends Migration
     {
         Schema::create('jobs', function (Blueprint $table) {
             $table->id();
+            $table->enum('grades', ['internship' ,'junior', 'executive', 'senior', 'team-lead', 'manager', 'ceo'])->default('junior');
             $table->string('title');
             $table->decimal('min_salary', 10, 2)->nullable();
             $table->decimal('max_salary', 10, 2)->nullable();

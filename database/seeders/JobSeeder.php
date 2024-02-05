@@ -16,16 +16,16 @@ class JobSeeder extends Seeder
     public function run(): void
     {
         $jobs = [
-            [
-                'title' => 'designer',
-                'min_salary' => 1000,
-                'max_salary' => 5000
-            ],
-            [
-                'title' => 'account manager',
-                'min_salary' => 1000,
-                'max_salary' => 8000
-            ]
+            // [
+            //     'title' => 'designer',
+            //     'min_salary' => 1000,
+            //     'max_salary' => 5000
+            // ],
+            // [
+            //     'title' => 'account manager',
+            //     'min_salary' => 1000,
+            //     'max_salary' => 8000
+            // ]
         ];
 
         // Insert users into the database
