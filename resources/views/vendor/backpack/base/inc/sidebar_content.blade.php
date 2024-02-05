@@ -5,13 +5,13 @@
 </li> --}}
 
 <!-- Employee Section -->
-<li class="la la-users nav-header mt-2">Employee</li>
+<li class="la la-users nav-header mt-2">Company</li>
 <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item"><a class="nav-link" href="{{ backpack_url('department') }}"><i class="nav-icon la la-building"></i> Departments</a></li>
     <li class="nav-item"><a class="nav-link" href="{{ backpack_url('job') }}"><i class="nav-icon la la-briefcase"></i> Jobs</a></li>
-    <li class="nav-item"><a class="nav-link" href="{{ backpack_url('employee') }}"><i class="nav-icon la la-male"></i> Employees</a></li>
 </ul>
 
+<li class="nav-item"><a class="nav-link" href="{{ backpack_url('employee') }}"><i class="nav-icon la la-male"></i> Employees</a></li>
 <!-- Vacation and Attendance Section -->
 {{-- <li class="la la-clock-o nav-header mt-2">Time Management</li>
 <ul class="nav nav-tabs" id="myTab" role="tablist">
