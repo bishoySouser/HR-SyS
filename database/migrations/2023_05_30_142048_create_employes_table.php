@@ -37,10 +37,12 @@ class CreateEmployesTable extends Migration
                 ]
             )->default('renewable contract');
             $table->date('hire_date')->nullable();
-            $table->foreignId('job_id')->constrained('jobs');
             $table->decimal('salary', 10, 2)->nullable();
-            $table->foreignId('manager_id')->nullable()->constrained('employes');
-            $table->foreignId('department_id')->nullable()->constrained('departments');
+
+            $table->foreignId('job_id')->constrained('jobs')->onDelete('NO ACTION')->onUpdate('CASCADE');;
+            $table->foreignId('manager_id')->nullable()->constrained('employes')->onDelete('SET NULL')->onUpdate('CASCADE');;
+            $table->foreignId('department_id')->nullable()->constrained('departments')->onDelete('NO ACTION')->onUpdate('CASCADE');
+
             $table->timestamps();
         });
     }
