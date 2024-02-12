@@ -1,8 +1,8 @@
-{{-- <li class="nav-item">
+<li class="nav-item">
     <a class="nav-link" href="{{ backpack_url('dashboard') }}">
         <i class="la la-dashboard nav-icon"></i> {{ trans('backpack::base.dashboard') }}
     </a>
-</li> --}}
+</li>
 
 <!-- Employee Section -->
 <li class="la la-users nav-header mt-2">Company</li>
