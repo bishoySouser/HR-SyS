@@ -16,6 +16,13 @@ Route::group([
     ),
     'namespace'  => 'App\Http\Controllers\Admin',
 ], function () { // custom admin routes
+
+    // if not otherwise configured, setup the dashboard routes
+    if (config('backpack.base.setup_dashboard_routes')) {
+        Route::get('dashboard', 'AdminController@dashboard')->name('backpack.dashboard');
+        Route::get('/', 'AdminController@redirect')->name('backpack');
+    }
+
     Route::crud('department', 'Company\Department');
     Route::crud('job', 'Company\Job');
 
