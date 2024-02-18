@@ -83,7 +83,7 @@ class EmployeeCrudController extends CrudController
         CRUD::field('phone_number');
 
         CRUD::field('national_id')->label('National ID');
-        CRUD::field('birthday')->type('date');
+        CRUD::field('birthday')->type('date')->label('Birthday Date');
         CRUD::field('location');
         CRUD::addField([
             'name'        => 'gender',
@@ -96,11 +96,11 @@ class EmployeeCrudController extends CrudController
             'default'     => 'male'
         ],);
 
-        CRUD::field('hire_date')->type('date');
+        CRUD::field('hire_date')->type('date')->label('Hiring Date');
 
         CRUD::addField([
             'name'        => 'contract_periods',
-            'label'       => 'Contract periods',
+            'label'       => 'Contract Type',
             'type'        => 'select_from_array',
             'options'     => [
                 'fixed-term contract' => 'fixed-term contract',
