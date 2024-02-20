@@ -38,8 +38,7 @@ class VacationBalance extends Model
     |--------------------------------------------------------------------------
     */
     public function employee() {
-        return $this->hasMany(Employee::class)
-                    ->select('id', 'full_name');
+        return $this->belongsTo(Employee::class);
     }
 
     /*
