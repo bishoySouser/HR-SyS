@@ -37,17 +37,16 @@ class Vacation extends Model
     |--------------------------------------------------------------------------
     */
     public function balance() {
-        return $this->belongsTo(VacationBalance::class)
-                    ->with('employee')
-                    ->select('id', 'year', 'employee_id');
+        return $this->belongsTo(VacationBalance::class);
     }
 
     public function balanceEmployeeOfCurrentYear() {
-        // dd($this->belongsToMany(VacationBalance::class)->with('employee'));
+        $currentYear = now()->year;
         return $this->belongsToMany(VacationBalance::class)->with('employee')
-        ->select('id', 'year', 'employee_id');;
+                            ->select('id', 'year', 'employee_id')
+                            ->where('year', $currentYear);
     }
-    
+
 
     /*
     |--------------------------------------------------------------------------

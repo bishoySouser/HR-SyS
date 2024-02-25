@@ -65,18 +65,20 @@ class VacationCrudController extends CrudController
     {
         CRUD::setValidation(VacationRequest::class);
 
-        // CRUD::addField([
-        //     'name' => 'balance_id',
-        //     'label' => 'Balance ID',
-        //     'type' => 'number',
-        // ]);
         CRUD::addField([
             'label'     => "Balance",
             'type' => 'select',
             'name' => 'balance_id',
-            'entity'    => 'balanceEmployeeOfCurrentYear',
-            'attribute' => 'employee.full_name',
-            'model'     => "App\Models\VacationBalance"
+            'entity'    => 'balance',
+            'model'     => "App\Models\VacationBalance",
+            'attribute' => 'name',
+            'options'   => function ($query) {
+                $currentYear = now()->year;
+
+                return $query->join("employes", "employes.id", "=", "leave_balance.employee_id")
+                                ->where('leave_balance.year', $currentYear)
+                                ->select("employes.full_name as name")->get();
+            },
         ]);
 
         CRUD::addField([
