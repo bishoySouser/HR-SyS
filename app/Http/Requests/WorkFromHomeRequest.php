@@ -25,8 +25,10 @@ class WorkFromHomeRequest extends FormRequest
     public function rules()
     {
         return [
-            // 'name' => 'required|min:5|max:255'
-            'status' => 'required|in:Acknowledge, Accepted by manager, Approved,Cancelled',
+            'employee_id' => 'required|exists:employes,id',
+            'day' => 'required|date',
+            'employee_note' => 'nullable|string',
+            'status' => 'required|in:Acknowledge,Accepted by manager,Approved,Cancelled',
         ];
     }
 

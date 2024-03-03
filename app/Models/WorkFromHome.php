@@ -21,7 +21,12 @@ class WorkFromHome extends Model
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
-    // protected $fillable = [];
+    protected $fillable = [
+        'employee_id',
+        'day',
+        'employee_note',
+        'status',
+    ];
     // protected $hidden = [];
     // protected $dates = [];
 
@@ -37,7 +42,7 @@ class WorkFromHome extends Model
     |--------------------------------------------------------------------------
     */
     public function employee() {
-        return $this->hasMany(Employee::class);
+        return $this->belongsTo(Employee::class);
     }
 
     /*

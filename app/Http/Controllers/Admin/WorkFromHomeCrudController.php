@@ -31,6 +31,11 @@ class WorkFromHomeCrudController extends CrudController
         CRUD::setEntityNameStrings('work from home', 'work from homes');
     }
 
+    protected function setupShowOperation()
+    {
+        $this->setupListOperation();
+    }
+
     /**
      * Define what happens when the List operation is loaded.
      *
@@ -39,13 +44,10 @@ class WorkFromHomeCrudController extends CrudController
      */
     protected function setupListOperation()
     {
+        CRUD::column('employee_id');
+        CRUD::column('day');
+        CRUD::column('status');
 
-
-        /**
-         * Columns can be defined using the fluent syntax or array syntax:
-         * - CRUD::column('price')->type('number');
-         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']);
-         */
     }
 
     /**
@@ -62,23 +64,23 @@ class WorkFromHomeCrudController extends CrudController
             'type' => 'select',
             'name' => 'employee_id',
             'entity'    => 'employee',
-            'model'     => "App\Models\Employee",
+            'model'     => "App\Models\Employee"
         ]);
         CRUD::field('day');
         CRUD::field('employee_note');
-        CRUD::field('status')->type('enum')->options(['Acknowledge', 'Accepted by manager', 'Approved', 'Cancelled']);
-        // CRUD::addField([
-        //     'name'        => 'status',
-        //     'label'       => 'Status',
-        //     'type'        => 'select_from_array',
-        //     'options'     => [
-        //         'Acknowledge' => 'Acknowledge',
-        //         'Accepted by manager' => 'Accepted by manager',
-        //         'Approved' => 'Approved',
-        //         'Cancelled' => 'Cancelled',
-        //     ],
-        //     'default'     => 'Acknowledge'
-        // ],);
+        // CRUD::field('status')->type('enum')->options(['Acknowledge', 'Accepted by manager', 'Approved', 'Cancelled']);
+        CRUD::addField([
+            'name'        => 'status',
+            'label'       => 'Status',
+            'type'        => 'select_from_array',
+            'options'     => [
+                'Acknowledge' => 'Acknowledge',
+                'Accepted by manager' => 'Accepted by manager',
+                'Approved' => 'Approved',
+                'Cancelled' => 'Cancelled',
+            ],
+            'default'     => 'Acknowledge'
+        ],);
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:
@@ -96,5 +98,15 @@ class WorkFromHomeCrudController extends CrudController
     protected function setupUpdateOperation()
     {
         $this->setupCreateOperation();
+        CRUD::addField([
+            'label'     => "Employee",
+            'type' => 'select',
+            'name' => 'employee_id',
+            'entity'    => 'employee',
+            'model'     => "App\Models\Employee",
+            'attributes' => [
+                'disabled'    => 'disabled',
+              ],
+        ]);
     }
 }
