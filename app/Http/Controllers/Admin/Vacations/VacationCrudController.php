@@ -32,6 +32,26 @@ class VacationCrudController extends CrudController
         CRUD::setEntityNameStrings('vacation', 'vacations');
     }
 
+    protected function setupShowOperation()
+    {
+        $this->crud->addColumn([
+            'name' => 'employee.full_name', // Name of the column
+            'label' => 'Employee Name', // Label for the column header
+            'type' => 'closure', // Use a closure to retrieve the data
+            'function' => function ($entry) {
+                return $entry->balance->employee->full_name; // Access the full_name through relationships
+            },
+        ]);
+        CRUD::column('balance_id');
+        CRUD::column('start_date');
+        CRUD::column('end_date');
+        CRUD::column('duration');
+        CRUD::column('status');
+        CRUD::column('created_at');
+        CRUD::column('updated_at');
+
+    }
+
     /**
      * Define what happens when the List operation is loaded.
      *
@@ -40,6 +60,14 @@ class VacationCrudController extends CrudController
      */
     protected function setupListOperation()
     {
+        $this->crud->addColumn([
+            'name' => 'employee.full_name', // Name of the column
+            'label' => 'Employee Name', // Label for the column header
+            'type' => 'closure', // Use a closure to retrieve the data
+            'function' => function ($entry) {
+                return $entry->balance->employee->full_name; // Access the full_name through relationships
+            },
+        ]);
         CRUD::column('balance_id');
         CRUD::column('start_date');
         CRUD::column('end_date');
@@ -47,6 +75,7 @@ class VacationCrudController extends CrudController
         CRUD::column('status');
         CRUD::column('created_at');
         CRUD::column('updated_at');
+
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
@@ -77,7 +106,7 @@ class VacationCrudController extends CrudController
 
                 return $query->join("employes", "employes.id", "=", "leave_balance.employee_id")
                                 ->where('leave_balance.year', $currentYear)
-                                ->select("employes.full_name as name")->get();
+                                ->select("leave_balance.id","employes.full_name as name")->get();
             },
         ]);
 

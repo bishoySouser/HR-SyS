@@ -25,7 +25,8 @@ class ExcuseRequest extends FormRequest
     public function rules()
     {
         return [
-            // 'name' => 'required|min:5|max:255'
+            'type' => 'required',
+            'status' => 'required|in:Acknowledge, Accepted by manager, Approved,Cancelled',
         ];
     }
 

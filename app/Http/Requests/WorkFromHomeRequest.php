@@ -26,6 +26,7 @@ class WorkFromHomeRequest extends FormRequest
     {
         return [
             // 'name' => 'required|min:5|max:255'
+            'status' => 'required|in:Acknowledge, Accepted by manager, Approved,Cancelled',
         ];
     }
 

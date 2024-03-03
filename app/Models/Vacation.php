@@ -41,10 +41,7 @@ class Vacation extends Model
     }
 
     public function balanceEmployeeOfCurrentYear() {
-        $currentYear = now()->year;
-        return $this->belongsToMany(VacationBalance::class)->with('employee')
-                            ->select('id', 'year', 'employee_id')
-                            ->where('year', $currentYear);
+        return $this->belongsTo(VacationBalance::class);
     }
 
 

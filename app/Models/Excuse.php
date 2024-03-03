@@ -36,6 +36,9 @@ class Excuse extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
+    public function employee() {
+        return $this->hasMany(Employee::class);
+    }
 
     /*
     |--------------------------------------------------------------------------

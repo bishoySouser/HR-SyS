@@ -25,7 +25,11 @@ class VacationRequest extends FormRequest
     public function rules()
     {
         return [
-            // 'name' => 'required|min:5|max:255'
+            'balance_id' => 'required|exists:leave_balance,id',
+            'start_date' => 'required|date',
+            'end_date'   => 'required|date|after_or_equal:start_date',
+            'duration'   => 'required|numeric|min:1',
+            'status'     => 'required|in:pending,approved,rejected'
         ];
     }
 
