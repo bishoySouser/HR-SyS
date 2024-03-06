@@ -21,3 +21,5 @@
     <li class="nav-item"><a class="nav-link" href="{{ backpack_url('work-from-home') }}"><i class="nav-icon la la-home"></i> Work from homes</a></li>
     <li class="nav-item"><a class="nav-link" href="{{ backpack_url('excuse') }}"><i class="nav-icon la la la-hand-pointer-o"></i> Excuses</a></li>
 </ul>
+
+<li class="nav-item"><a class="nav-link" href="{{ backpack_url('social-insurance') }}"><i class="nav-icon la la-question"></i> Social insurances</a></li>
