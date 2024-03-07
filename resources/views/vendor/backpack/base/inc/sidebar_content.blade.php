@@ -22,4 +22,8 @@
     <li class="nav-item"><a class="nav-link" href="{{ backpack_url('excuse') }}"><i class="nav-icon la la la-hand-pointer-o"></i> Excuses</a></li>
 </ul>
 
-<li class="nav-item"><a class="nav-link" href="{{ backpack_url('social-insurance') }}"><i class="nav-icon la la-question"></i> Social insurances</a></li>
+<li class="la la-clock-o nav-header mt-2">Insurances</li>
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item"><a class="nav-link" href="{{ backpack_url('social-insurance') }}"><i class="nav-icon la la la-leaf"></i> Social insurances</a></li>
+    <li class="nav-item"><a class="nav-link" href="{{ backpack_url('medical-insurance') }}"><i class="nav-icon la la la-medkit"></i> Medical insurances</a></li>
+</ul>

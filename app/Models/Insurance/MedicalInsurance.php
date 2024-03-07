@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 
-class SocialInsurance extends Model
+class MedicalInsurance extends Model
 {
     use HasFactory, CrudTrait;
 
-    protected $table = 'social_insurance';
+    protected $table = 'medical_insurance';
     protected $guarded = ['id'];
 
     // Relations
