@@ -74,7 +74,7 @@ class SocialInsuranceCrudController extends CrudController
             'entity'    => 'employee',
             'model'     => "App\Models\Employee",
             'options'   => (function ($query) {
-                return $query->where('hire_date', '<=', Carbon::now()->subMonths(6))->get();
+                return $query->where('hire_date', '<=', Carbon::now()->subMonths(3))->get();
             }),
         ]);
 
