@@ -9,9 +9,9 @@
 <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item"><a class="nav-link" href="{{ backpack_url('department') }}"><i class="nav-icon la la-building"></i> Departments</a></li>
     <li class="nav-item"><a class="nav-link" href="{{ backpack_url('job') }}"><i class="nav-icon la la-briefcase"></i> Jobs</a></li>
+    <li class="nav-item"><a class="nav-link" href="{{ backpack_url('employee') }}"><i class="nav-icon la la-male"></i> Employees</a></li>
 </ul>
 
-<li class="nav-item"><a class="nav-link" href="{{ backpack_url('employee') }}"><i class="nav-icon la la-male"></i> Employees</a></li>
 <!-- Vacation and Attendance Section -->
 <li class="la la-clock-o nav-header mt-2">Time Management</li>
 <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -27,3 +27,5 @@
     <li class="nav-item"><a class="nav-link" href="{{ backpack_url('social-insurance') }}"><i class="nav-icon la la la-leaf"></i> Social insurance</a></li>
     <li class="nav-item"><a class="nav-link" href="{{ backpack_url('medical-insurance') }}"><i class="nav-icon la la la-medkit"></i> Medical insurance</a></li>
 </ul>
+
+<li class="nav-header mt-2"><a class="nav-link" href="{{ backpack_url('event') }}"><i class="nav-icon la la-clock-o"></i> Events</a></li>

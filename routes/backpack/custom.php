@@ -37,4 +37,5 @@ Route::group([
 
     Route::crud('social-insurance', 'Insurance\SocialInsuranceCrudController');
     Route::crud('medical-insurance', 'Insurance\MedicalInsuranceCrudController');
+    Route::crud('event', 'EventCrudController');
 }); // this should be the absolute last line of this file
