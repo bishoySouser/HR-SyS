@@ -28,8 +28,4 @@
     <li class="nav-item"><a class="nav-link" href="{{ backpack_url('medical-insurance') }}"><i class="nav-icon la la la-medkit"></i> Medical insurance</a></li>
 </ul>
 
-<<<<<<< HEAD
-<li class="nav-item"><a class="nav-link" href="{{ backpack_url('course') }}"><i class="nav-icon la la-question"></i> Courses</a></li>
-=======
 <li class="nav-header mt-2"><a class="nav-link" href="{{ backpack_url('event') }}"><i class="nav-icon la la-clock-o"></i> Events</a></li>
->>>>>>> events
