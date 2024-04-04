@@ -19,7 +19,7 @@ return new class extends Migration
 
             // Define foreign keys
             $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
-            $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
+            $table->foreign('employee_id')->references('id')->on('employes')->onDelete('cascade');
 
             // Define unique constraint to avoid duplicate enrollments
             $table->unique(['course_id', 'employee_id']);

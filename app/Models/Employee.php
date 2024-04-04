@@ -71,6 +71,11 @@ class Employee extends Model
         return $this->belongsTo(Employee::class);
     }
 
+    public function events()
+    {
+        return $this->belongsToMany(Event::class);
+    }
+
     /*
     |--------------------------------------------------------------------------
     | SCOPES

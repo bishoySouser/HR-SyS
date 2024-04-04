@@ -28,7 +28,7 @@ class EventRequest extends FormRequest
             'name' => 'required|string|max:255',
             'desc' => 'required|string',
             'date' => 'required|date_format:Y-m-d\TH:i',
-            'subject' => 'required|in:training,webinars,conferences,exhibitions,seminars,hackathons,professional development programs',
+            'subject' => 'required',
         ];
     }
 

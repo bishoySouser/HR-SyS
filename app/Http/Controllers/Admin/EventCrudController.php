@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\EventRequest;
+use App\Models\Employee;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
@@ -41,16 +42,33 @@ class EventCrudController extends CrudController
     {
         CRUD::column('name');
         CRUD::column('desc');
+        CRUD::column('employees');
         CRUD::column('date');
         CRUD::column('subject');
         CRUD::column('created_at');
         CRUD::column('updated_at');
+
+        CRUD::addColumn([
+            'name'      => 'employees', // Name for the custom column
+            'label'     => 'Employees',  // Label displayed in the list view
+            'type'      => 'closure', // Use a closure to retrieve and format employee data
+            'function'  => function ($entity) {
+                $employees = $entity->employees;
+                $employeeNames = implode(', ', $employees->pluck('full_name')->toArray()); // Use 'full_name' here
+                return $employeeNames;
+            }
+        ]);
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
          * - CRUD::column('price')->type('number');
          * - CRUD::addColumn(['name' => 'price', 'type' => 'number']);
          */
+    }
+
+    protected function setupShowOperation()
+    {
+        $this->setupListOperation();
     }
 
     /**
@@ -66,26 +84,23 @@ class EventCrudController extends CrudController
         CRUD::field('name');
         CRUD::field('desc');
         CRUD::field('date');
+        CRUD::field('subject');
+
         CRUD::addField([
-            'name'        => 'subject',
-            'label'       => 'Subject',
-            'type'        => 'select_from_array',
-            'options'     => [
-                'training' => 'Training',
-                'webinars' => 'Webinars',
-                'conferences' => 'Conferences',
-                'exhibitions' => 'Exhibitions',
-                'seminars' => 'Seminars',
-                'hackathons' => 'Hackathons',
-                'professional_development' => 'Professional Development Programs'
-            ],
-            'default'     => 'Training'
-        ],);
-        /**
-         * Fields can be defined using the fluent syntax or array syntax:
-         * - CRUD::field('price')->type('number');
-         * - CRUD::addField(['name' => 'price', 'type' => 'number']));
-         */
+            'label'     => "Employees",
+            'type'      => 'select_multiple',
+            'name'      => 'employees', // Name of the relationship method in your Event model
+
+            // Optional (if not using the default relationship method name)
+            'entity'    => 'employees', // Name of the relationship method in your Event model (optional)
+
+            'model'     => "App\Models\Employee", // Path to your Employee model
+            'attribute' => 'full_name', // Attribute to display for employees (e.g., email, full name)
+            'pivot'     => true, // Enable pivot table updates on create/update
+        ]);
+
+
+
     }
 
     /**
