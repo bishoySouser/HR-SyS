@@ -39,7 +39,12 @@ class CourseCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        
+        CRUD::column('title');
+        CRUD::column('instructor');
+        CRUD::column('hours');
+        CRUD::column('desc');
+        CRUD::column('created_at');
+        CRUD::column('updated_at');
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
@@ -58,7 +63,10 @@ class CourseCrudController extends CrudController
     {
         CRUD::setValidation(CourseRequest::class);
 
-        
+        CRUD::field('title');
+        CRUD::field('instructor');
+        CRUD::field('hours');
+        CRUD::field('desc');
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:
