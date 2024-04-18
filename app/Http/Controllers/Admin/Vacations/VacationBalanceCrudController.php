@@ -28,7 +28,7 @@ class VacationBalanceCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\VacationBalance::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/vacation-balance');
-        CRUD::setEntityNameStrings('vacation balance', 'vacation balances');
+        CRUD::setEntityNameStrings('vacation balance', 'vacation balance');
     }
 
     /**

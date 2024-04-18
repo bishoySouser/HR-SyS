@@ -40,7 +40,7 @@
 <div class="row">
     <div class="col-md-12">
       <div class="card">
-        <div class="card-header">5 Last join</div>
+        <div class="card-header">{{count($newcomers)}} Recently Joined</div>
         <div class="card-body p-0">
           <table class="table table-responsive-sm table-striped mb-0">
             <thead class="thead-light">
