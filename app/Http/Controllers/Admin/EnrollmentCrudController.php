@@ -74,6 +74,8 @@ class EnrollmentCrudController extends CrudController
 
         CRUD::field('course_id');
         CRUD::field('employee_id');
+        CRUD::field('link');
+        CRUD::field('note');
 
         CRUD::addField([
             'name' => 'course_id',
