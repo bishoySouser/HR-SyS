@@ -38,3 +38,5 @@
     <li class="nav-item"><a class="nav-link" href="{{ backpack_url('course') }}"><i class="nav-icon la la-book"></i> Courses</a></li>
     <li class="nav-item"><a class="nav-link" href="{{ backpack_url('enrollment') }}"><i class="nav-icon la la-ticket"></i> Enrollments</a></li>
 </ul>
+
+<li class="nav-item"><a class="nav-link" href="{{ backpack_url('it-ticket') }}"><i class="nav-icon la la-question"></i> It tickets</a></li>
