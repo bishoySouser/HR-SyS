@@ -40,6 +40,13 @@ class ItTicketCrudController extends CrudController
     protected function setupListOperation()
     {
 
+        CRUD::addColumn([
+            'name' => 'employee.full_name', // Assuming 'full_name' is the attribute name for the employee full name
+            'label' => 'Employee Name',
+            'type' => 'text',
+        ]);
+        CRUD::column('created_at');
+        CRUD::column('updated_at');
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
@@ -47,6 +54,51 @@ class ItTicketCrudController extends CrudController
          * - CRUD::addColumn(['name' => 'price', 'type' => 'number']);
          */
     }
+
+    /**
+ * Define what happens when the Show operation is loaded.
+ *
+ * @see https://backpackforlaravel.com/docs/crud-operation-show
+ * @return void
+ */
+protected function setupShowOperation()
+{
+    CRUD::set('show.setFromDb', false);
+
+    CRUD::addColumn([
+        'name' => 'title',
+        'label' => 'Title',
+        'type' => 'text',
+    ]);
+
+    CRUD::addColumn([
+        'name' => 'employee.full_name',
+        'label' => 'Employee Name',
+        'type' => 'text',
+    ]);
+
+    CRUD::addColumn([
+        'name' => 'category',
+        'label' => 'Category',
+        'type' => 'text',
+    ]);
+
+    CRUD::addColumn([
+        'name' => 'image',
+        'label' => 'Image',
+        'type' => 'image',
+        'prefix' => 'storage/',
+        'height' => '100px', // Set the height of the displayed image
+        'width' => '100px', // Set the width of the displayed image
+        'wrapper' => [ // Wrap the image in an anchor tag
+            'element' => 'a',
+            'href' => function ($crud, $entry) {
+                return asset('storage/'.$entry['value']);
+            },
+            'target' => '_blank', // Open the image in a new tab
+        ],
+    ]);
+}
 
     /**
      * Define what happens when the Create operation is loaded.
@@ -85,20 +137,18 @@ class ItTicketCrudController extends CrudController
         CRUD::field('comment');
         CRUD::field('note');
 
-        CRUD::addField([
-            'name'          => 'image',
-            'label'         => 'Attach Image (Optional)',
-            'type'          => 'upload',
-            'upload_true_label' => 'Upload',
-            'upload_false_label' => 'Remove', // Customize upload button labels
-            'nullable'       => true, // Allow creating tickets without an image
-            'disk'           => 'public', // Specify disk for image storage (if applicable)
-        ]);
+        CRUD::addField([   // Upload
+            'name'      => 'image',
+            'label'     => 'Image',
+            'type'      => 'upload',
+            'upload'    => true,
+            'disk'      => 'public', // if you store files in the /public folder, please omit this; if you store them in /storage or S3, please specify it;
+        ],);
 
         CRUD::addField([   // Switch
             'name'  => 'wait_accountant',
             'type'  => 'switch',
-            'label'    => 'Converting the issue to the finance department.',
+            'label'    => 'Escalating the issue to the finance department.',
 
             // optional
             'color'    => 'primary', // May be any bootstrap color class or an hex color
@@ -122,17 +172,18 @@ class ItTicketCrudController extends CrudController
     protected function setupUpdateOperation()
     {
         CRUD::addField([
-            'name'        => 'category',
-            'label'       => 'Issue for',
+            'name'        => 'status',
+            'label'       => 'Status',
             'type'        => 'select_from_array',
             'options'     => [
-                'computer' => 'computer',
-                'email' => 'email',
-                'network' => 'network',
-                'phone' => 'phone',
-                'other' => 'other'
+                'pending' => 'pending',
+                'in progress' => 'in progress',
+                'done' => 'done'
             ],
-            'default'     => 'computer'
+            'default'     => 'pending'
         ]);
+
+        $this->setupCreateOperation();
+
     }
 }

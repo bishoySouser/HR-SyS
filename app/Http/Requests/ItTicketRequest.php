@@ -25,7 +25,16 @@ class ItTicketRequest extends FormRequest
     public function rules()
     {
         return [
-            // 'name' => 'required|min:5|max:255'
+            'employee_id' => 'nullable|exists:employes,id',
+            'title' => 'required|string',
+            'category' => 'required|in:computer,email,network,phone,other',
+            'describe' => 'required|string',
+            'comment' => 'nullable|string',
+            'phone' => 'nullable|string',
+            'note' => 'nullable|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'wait_accountant' => 'boolean',
+            'status' => 'nullable|in:pending,in progress,done',
         ];
     }
 
