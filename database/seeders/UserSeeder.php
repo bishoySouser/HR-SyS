@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Employee;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -15,20 +16,22 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        $users = [
-            [
-                'name' => 'hr',
-                'email' => 'hr@hr.com',
-                'password' => Hash::make('123456')
-            ],
-            [
-                'name' => 'admin',
-                'email' => 'admin@hr.com',
-                'password' => Hash::make('admin')
-            ]
-        ];
+        // $users = [
+        //     [
+        //         'name' => 'hr',
+        //         'email' => 'hr@hr.com',
+        //         'password' => Hash::make('123456')
+        //     ],
+        //     [
+        //         'name' => 'admin',
+        //         'email' => 'admin@hr.com',
+        //         'password' => Hash::make('admin')
+        //     ]
+        // ];
 
-        // Insert users into the database
-        DB::table('users')->insert($users);
+        // // Insert users into the database
+        // DB::table('users')->insert($users);
+
+        Employee::where('email', 'nancy.ramzy@bvdgroup.co')->update(['password' => Hash::make('12345678')]);
     }
 }
