@@ -63,7 +63,14 @@ class EmployeeCrudController extends CrudController
         CRUD::column('updated_at');
         CRUD::column('created_at');
 
+
+        CRUD::button('resetPassword')->stack('line')->view('crud::buttons.reset-password');
+        // CRUD::addButtonFromView('top', $name, $view, $position);
+
+
         CRUD::setOperationSetting('lineButtonsAsDropdown', true);
+
+
 
         // $this->crud->addButtonFromModelFunction('line', 'open_google', 'openVacations', 'end');
     }
@@ -188,6 +195,11 @@ class EmployeeCrudController extends CrudController
 
 
         // $this->crud->removeButtonFromStack('save_and_edit', 'bottom');
+
+    }
+
+    public function resetPassword($password)
+    {
 
     }
 
