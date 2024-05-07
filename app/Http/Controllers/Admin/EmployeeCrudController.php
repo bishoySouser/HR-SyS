@@ -11,6 +11,7 @@ use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use App\Repositories\Employee\EmployeeInterface;
 use Backpack\CRUD\app\Library\Widget;
 use App\Models\Job;
+use Hash;
 use Illuminate\Http\Request;
 
 /**
@@ -198,9 +199,32 @@ class EmployeeCrudController extends CrudController
 
     }
 
-    public function resetPassword($password)
+    public function resetPassword(Request $request)
     {
 
+        $randomPassword =  $this->randomPassword(12);
+
+        $employee = Employee::where('id', $request->id)
+                ->update(['password' => Hash::make($randomPassword)]);
+
+        return response()->json([
+                                    'message' => ''
+                                ]
+                                ,200);
+    }
+
+    /**
+     * @param int $length
+     * @return string $password
+     */
+    private function randomPassword(int $length = 8)
+    {
+        $length = 12;  // Set a minimum password length
+        $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        $password =  substr(str_shuffle($chars),0,$length);
+        $password = base64_encode($password);  // Encode to a string
+
+        return $password;
     }
 
 }

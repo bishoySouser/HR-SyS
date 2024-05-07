@@ -30,7 +30,7 @@ Route::group([
     Route::crud('vacation-balance', 'Vacations\VacationBalanceCrudController');
     Route::crud('vacation', 'Vacations\VacationCrudController');
     Route::crud('employee', 'EmployeeCrudController');
-    Route::post('employee/resetPassword', 'EmployeeCrudController@resetPassword')->name('resetPassword');
+    Route::post('employee/resetPassword/empployee', 'EmployeeCrudController@resetPassword')->name('resetPassword');
 
     Route::crud('attendance', 'AttendanceCrudController');
     Route::crud('work-from-home', 'WorkFromHomeCrudController');
