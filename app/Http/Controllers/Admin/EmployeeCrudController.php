@@ -208,7 +208,7 @@ class EmployeeCrudController extends CrudController
                 ->update(['password' => Hash::make($randomPassword)]);
 
         return response()->json([
-                                    'message' => ''
+                                    'message' => 'The new password has been changed and sent to the employee.'
                                 ]
                                 ,200);
     }

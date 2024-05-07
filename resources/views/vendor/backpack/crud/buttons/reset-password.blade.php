@@ -18,7 +18,7 @@
                   // Show an alert with the result
                   console.log(response.message);
                   new Noty({
-                      text: "",
+                      text: response.message,
                       type: "success"
                   }).show();
 
