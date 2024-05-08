@@ -11,6 +11,7 @@ use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use App\Repositories\Employee\EmployeeInterface;
 use Backpack\CRUD\app\Library\Widget;
 use App\Models\Job;
+use App\Notifications\ResetPasswordEmployeeNotification;
 use Hash;
 use Illuminate\Http\Request;
 
@@ -204,8 +205,15 @@ class EmployeeCrudController extends CrudController
 
         $randomPassword =  $this->randomPassword(12);
 
-        $employee = Employee::where('id', $request->id)
-                ->update(['password' => Hash::make($randomPassword)]);
+        $employee = Employee::find($request->id);
+        $employee->password = Hash::make($randomPassword);
+
+        $employee->notify(new ResetPasswordEmployeeNotification($employee, $randomPassword));
+
+        $employee->save();
+
+        // $employee = Employee::where('id', $request->id)
+        //         ->update(['password' => Hash::make($randomPassword)]);
 
         return response()->json([
                                     'message' => 'The new password has been changed and sent to the employee.'

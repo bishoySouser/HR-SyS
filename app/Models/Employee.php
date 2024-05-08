@@ -97,7 +97,14 @@ class Employee extends Authenticatable
     | ACCESSORS
     |--------------------------------------------------------------------------
     */
+    public function getFnameAttribute()
+    {
+        // Split the full name into an array of parts
+        $parts = explode(' ', $this->full_name);
 
+        // Return the first part (first name)
+        return $parts[0] ?? null;
+    }
     /*
     |--------------------------------------------------------------------------
     | MUTATORS
