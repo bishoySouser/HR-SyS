@@ -28,6 +28,11 @@
     <li class="nav-item"><a class="nav-link" href="{{ backpack_url('medical-insurance') }}"><i class="nav-icon la la la-medkit"></i> Medical insurance</a></li>
 </ul>
 
+<li class=" nav-header mt-2">Policy documents</li>
+<ul  class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item"><a class="nav-link" href="{{ backpack_url('policy-document') }}"><i class="nav-icon la la-file-pdf-o"></i> Policy documents</a></li>
+</ul>
+
 <li class=" nav-header mt-2">Events</li>
 <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-header mt-2"><a class="nav-link" href="{{ backpack_url('event') }}"><i class="nav-icon la la-clock-o"></i> Events</a></li>
@@ -43,3 +48,5 @@
 <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item"><a class="nav-link" href="{{ backpack_url('it-ticket') }}"><i class="nav-icon la la-stethoscope"></i> IT tickets</a></li>
 </ul>
+
+
