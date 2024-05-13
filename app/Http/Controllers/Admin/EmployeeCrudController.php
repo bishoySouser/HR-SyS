@@ -4,14 +4,16 @@ namespace App\Http\Controllers\Admin;
 
 use App\Abstracts\RedirectManager;
 use App\Http\Requests\EmployeeRequest;
+use App\Jobs\ResetPassword;
 use App\Models\Department;
 use App\Models\Employee;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use App\Repositories\Employee\EmployeeInterface;
 use Backpack\CRUD\app\Library\Widget;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\ResetPasswordEmployeeNotification as ResetPasswortNotify;
 use App\Models\Job;
-use App\Notifications\ResetPasswordEmployeeNotification;
 use Hash;
 use Illuminate\Http\Request;
 
@@ -29,11 +31,13 @@ class EmployeeCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
 
     protected $employeeInterface;
+    private $resetPasswordService;
 
-    public function __construct(EmployeeInterface $employeeInterface)
+    public function __construct(EmployeeInterface $employeeInterface, ResetPassword $resetPasswordService)
     {
         parent::__construct();
         $this->employeeInterface = $employeeInterface;
+        $this->resetPasswordService = $resetPasswordService;
     }
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
@@ -203,17 +207,14 @@ class EmployeeCrudController extends CrudController
     public function resetPassword(Request $request)
     {
 
-        $randomPassword =  $this->randomPassword(12);
+        // Reset the password
+        $employeeId = $request->id;
+        $this->resetPasswordService->resetEmployeePassword($employeeId);
 
-        $employee = Employee::find($request->id);
-        $employee->password = Hash::make($randomPassword);
-
-        $employee->notify(new ResetPasswordEmployeeNotification($employee, $randomPassword));
-
-        $employee->save();
-
-        // $employee = Employee::where('id', $request->id)
-        //         ->update(['password' => Hash::make($randomPassword)]);
+        // Notify the employee that
+        $employee = $this->resetPasswordService->getEmployee();
+        $randomPassword = $this->resetPasswordService->getRandomPassword();
+        Notification::send($employee, new ResetPasswortNotify($employee, $randomPassword));
 
         return response()->json([
                                     'message' => 'The new password has been changed and sent to the employee.'
