@@ -4,6 +4,17 @@
     </a>
 </li>
 
+{{-- @role('admin') --}}
+<!-- Employee Section -->
+<li class=" nav-header mt-2">Authentication</li>
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item"><a class="nav-link" href="{{ backpack_url('user') }}"><i class="nav-icon la la-building"></i> user</a></li>
+    <li class="nav-item"><a class="nav-link" href="{{ backpack_url('role') }}"><i class="nav-icon la la-briefcase"></i> role</a></li>
+    <li class="nav-item"><a class="nav-link" href="{{ backpack_url('permission') }}"><i class="nav-icon la la-male"></i> permission</a></li>
+</ul>
+{{-- @endrole --}}
+
+
 <!-- Employee Section -->
 <li class=" nav-header mt-2">Company</li>
 <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -44,9 +55,12 @@
     <li class="nav-item"><a class="nav-link" href="{{ backpack_url('enrollment') }}"><i class="nav-icon la la-ticket"></i> Enrollments</a></li>
 </ul>
 
+{{-- @role('help desck') --}}
 <li class=" nav-header mt-2">IT Ticket</li>
 <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item"><a class="nav-link" href="{{ backpack_url('it-ticket') }}"><i class="nav-icon la la-stethoscope"></i> IT tickets</a></li>
 </ul>
+{{-- @endrole --}}
+
 
 

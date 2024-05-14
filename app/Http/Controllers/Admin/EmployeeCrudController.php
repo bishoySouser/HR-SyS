@@ -30,6 +30,7 @@ class EmployeeCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+    use \App\Traits\CrudPermissionTrait;
 
     protected $employeeInterface;
     private $resetPasswordService;
@@ -37,6 +38,7 @@ class EmployeeCrudController extends CrudController
     public function __construct(EmployeeInterface $employeeInterface, ResetPassword $resetPasswordService)
     {
         parent::__construct();
+
         $this->employeeInterface = $employeeInterface;
         $this->resetPasswordService = $resetPasswordService;
     }
@@ -50,6 +52,7 @@ class EmployeeCrudController extends CrudController
         CRUD::setModel(\App\Models\Employee::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/employee');
         CRUD::setEntityNameStrings('employee', 'employees');
+        $this->setAccessUsingPermissions();
 
     }
 
