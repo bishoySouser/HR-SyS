@@ -14,6 +14,7 @@ use Backpack\CRUD\app\Library\Widget;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\ResetPasswordEmployeeNotification as ResetPasswortNotify;
 use App\Models\Job;
+use App\Notifications\WelcomeJoin;
 use Hash;
 use Illuminate\Http\Request;
 
@@ -173,6 +174,8 @@ class EmployeeCrudController extends CrudController
             'entity'    => 'manager',
             'model'     => "App\Models\Employee",
         ]);
+
+
 
 
     }
