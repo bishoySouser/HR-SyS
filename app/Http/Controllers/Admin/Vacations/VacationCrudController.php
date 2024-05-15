@@ -19,6 +19,7 @@ class VacationCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+    use \App\Traits\CrudPermissionTrait;
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
@@ -30,6 +31,7 @@ class VacationCrudController extends CrudController
         CRUD::setModel(\App\Models\Vacation::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/vacation');
         CRUD::setEntityNameStrings('vacation', 'vacations');
+        $this->setAccessUsingPermissions();
     }
 
     protected function setupShowOperation()

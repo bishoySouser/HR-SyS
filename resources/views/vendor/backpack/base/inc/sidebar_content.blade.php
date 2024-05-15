@@ -8,9 +8,9 @@
 <!-- Employee Section -->
 <li class=" nav-header mt-2">Authentication</li>
 <ul class="nav nav-tabs" id="myTab" role="tablist">
-    <li class="nav-item"><a class="nav-link" href="{{ backpack_url('user') }}"><i class="nav-icon la la-building"></i> user</a></li>
-    <li class="nav-item"><a class="nav-link" href="{{ backpack_url('role') }}"><i class="nav-icon la la-briefcase"></i> role</a></li>
-    <li class="nav-item"><a class="nav-link" href="{{ backpack_url('permission') }}"><i class="nav-icon la la-male"></i> permission</a></li>
+    <li class="nav-item"><a class="nav-link" href="{{ backpack_url('user') }}"><i class="nav-icon la la-building"></i> User</a></li>
+    <li class="nav-item"><a class="nav-link" href="{{ backpack_url('role') }}"><i class="nav-icon la la-briefcase"></i> Role</a></li>
+    <li class="nav-item"><a class="nav-link" href="{{ backpack_url('permission') }}"><i class="nav-icon la la-male"></i> Permission</a></li>
 </ul>
 @endrole
 

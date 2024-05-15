@@ -18,6 +18,7 @@ class Department extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+    use \App\Traits\CrudPermissionTrait;
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
@@ -29,6 +30,8 @@ class Department extends CrudController
         CRUD::setModel(\App\Models\Department::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/department');
         CRUD::setEntityNameStrings('department', 'departments');
+        $this->setAccessUsingPermissions();
+        $this->setAccessUsingPermissions();
     }
 
     protected function setupShowOperation()
