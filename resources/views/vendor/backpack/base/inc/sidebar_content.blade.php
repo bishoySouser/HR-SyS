@@ -4,7 +4,7 @@
     </a>
 </li>
 
-{{-- @role('admin') --}}
+@role('Super-Admin')
 <!-- Employee Section -->
 <li class=" nav-header mt-2">Authentication</li>
 <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -12,9 +12,10 @@
     <li class="nav-item"><a class="nav-link" href="{{ backpack_url('role') }}"><i class="nav-icon la la-briefcase"></i> role</a></li>
     <li class="nav-item"><a class="nav-link" href="{{ backpack_url('permission') }}"><i class="nav-icon la la-male"></i> permission</a></li>
 </ul>
-{{-- @endrole --}}
+@endrole
 
 
+@role('HR|Super-Admin')
 <!-- Employee Section -->
 <li class=" nav-header mt-2">Company</li>
 <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -54,13 +55,14 @@
     <li class="nav-item"><a class="nav-link" href="{{ backpack_url('course') }}"><i class="nav-icon la la-book"></i> Courses</a></li>
     <li class="nav-item"><a class="nav-link" href="{{ backpack_url('enrollment') }}"><i class="nav-icon la la-ticket"></i> Enrollments</a></li>
 </ul>
+@endrole
 
-{{-- @role('help desck') --}}
+@role('help desck|Super-Admin')
 <li class=" nav-header mt-2">IT Ticket</li>
 <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item"><a class="nav-link" href="{{ backpack_url('it-ticket') }}"><i class="nav-icon la la-stethoscope"></i> IT tickets</a></li>
 </ul>
-{{-- @endrole --}}
+@endrole
 
 
 
