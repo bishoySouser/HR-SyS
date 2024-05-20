@@ -17,6 +17,7 @@ use App\Models\Job;
 use App\Notifications\WelcomeJoin;
 use Hash;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\URL;
 
 /**
  * Class EmployeeCrudController
@@ -53,6 +54,7 @@ class EmployeeCrudController extends CrudController
         CRUD::setRoute(config('backpack.base.route_prefix') . '/employee');
         CRUD::setEntityNameStrings('employee', 'employees');
         $this->setAccessUsingPermissions();
+
 
     }
 
@@ -177,8 +179,6 @@ class EmployeeCrudController extends CrudController
             'entity'    => 'manager',
             'model'     => "App\Models\Employee",
         ]);
-
-
 
 
     }

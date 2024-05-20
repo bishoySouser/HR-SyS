@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use App\Rules\SalaryRange;
 use Illuminate\Foundation\Http\FormRequest;
 
+
 class EmployeeRequest extends FormRequest
 {
     /**
@@ -72,7 +73,9 @@ class EmployeeRequest extends FormRequest
     public function messages()
     {
         return [
-            //
+            'salary.required' => 'Salary is required.',
+            'salary.numeric' => 'Salary must be a number.',
+            'salary.salary_range' => "Salary must be between :min and :max for this job.", // New message key
         ];
     }
 }
