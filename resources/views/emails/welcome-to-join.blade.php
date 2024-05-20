@@ -189,11 +189,12 @@ table, td { color: #000000; } @media (max-width: 480px) { #u_content_heading_2 .
       <td style="overflow-wrap:break-word;word-break:break-word;padding:50px 30px;font-family:arial,helvetica,sans-serif;" align="left">
 
   <div class="v-font-size" style="font-size: 14px; line-height: 140%; text-align: center; word-wrap: break-word;">
-    <p style="line-height: 140%;">Dear [Recipient's Name],</p>
-<p style="line-height: 140%;">I hope this message finds you well. I am excited to introduce our newest team member, [New Team Member's Name], who will be joining our [Department/Team] on</p>
-<p style="line-height: 140%;">[Start Date]. [New Team Member's Name] comes to us with an impressive background in [mention relevant</p>
+    <p style="line-height: 140%;">Dear {{$employee->fname}},</p>
+<p style="line-height: 140%;">I hope this message finds you well. I am excited to introduce our newest team member, {{$employee->manager->full_name}}, who will be joining our {{$employee->department->name}} on</p>
+<p style="line-height: 140%;">{{$employee->hire_date}}.</p>
 <p style="line-height: 140%;"> </p>
-<p style="line-height: 140%;">experience or skills], and we believe their expertise will be a valuable addition to our team. Their enthusiasm and dedication are already evident, and we are looking forward to having them onboard.</p>
+<p style="line-height: 140%;"> We believe their expertise will be a valuable addition to our team. Their enthusiasm and dedication are already evident, and we are looking forward to having them onboard.</p>
+<p style="line-height: 140%;"> URL: <a href="{{URL('')}}"></a>{{URL('')}}</p>
   </div>
 
       </td>
