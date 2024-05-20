@@ -125,7 +125,7 @@ table, td { color: #000000; } @media (max-width: 480px) { #u_content_heading_2 .
       <td style="overflow-wrap:break-word;word-break:break-word;padding:0px 10px 10px;font-family:arial,helvetica,sans-serif;" align="left">
 
   <!--[if mso]><table width="100%"><tr><td><![endif]-->
-    <h1 class="v-font-size" style="margin: 0px; line-height: 110%; text-align: center; word-wrap: break-word; font-family: 'Montserrat',sans-serif; font-size: 50px; font-weight: 700;">New Team<br />Member</h1>
+    <h1 class="v-font-size" style="margin: 0px; line-height: 110%; text-align: center; word-wrap: break-word; font-family: 'Montserrat',sans-serif; font-size: 50px; font-weight: 700;">Welcome to BVD,<br />{{$employee->fname}}</h1>
   <!--[if mso]></td></tr></table><![endif]-->
 
       </td>
