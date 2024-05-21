@@ -23,6 +23,6 @@ class AppServiceProvider extends ServiceProvider
     {
         // parent::boot();
 
-        Employee::observe(EmployeeObserver::class);
+        // Employee::observe(EmployeeObserver::class);
     }
 }
