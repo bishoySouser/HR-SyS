@@ -3,9 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\EventRequest;
+use App\Jobs\EventEmail;
+use App\Mail\Event as MailEvent;
+use Illuminate\Support\Facades\Notification;
 use App\Models\Employee;
+use App\Models\Event;
+use App\Notifications\EventNotify;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Illuminate\Support\Facades\Mail;
 
 /**
  * Class EventCrudController
@@ -103,7 +109,44 @@ class EventCrudController extends CrudController
 
 
 
+
     }
+
+    // EventController.php (or wherever you handle event creation)
+public function store(EventRequest $request)
+{
+    $event = new Event();
+    $event->name = $request->name;
+    $event->desc = $request->desc;
+    $event->date = $request->date;
+    $event->subject = $request->subject;
+
+    $event->save();
+
+    $event->employees()->attach($request->employees);
+
+    $eventAfterCreated = Event::find($event->id);
+
+    $emailsOfEmployees = [];
+
+    foreach ($eventAfterCreated->employees as $employee) {
+        $emailsOfEmployees[] = $employee->email;
+    }
+
+    $email = new MailEvent($event);
+    Mail::to($emailsOfEmployees)->send($email);
+
+
+    // Check if save_back or save_edit button was submitted
+    if ($request->has('save_back')) {
+        return redirect()->url('admin/event')->with('success', 'Event created successfully!');
+    } else if ($request->has('save_edit')) {
+        return redirect()->route('admin.event.edit', $event->id)->with('success', 'Event created successfully!');
+    } else {
+        // Handle unexpected case (no button submitted)
+        return redirect()->back()->with('error', 'Unexpected error occurred!');
+    }
+}
 
     /**
      * Define what happens when the Update operation is loaded.
