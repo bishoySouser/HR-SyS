@@ -20,23 +20,23 @@ class PermissionSeeder extends Seeder
     public function run()
     {
         // create permission for each combination of table.level
-        \DB::table('permissions')->delete();
+        // \DB::table('permissions')->delete();
         collect([ // tables
-            'users',
-            'roles',
-            'courses',
-            'departments',
-            'employes',
-            'enrollments',
-            'events',
-            'execuses',
-            'it_tickets',
-            'jobs',
-            'medical_incurence',
-            'social_incurence',
-            'vacations',
-            'work_from_home',
-            'policy_documents',
+            'holidays',
+            // 'roles',
+            // 'courses',
+            // 'departments',
+            // 'employes',
+            // 'enrollments',
+            // 'events',
+            // 'execuses',
+            // 'it_tickets',
+            // 'jobs',
+            // 'medical_incurence',
+            // 'social_incurence',
+            // 'vacations',
+            // 'work_from_home',
+            // 'policy_documents',
         ])
             ->crossJoin([ // levels
                 'see',

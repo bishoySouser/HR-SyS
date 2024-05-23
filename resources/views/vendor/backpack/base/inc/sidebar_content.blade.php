@@ -34,6 +34,12 @@
     <li class="nav-item"><a class="nav-link" href="{{ backpack_url('excuse') }}"><i class="nav-icon la la la-hand-pointer-o"></i> Excuse </a></li>
 </ul>
 
+<li class=" nav-header mt-2">Holidays</li>
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+
+    <li class="nav-item"><a class="nav-link" href="{{ backpack_url('holiday') }}"><i class="nav-icon la la-sun-o"></i> Holidays</a></li>
+</ul>
+
 <li class=" nav-header mt-2">Insurance</li>
 <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item"><a class="nav-link" href="{{ backpack_url('social-insurance') }}"><i class="nav-icon la la la-leaf"></i> Social insurance</a></li>
@@ -55,6 +61,7 @@
     <li class="nav-item"><a class="nav-link" href="{{ backpack_url('course') }}"><i class="nav-icon la la-book"></i> Courses</a></li>
     <li class="nav-item"><a class="nav-link" href="{{ backpack_url('enrollment') }}"><i class="nav-icon la la-ticket"></i> Enrollments</a></li>
 </ul>
+
 @endrole
 
 @role('help desck|Super-Admin')
