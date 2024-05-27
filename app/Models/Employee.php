@@ -6,6 +6,7 @@ use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
@@ -27,10 +28,12 @@ class Employee extends Authenticatable
     protected $fillable = [
                         'full_name',
                         'email',
+                        'profile_pic',
                         'phone_number',
                         'national_id',
                         'birthday',
                         'location',
+                        'eduction',
                         'contract_periods',
                         'hire_date',
                         'grades',
@@ -105,9 +108,34 @@ class Employee extends Authenticatable
         // Return the first part (first name)
         return $parts[0] ?? null;
     }
+
+      /**
+     * Get the URL of the product image.
+     *
+     * @return string|null
+     */
+    public function getProfilePicAttribute($value)
+    {
+        if (isset($value) && Storage::disk('public')->exists($value)) {
+            return asset('storage/' . $value);
+        }
+
+        return $value;
+    }
     /*
     |--------------------------------------------------------------------------
     | MUTATORS
     |--------------------------------------------------------------------------
     */
+
+
+    /**
+     * @param  string  $value
+     * @return void
+     */
+    public function setProfilePicAttribute($value)
+    {
+
+        $this->attributes['profile_pic'] = $value ? Storage::disk('public')->put('Employees', $value) : null; // Adjust disk if needed
+    }
 }

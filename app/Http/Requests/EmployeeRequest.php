@@ -28,10 +28,12 @@ class EmployeeRequest extends FormRequest
     {
         $rules = [
             'full_name' => 'required|string',
+            'profile_pic' => 'nullable|file|mimes:jpeg,png|max:2048',
             'phone_number' => 'nullable|string|max:20',
             'national_id' => 'required|string',
             'birthday' => 'required|date',
             'location' => 'required|string',
+            'education' => 'nullable|string',
             'gender' => 'required|in:male,female',
             'contract_periods' => 'required|string',
             'hire_date' => 'nullable|date',

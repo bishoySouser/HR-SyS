@@ -69,6 +69,7 @@ class EmployeeCrudController extends CrudController
 
         CRUD::column('id');
         CRUD::column('full_name');
+        CRUD::column('profile_pic')->type('image');
         CRUD::column('hire_date');
         CRUD::column('manager_id');
         CRUD::column('department_id');
@@ -99,11 +100,21 @@ class EmployeeCrudController extends CrudController
 
         CRUD::field('full_name');
         CRUD::field('email')->type('email');
+
+        CRUD::addField([   // Upload
+            'name'      => 'profile_pic',
+            'label'     => 'picture',
+            'type'      => 'upload',
+            'upload'    => true,
+            'disk'      => 'public', // if you store files in the /public folder, please omit this; if you store them in /storage or S3, please specify it;
+        ],);
+
         CRUD::field('phone_number');
 
         CRUD::field('national_id')->label('National ID');
         CRUD::field('birthday')->type('date')->label('Birthday Date');
         CRUD::field('location');
+        CRUD::field('eduction');
         CRUD::addField([
             'name'        => 'gender',
             'label'       => 'Gender',
