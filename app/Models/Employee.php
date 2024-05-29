@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Insurance\SocialInsurance;
+use App\Models\Insurance\MedicalInsurance;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -87,6 +89,22 @@ class Employee extends Authenticatable
     public function events()
     {
         return $this->belongsToMany(Event::class);
+    }
+
+    /**
+     * Get the social insurance associated with the employee.
+     */
+    public function socialInsurance()
+    {
+        return $this->hasOne(SocialInsurance::class)->where('status', 1);
+    }
+
+    /**
+     * Get the medical insurance associated with the employee.
+     */
+    public function medicalInsurance()
+    {
+        return $this->hasOne(MedicalInsurance::class)->where('status', 1);
     }
 
     /*
