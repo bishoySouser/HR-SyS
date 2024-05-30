@@ -15,13 +15,13 @@ class EmployeeResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+            'id' => $this->id,
             'fullName' => $this->full_name,
-            'profilePicture' => $this->profile_pic,
             'email' => $this->email,
             'phoneNumber' => $this->phone_number,
-            'id' => $this->id,
             'education' => $this->eduction,
             'manager' => new EmployeeResource($this->whenLoaded('manager')),
+            'profilePicture' => $this->profile_pic,
             'nationalId' => $this->national_id,
             'birthDate' => $this->birth_date,
             'location' => $this->location,
