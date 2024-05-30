@@ -13,4 +13,9 @@ Route::group(['prefix' => 'employees', 'middleware' => 'auth:sanctum'], function
     Route::get('profile', 'EmployeeController@getProfile');
 });
 
+Route::prefix('courses')->group(function () {
+    Route::get('', 'CourseController@index');
+    Route::post('', 'CourseController@store')->middleware('auth:sanctum');
+});
+
 

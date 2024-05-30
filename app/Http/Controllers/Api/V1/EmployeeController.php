@@ -31,15 +31,7 @@ class EmployeeController extends Controller
      */
     public function show(Employee $employee)
     {
-        // Get the authenticated employee
-        $employee = auth()->user();
-        return Auth::user();
-        // Ensure employee is not null
-        if (!$employee) {
-            return response()->json(['error' => 'Unauthorized'], 401);
-        }
-        // Return the employee profile as a resource
-        return new EmployeeResource($employee);
+        //
     }
 
     /**
@@ -47,11 +39,8 @@ class EmployeeController extends Controller
      */
     public function getProfile()
     {
-        // Get the authenticated employee
         $employee = Auth::user();
 
-
-        // Return the employee profile as a resource
         return new EmployeeResource($employee);
     }
     /**

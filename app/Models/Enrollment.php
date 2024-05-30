@@ -21,7 +21,14 @@ class Enrollment extends Model
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
-    // protected $fillable = [];
+    protected $fillable = [
+        'course_id',
+        'employee_id',
+        'link',
+        'note',
+        'status'
+
+    ];
     // protected $hidden = [];
     // protected $dates = [];
 
