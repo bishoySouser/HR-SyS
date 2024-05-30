@@ -20,7 +20,13 @@ class EmployeeResource extends JsonResource
             'email' => $this->email,
             'phoneNumber' => $this->phone_number,
             'education' => $this->eduction,
-            'manager' => new EmployeeResource($this->whenLoaded('manager')),
+            'manager' => $this->when(
+                $this->relationLoaded('manager') && $this->manager,
+                function () {
+                    return new EmployeeResource($this->manager);
+                },
+                null
+            ),
             'profilePicture' => $this->profile_pic,
             'nationalId' => $this->national_id,
             'birthDate' => $this->birth_date,
