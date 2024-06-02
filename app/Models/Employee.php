@@ -78,6 +78,7 @@ class Employee extends Authenticatable
         return $this->belongsTo(Job::class);
     }
 
+
     public function department(){
         return $this->belongsTo(Department::class);
     }
@@ -125,6 +126,11 @@ class Employee extends Authenticatable
 
         // Return the first part (first name)
         return $parts[0] ?? null;
+    }
+
+    public function getJobTitleAttribute()
+    {
+        return $this->job->grades . ' ' . $this->job->title;
     }
 
       /**

@@ -20,6 +20,7 @@ class EmployeeResource extends JsonResource
             'email' => $this->email,
             'phoneNumber' => $this->phone_number,
             'education' => $this->eduction,
+            'job' => $this->job_title ,
             'manager' => $this->when(
                 $this->relationLoaded('manager') && $this->manager,
                 function () {
