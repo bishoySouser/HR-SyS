@@ -4,6 +4,7 @@ namespace App\Http\Resources\V1;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Carbon\Carbon;
 
 class EmployeeResource extends JsonResource
 {
@@ -20,7 +21,7 @@ class EmployeeResource extends JsonResource
             'email' => $this->email,
             'phoneNumber' => $this->phone_number,
             'education' => $this->eduction,
-            'job' => $this->job_title ,
+            'jobTitle' => $this->job_title ,
             'manager' => $this->when(
                 $this->relationLoaded('manager') && $this->manager,
                 function () {
@@ -31,6 +32,7 @@ class EmployeeResource extends JsonResource
             'profilePicture' => $this->profile_pic,
             'nationalId' => $this->national_id,
             'birthDate' => $this->birth_date,
+            'joinedUs' => Carbon::parse($this->hire_date)->format('F Y'),
             'location' => $this->location,
             'contractPeriods' => $this->contract_periods,
             'socailInsurance' => $this->socialInsurance ? 'yes' : 'no',
