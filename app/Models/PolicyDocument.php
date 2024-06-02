@@ -43,6 +43,10 @@ class PolicyDocument extends Model
     | SCOPES
     |--------------------------------------------------------------------------
     */
+    public function scopeStatus($query, $status)
+    {
+        return $this->where('status', $status);
+    }
 
     /*
     |--------------------------------------------------------------------------

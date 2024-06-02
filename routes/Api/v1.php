@@ -18,6 +18,8 @@ Route::middleware('auth:sanctum')->group(function() {
         Route::get('', 'CourseController@index');
         Route::post('', 'CourseController@store');
     });
+
+    Route::get('policy-documents', 'PolicyDocumentController@index');
 });
 
 
