@@ -20,6 +20,11 @@ Route::middleware('auth:sanctum')->group(function() {
     });
 
     Route::get('policy-documents', 'PolicyDocumentController@index');
+
+    Route::group(['prefix' => 'it-tickets'], function() {
+        Route::post('', 'ItTicketController@store');
+        Route::get('', 'ItTicketController@index');
+    });
 });
 
 
