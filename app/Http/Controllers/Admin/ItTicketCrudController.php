@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\ItTicket\StoreItTicketRequest;
+use App\Http\Requests\ItTicket\UpdateItTicketRequest;
 use App\Http\Requests\ItTicketRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
@@ -109,7 +111,11 @@ protected function setupShowOperation()
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(ItTicketRequest::class);
+        if (request()->isMethod('post')) {
+            CRUD::setValidation(StoreItTicketRequest::class);
+        } else {
+            CRUD::setValidation(UpdateItTicketRequest::class);
+        }
 
         CRUD::field('title');
         CRUD::addField([
