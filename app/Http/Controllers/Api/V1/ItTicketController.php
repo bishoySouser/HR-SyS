@@ -19,13 +19,12 @@ class ItTicketController extends Controller
     {
         $user = auth()->user(); // More concise way to get authenticated user
 
-    $tickets = $user->itTickets()
-        ->with('employee') // Eager load related employee data
-        ->latest() // Order by latest creation date
-        ->paginate(10); // Paginate results for efficiency
+        $tickets = $user->itTickets()
+                    ->with('employee') // Eager load related employee data
+                    ->latest() // Order by latest creation date
+                    ->paginate(10); // Paginate results for efficiency
 
         return response()->json(new ItTicketCollection($tickets));
-        // return new ItTicketCollection(ItTicket::with('employee')->where('employee_id', Auth::id())->latest(10)->limit(10));
     }
 
     /**
@@ -42,27 +41,4 @@ class ItTicketController extends Controller
         return response()->json(['message' => 'IT Ticket created successfully'], 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
 }
