@@ -28,7 +28,7 @@ class EmployeeRequest extends FormRequest
     {
         $rules = [
             'full_name' => 'required|string',
-            'profile_pic' => 'nullable|file|mimes:jpeg,png|max:2048',
+            'profile_pic' => 'nullable|file|mimes:jpeg,png,webp|max:2048',
             'phone_number' => 'nullable|string|max:20',
             'national_id' => 'required|string',
             'birthday' => 'required|date',
