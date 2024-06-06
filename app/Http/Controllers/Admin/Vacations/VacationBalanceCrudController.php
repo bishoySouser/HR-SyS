@@ -114,7 +114,13 @@ class VacationBalanceCrudController extends CrudController
             'label' => 'Remaining days',
             'default' => '21',
             'min' => '1',
-          ]);
+        ]);
+
+        CRUD::addField([
+            'name' => 'expiry_date',
+            'type' => 'date',
+            'label' => 'Expiry date'
+        ]);
 
 
         /**
