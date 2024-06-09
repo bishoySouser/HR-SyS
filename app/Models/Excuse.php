@@ -5,6 +5,7 @@ namespace App\Models;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Excuse extends Model
 {
@@ -21,7 +22,14 @@ class Excuse extends Model
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
-    // protected $fillable = [];
+    protected $fillable = [
+        'employee_id',
+        'time',
+        'type',
+        'reason',
+        'status',
+        'date',
+    ];
     // protected $hidden = [];
     // protected $dates = [];
 
@@ -45,12 +53,29 @@ class Excuse extends Model
     | SCOPES
     |--------------------------------------------------------------------------
     */
+    public function scopeForTimeInMonthBySecound($query, $employeeId, $month, $year)
+    {
+        return $query->where('employee_id', $employeeId)
+                ->whereMonth('date', $month)
+                ->whereYear('date', $year)
+                ->sum(\DB::raw('TIME_TO_SEC(time)'));
+    }
 
     /*
     |--------------------------------------------------------------------------
     | ACCESSORS
     |--------------------------------------------------------------------------
     */
+    /**
+     * Prepare a date for array / mass assignment.
+     *
+     * @param  string  $value
+     * @return string|null
+     */
+    protected function setDateAttribute($value)
+    {
+        $this->attributes['date'] = Carbon::parse($value)->format('Y-m-d');
+    }
 
     /*
     |--------------------------------------------------------------------------

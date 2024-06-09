@@ -26,7 +26,7 @@ class VacationRequest extends FormRequest
     {
         return [
             'balance_id' => 'required|exists:leave_balance,id',
-            'start_date' => 'required|date',
+            'start_date' => 'required|date|after_or_equal:today',
             'end_date'   => 'required|date|after_or_equal:start_date',
             'duration'   => 'required|numeric|min:1',
             'status'     => 'required|in:pending,approved,rejected'

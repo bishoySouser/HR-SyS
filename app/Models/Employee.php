@@ -96,6 +96,10 @@ class Employee extends Authenticatable
         return $this->hasMany(ItTicket::class);
     }
 
+    public function excuses() {
+        return $this->hasMany(Excuse::class);
+    }
+
     /**
      * Get the social insurance associated with the employee.
      */
