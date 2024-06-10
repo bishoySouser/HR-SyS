@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\V1\Auth\User;
+use App\Http\Controllers\Api\V1\EmployeeController;
 use Illuminate\Support\Facades\Route;
 
 // Route::post('register',[User::class,'register']);
@@ -19,6 +20,9 @@ Route::middleware('auth:sanctum')->group(function() {
         Route::post('', "ExcuseController@store");
         Route::get('', "ExcuseController@index");
     });
+
+    // events
+    Route::get('events', "EventController@index");
 
     // courses
     Route::prefix('courses')->group(function () {
