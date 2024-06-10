@@ -8,7 +8,6 @@ use App\Http\Resources\V1\ExcuseCollection;
 use App\Models\Excuse;
 use App\Services\ExcuseLimitService;
 use App\Utils\TimeConverter;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ExcuseController extends Controller
@@ -53,7 +52,7 @@ class ExcuseController extends Controller
         return response()->json([
             'status' => true,
             'status_code' => 201,
-            'message' => 'Excuse successful',
+            'message' => 'Excuse request submitted successfully',
             'data' => $excuse
         ], 201);
 

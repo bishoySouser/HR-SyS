@@ -5,6 +5,7 @@ namespace App\Models;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class WorkFromHome extends Model
 {
@@ -56,6 +57,10 @@ class WorkFromHome extends Model
     | ACCESSORS
     |--------------------------------------------------------------------------
     */
+    protected function setDateAttribute($value)
+    {
+        $this->attributes['day'] = Carbon::parse($value)->format('Y-m-d');
+    }
 
     /*
     |--------------------------------------------------------------------------
