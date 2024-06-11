@@ -5,6 +5,7 @@ namespace App\Models;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Vacation extends Model
 {
@@ -21,6 +22,15 @@ class Vacation extends Model
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
+
+    protected $fillable = [
+        'balance_id',
+        'start_date',
+        'end_date',
+        'duration',
+        'status',
+        'reason_rejected',
+    ];
     // protected $fillable = [];
     // protected $hidden = [];
     // protected $dates = [];
@@ -56,6 +66,27 @@ class Vacation extends Model
     | ACCESSORS
     |--------------------------------------------------------------------------
     */
+    /**
+     * Prepare a start_date for array / mass assignment.
+     *
+     * @param  string  $value
+     * @return string|null
+     */
+    protected function setStartDateAttribute($value)
+    {
+        $this->attributes['start_date'] = Carbon::parse($value)->format('Y-m-d');
+    }
+
+    /**
+     * Prepare a end_date for array / mass assignment.
+     *
+     * @param  string  $value
+     * @return string|null
+     */
+    protected function setEndDateAttribute($value)
+    {
+        $this->attributes['end_date'] = Carbon::parse($value)->format('Y-m-d');
+    }
 
     /*
     |--------------------------------------------------------------------------

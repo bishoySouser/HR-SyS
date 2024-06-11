@@ -15,6 +15,12 @@ Route::middleware('auth:sanctum')->group(function() {
         Route::get('profile', 'EmployeeController@getProfile');
     });
 
+    // vacations
+    Route::prefix('vacations')->group(function () {
+        Route::get('', 'VacationController@index');
+        Route::post('', 'VacationController@store');
+    });
+
     // work from home
     Route::prefix('work-from-home')->group(function () {
         Route::get('', 'WorkFromHomeController@index');

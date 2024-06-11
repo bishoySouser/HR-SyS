@@ -22,7 +22,12 @@ class VacationBalance extends Model
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
-    // protected $fillable = [];
+
+    protected $fillable = [
+        'year',
+        'employee_id',
+        'remaining_days',
+    ];
     // protected $hidden = [];
     // protected $dates = [];
 
@@ -41,6 +46,11 @@ class VacationBalance extends Model
     public function employee()
     {
         return $this->belongsTo(Employee::class);
+    }
+
+    public function vacations()
+    {
+        return $this->hasMany(Vacation::class, 'balance_id');
     }
 
     /*
