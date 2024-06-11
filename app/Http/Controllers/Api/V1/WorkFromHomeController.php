@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\StoreWorkFromHomeRequest;
+use App\Http\Resources\V1\WorkFromHomeCollection;
+use App\Http\Resources\V1\WorkFromHomeResource;
 use App\Models\Employee;
 use App\Models\WorkFromHome;
 use App\Services\WorkFromHomeLimitHandler;
@@ -18,7 +20,19 @@ class WorkFromHomeController extends Controller
      */
     public function index()
     {
-        //
+        $user = auth()->user(); // More concise way to get authenticated user
+
+        $list = $user->workFromHomes()
+                    ->with('employee') // Eager load related employee data
+                    ->latest() // Order by latest creation date
+                    ->paginate(10); // Paginate results for efficiency
+
+        return response()->json([
+            'status' => true,
+            'status_code' => 200,
+            'message' => 'Work from home list of employee',
+            'data' => new WorkFromHomeCollection($list)
+        ], 200);
     }
 
     /**
@@ -53,7 +67,7 @@ class WorkFromHomeController extends Controller
             'status' => true,
             'status_code' => 201,
             'message' => 'Work from home request submitted successfully',
-            'data' => $workFromHome
+            'data' => new WorkFromHomeResource($workFromHome)
         ], 201);
 
     }
