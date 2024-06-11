@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\StoreExcuseRequest;
 use App\Http\Resources\V1\ExcuseCollection;
+use App\Http\Resources\V1\ExcuseResource;
 use App\Models\Excuse;
 use App\Services\ExcuseLimitService;
 use App\Utils\TimeConverter;
@@ -53,7 +54,7 @@ class ExcuseController extends Controller
             'status' => true,
             'status_code' => 201,
             'message' => 'Excuse request submitted successfully',
-            'data' => $excuse
+            'data' => new ExcuseResource($excuse)
         ], 201);
 
     }

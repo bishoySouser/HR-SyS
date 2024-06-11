@@ -20,11 +20,10 @@ class ItTicketController extends Controller
         $user = auth()->user(); // More concise way to get authenticated user
 
         $tickets = $user->itTickets()
-                    ->with('employee') // Eager load related employee data
-                    ->latest() // Order by latest creation date
-                    ->paginate(10); // Paginate results for efficiency
+                    ->with('employee'); // Eager load related employee data
+                    // ->latest(); // Order by latest creation date
 
-        return response()->json(new ItTicketCollection($tickets));
+        return response()->json(new ItTicketCollection($tickets->paginate(10) ));
     }
 
     /**
