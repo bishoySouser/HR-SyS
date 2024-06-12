@@ -28,7 +28,13 @@ class EmployeeController extends Controller
             $tree[] = $node;
         }
 
-        return response()->json($tree);
+        return response()->json([
+            'status' => true,
+            'status_code' => 200,
+            'message' => 'Team list',
+            'data' => $tree
+        ],200);
+
     }
     /**
      * Display a listing of the resource.
