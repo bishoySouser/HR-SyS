@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\StoreVacationRequest;
+use App\Http\Resources\V1\VacationCollection;
 use App\Http\Resources\V1\VacationResource;
 use App\Models\Vacation;
 use App\Services\VacationService;
@@ -23,7 +24,20 @@ class VacationController extends Controller
      */
     public function index()
     {
-        //
+        $user = auth()->user();
+
+        $vacations = Vacation::with('balance')
+                        ->whereHas('balance', function ($query) use ($user) {
+                            $query->where('employee_id', $user->id);
+                        })
+                        ->latest(); // Order by the latest vacations first
+
+        return response()->json([
+            'status' => true,
+            'status_code' => 200,
+            'message' => 'Vacations list of employee',
+            'data' => new VacationCollection($vacations->paginate(10))
+        ],200);
     }
 
     /**
