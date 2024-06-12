@@ -13,6 +13,7 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::group(['prefix' => 'employees'], function() {
         Route::apiResource('', EmployeeController::class);
         Route::get('profile', 'EmployeeController@getProfile');
+        Route::get('tree', 'EmployeeController@getEmployeeTree');
     });
 
     // vacations

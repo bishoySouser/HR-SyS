@@ -10,6 +10,26 @@ use Illuminate\Support\Facades\Auth;
 
 class EmployeeController extends Controller
 {
+    public function getEmployeeTree()
+    {
+        $employees = Employee::all();
+
+        $tree = [];
+
+        foreach ($employees as $employee) {
+            $node = [
+                'id' => $employee->id,
+                'parentId' => $employee->manager_id ?: null, // Assuming you have a manager_id field
+                'full_name' => $employee->full_name,
+                'job_title' => $employee->job_title,
+                'department' => $employee->department->name,
+            ];
+
+            $tree[] = $node;
+        }
+
+        return response()->json($tree);
+    }
     /**
      * Display a listing of the resource.
      */
