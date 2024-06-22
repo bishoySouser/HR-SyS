@@ -6,6 +6,8 @@ use App\Models\Employee;
 use App\Models\Event;
 use App\Observers\EmployeeObserver;
 use App\Observers\EventObserver;
+use App\Models\Vacation;
+use App\Observers\VacationObserver;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -27,5 +29,6 @@ class AppServiceProvider extends ServiceProvider
 
         // Employee::observe(EmployeeObserver::class);
         // Event::observe(EventObserver::class);
+        Vacation::observe(VacationObserver::class);
     }
 }

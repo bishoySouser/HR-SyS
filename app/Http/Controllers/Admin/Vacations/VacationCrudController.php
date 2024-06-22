@@ -134,7 +134,14 @@ class VacationCrudController extends CrudController
             'name' => 'status',
             'label' => 'Status',
             'type' => 'select_from_array',
-            'options' => ['pending' => 'Pending', 'approved' => 'Approved', 'rejected' => 'Rejected'],
+            'options' => [
+                'pending' => 'Pending',
+                'manager_confirm' => 'Manager confirm',
+                'hr_approved' => 'HR Approved',
+                'rejected_from_manager' => 'Rejected from manager',
+                'rejected_from_hr' => 'Rejected from hr'
+
+            ],
             'default' => 'pending'
         ]);
 
