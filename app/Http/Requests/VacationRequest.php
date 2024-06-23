@@ -24,13 +24,21 @@ class VacationRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $rules = [
             'balance_id' => 'required|exists:leave_balance,id',
-            'start_date' => 'required|date|after_or_equal:today',
             'end_date'   => 'required|date|after_or_equal:start_date',
             'duration'   => 'required|numeric|min:1',
             'status'     => 'required|in:pending,manager_confirm,hr_approved,rejected_from_manager,rejected_from_hr'
         ];
+
+        if ($this->isMethod('POST')) {
+            $rules['start_date'] = 'required|date|after_or_equal:today';
+        } else {
+            $rules['start_date'] = 'required|date';
+        }
+
+        return $rules;
+
     }
 
     /**
