@@ -9,6 +9,9 @@ Route::post('login',[User::class,'login']);
 Route::post('logout',[User::class,'logout'])->middleware('auth:sanctum');
 
 Route::middleware('auth:sanctum')->group(function() {
+    //change password
+    Route::post('/change-password', [User::class,'changePassword']);
+
     // employees
     Route::group(['prefix' => 'employees'], function() {
         Route::apiResource('', EmployeeController::class);

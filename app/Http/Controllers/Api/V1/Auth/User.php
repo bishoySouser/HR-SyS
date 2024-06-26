@@ -7,6 +7,7 @@ use App\Models\Employee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rules\Password;
 
 class User extends Controller
 {
@@ -49,5 +50,21 @@ class User extends Controller
         return response()->json([
           "message"=>"logged out"
         ]);
+    }
+
+    public function changePassword(Request $request){
+        $request->validate([
+            'current_password' => ['required', 'current_password'],
+            'new_password' => ['required', Password::defaults()],
+            'new_password_confirmation' => ['required', 'same:new_password'],
+        ], [
+            'new_password_confirmation.same' => 'The new password confirmation does not match.',
+        ]);
+
+        $user = $request->user();
+        $user->password = Hash::make($request->new_password);
+        $user->save();
+
+        return response()->json(['message' => 'Password changed successfully']);
     }
 }
