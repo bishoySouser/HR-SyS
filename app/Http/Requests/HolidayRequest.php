@@ -27,7 +27,7 @@ class HolidayRequest extends FormRequest
         return [
             'name' => 'required|min:5|max:255',
             'from_date' => 'required|date',
-            'to_date' => 'nullable|date|after:from_date'
+            'to_date' => 'nullable|date|after_or_equal:from_date'
         ];
     }
 

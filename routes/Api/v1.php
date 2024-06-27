@@ -12,6 +12,9 @@ Route::middleware('auth:sanctum')->group(function() {
     //change password
     Route::post('/change-password', [User::class,'changePassword']);
 
+    // dashboard
+    Route::get('/dashboard', 'DashboardController@index');
+
     // employees
     Route::group(['prefix' => 'employees'], function() {
         Route::apiResource('', EmployeeController::class);
