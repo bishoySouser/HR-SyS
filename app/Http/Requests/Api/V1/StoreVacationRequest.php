@@ -22,7 +22,7 @@ class StoreVacationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'start_date' => 'required|date',
+            'start_date' => 'required|date|after_or_equal:today',
             'end_date' => 'required|date|after_or_equal:start_date',
             'duration' => 'required|integer|min:1',
             'reason_rejected' => 'nullable|string',
