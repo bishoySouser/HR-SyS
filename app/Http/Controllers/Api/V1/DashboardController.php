@@ -102,6 +102,7 @@ class DashboardController extends Controller
             ->findOrFail($employeeId);
 
         return [
+            'profile_pic' => $employee->profile_pic,
             'full_name' => $employee->full_name,
             'job_title' => $employee->job->title ?? 'N/A',
             'join_date' => Carbon::parse($employee->hire_date)->format('F Y'),

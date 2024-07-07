@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('employee_id')->constrained('employes');
             $table->date('day');
             $table->text('employee_note')->nullable();
-            $table->enum('status', ['Acknowledge', 'Accepted by manager', 'Approved', 'Cancelled']);
+            $table->enum('status', ['Pending', 'Accepted by manager', 'Approved', 'Cancelled']);
             $table->timestamps();
         });
     }
