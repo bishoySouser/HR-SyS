@@ -46,7 +46,7 @@ class ExcuseController extends Controller
             ], 422);
         }
 
-        $data_to_create = [...$request->all(), 'employee_id' => $employee_id, 'status' => 'Acknowledge'];
+        $data_to_create = [...$request->all(), 'employee_id' => $employee_id, 'status' => 'Pending'];
 
         $excuse = Excuse::create($data_to_create);
 
