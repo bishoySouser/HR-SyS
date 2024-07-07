@@ -59,7 +59,7 @@ class WorkFromHomeController extends Controller
             ], 422);
         }
 
-        $data_to_create = [...$request->all(), 'employee_id' => $employee->id, 'status' => 'Acknowledge'];
+        $data_to_create = [...$request->all(), 'employee_id' => $employee->id, 'status' => 'Pending'];
 
         $workFromHome = WorkFromHome::create($data_to_create);
 

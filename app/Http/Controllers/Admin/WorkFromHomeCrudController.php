@@ -70,18 +70,18 @@ class WorkFromHomeCrudController extends CrudController
         ]);
         CRUD::field('day');
         CRUD::field('employee_note');
-        // CRUD::field('status')->type('enum')->options(['Acknowledge', 'Accepted by manager', 'Approved', 'Cancelled']);
+        // CRUD::field('status')->type('enum')->options(['Pending', 'Accepted by manager', 'Approved', 'Cancelled']);
         CRUD::addField([
             'name'        => 'status',
             'label'       => 'Status',
             'type'        => 'select_from_array',
             'options'     => [
-                'Acknowledge' => 'Acknowledge',
+                'Pending' => 'Pending',
                 'Accepted by manager' => 'Accepted by manager',
                 'Approved' => 'Approved',
                 'Cancelled' => 'Cancelled',
             ],
-            'default'     => 'Acknowledge'
+            'default'     => 'Pending'
         ],);
 
         /**

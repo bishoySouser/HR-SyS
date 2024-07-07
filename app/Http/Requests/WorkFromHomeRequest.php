@@ -28,7 +28,7 @@ class WorkFromHomeRequest extends FormRequest
             'employee_id' => 'required|exists:employes,id',
             'day' => 'required|date',
             'employee_note' => 'nullable|string',
-            'status' => 'required|in:Acknowledge,Accepted by manager,Approved,Cancelled',
+            'status' => 'required|in:Pending,Accepted by manager,Approved,Cancelled',
         ];
     }
 

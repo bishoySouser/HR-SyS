@@ -26,7 +26,7 @@ class ExcuseRequest extends FormRequest
     {
         return [
             'type' => 'required',
-            'status' => 'required|in:Acknowledge, Accepted by manager, Approved,Cancelled',
+            'status' => 'required|in:Pending, Accepted by manager, Approved,Cancelled',
         ];
     }
 

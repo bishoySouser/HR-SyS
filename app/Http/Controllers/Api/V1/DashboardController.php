@@ -77,12 +77,12 @@ class DashboardController extends Controller
             ->get();
 
         $workFromHome = WorkFromHome::where('employee_id', $employeeId)
-            ->where('status', 'Acknowledge')
+            ->where('status', 'Pending')
             ->select('day as date', DB::raw("'Work from home' as type"))
             ->get();
 
         $excuses = Excuse::where('employee_id', $employeeId)
-            ->where('status', 'Acknowledge')
+            ->where('status', 'Pending')
             ->select('date', DB::raw("'Excuse' as type"))
             ->get();
 
