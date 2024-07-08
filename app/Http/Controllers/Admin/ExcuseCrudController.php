@@ -74,10 +74,32 @@ class ExcuseCrudController extends CrudController
             'model'     => "App\Models\Employee",
         ]);
 
-        CRUD::field('type');
+        CRUD::addField([
+            'name'        => 'type',
+            'label'       => 'type',
+            'type'        => 'select_from_array',
+            'options'     => [
+                'early_leave' => 'Early arrival',
+                'late_arrival' => 'Late arrival',
+            ],
+            'default'     => 'late_arrival'
+        ],);
         CRUD::field('reason');
-        CRUD::field('status');
-        CRUD::field('date');
+        CRUD::addField([
+            'name'        => 'status',
+            'label'       => 'Status',
+            'type'        => 'select_from_array',
+            'options'     => [
+                'Pending' => 'Pending',
+                'Accepted by manager' => 'Accepted by manager',
+                'Approved' => 'Approved',
+                'Cancelled' => 'Cancelled',
+            ],
+            'default'     => 'Pending'
+        ],);
+
+        CRUD::field('time')->type('time')->max(2);
+        CRUD::field('date')->type('date');
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:

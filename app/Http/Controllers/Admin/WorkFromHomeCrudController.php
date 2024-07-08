@@ -99,16 +99,36 @@ class WorkFromHomeCrudController extends CrudController
      */
     protected function setupUpdateOperation()
     {
-        $this->setupCreateOperation();
+        // $this->setupCreateOperation();
         CRUD::addField([
             'label'     => "Employee",
             'type' => 'select',
-            'name' => 'employee_id',
+            'name' => 'employee.fname',
             'entity'    => 'employee',
             'model'     => "App\Models\Employee",
+            'options'   => (function ($query) {
+                return $query->orderBy('full_name', 'ASC')->get();
+            }),
             'attributes' => [
                 'disabled'    => 'disabled',
+                'readonly'    => 'readonly',
               ],
         ]);
+
+        CRUD::field('day');
+        CRUD::field('employee_note');
+        // CRUD::field('status')->type('enum')->options(['Pending', 'Accepted by manager', 'Approved', 'Cancelled']);
+        CRUD::addField([
+            'name'        => 'status',
+            'label'       => 'Status',
+            'type'        => 'select_from_array',
+            'options'     => [
+                'Pending' => 'Pending',
+                'Accepted by manager' => 'Accepted by manager',
+                'Approved' => 'Approved',
+                'Cancelled' => 'Cancelled',
+            ],
+            'default'     => 'Pending'
+        ],);
     }
 }

@@ -25,8 +25,11 @@ class ExcuseRequest extends FormRequest
     public function rules()
     {
         return [
-            'type' => 'required',
-            'status' => 'required|in:Pending, Accepted by manager, Approved,Cancelled',
+            'type' => 'required|in:early_leave,late_arrival',
+            'time' => 'required|date_format:H:i|in:02:00',
+            'employee_id' => 'required|exists:employes,id',
+            'date' => 'required|date',
+            'status' => 'required|in:Pending,Accepted by manager,Approved,Cancelled',
         ];
     }
 
