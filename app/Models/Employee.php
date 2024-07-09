@@ -156,7 +156,7 @@ class Employee extends Authenticatable
             return asset('storage/' . $value);
         }
 
-        return $value;
+        return 'not found';
     }
     /*
     |--------------------------------------------------------------------------

@@ -32,7 +32,11 @@ class EventController extends Controller
             ->where('status', 'hr_approved')
             ->get()
             ->map(function ($vacation) {
-                return $vacation->balance->employee->fname ;
+                return [
+                    'picProfile' => $vacation->balance->employee->profile_pic,
+                    'name' => $vacation->balance->employee->fname,
+
+                ];
             });
 
         $holidays = Holiday::select('name')->where(function ($query) use ($date) {
@@ -45,14 +49,21 @@ class EventController extends Controller
             ->where('status', 'Approved')
             ->get()
             ->map(function ($workFromHome) {
-                return $workFromHome->employee->fname;
+                return [
+                    'name' => $workFromHome->employee->fname,
+                    'picProfile' => $workFromHome->employee->profile_pic
+
+                ];
             });
 
         $employees_birthdays = Employee::whereMonth('birthday', '=', date('m', strtotime($date)))
                     ->whereDay('birthday', '=', date('d', strtotime($date)))
                     ->get()
                     ->map(function ($employee) {
-                        return $employee->fname;
+                        return [
+                            'picProfile' => $employee->profile_pic,
+                            'name' => $employee->fname
+                        ];
                     });
 
         $employees_have_excuse = Excuse::with('employee')
@@ -62,6 +73,7 @@ class EventController extends Controller
                     ->map(function ($excuse) {
                         return [
                             'name' => $excuse->employee->fname,
+                            'picProfile' => $excuse->employee->profile_pic,
                             'type' => $excuse->type
                         ];
                     });
