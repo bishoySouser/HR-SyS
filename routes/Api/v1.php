@@ -40,6 +40,11 @@ Route::middleware('auth:sanctum')->group(function() {
         Route::get('', "ExcuseController@index");
     });
 
+    // Request all for team (manager)
+    Route::prefix('team')->middleware('manager')->group(function() {
+        Route::get('', "TeamController@index");
+    });
+
     // events
     Route::get('events', "EventController@index");
 

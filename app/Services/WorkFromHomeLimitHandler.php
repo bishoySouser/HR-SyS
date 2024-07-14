@@ -7,6 +7,8 @@ use Carbon\Carbon;
 
 class WorkFromHomeLimitHandler
 {
+    public $countRequests;
+    public $max_in_month = 2;
     /**
      * Check if the employee has reached the work from home limit for the current month.
      *
@@ -17,10 +19,10 @@ class WorkFromHomeLimitHandler
     {
         $currentMonth = Carbon::now()->month;
 
-        $workFromHomeCountThisMonth = $employee->workFromHomes()
+        $this->countRequests = $employee->workFromHomes()
             ->whereMonth('day', $currentMonth)
             ->count();
 
-        return $workFromHomeCountThisMonth >= 2;
+        return $this->countRequests >= 2;
     }
 }

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Insurance\SocialInsurance;
 use App\Models\Insurance\MedicalInsurance;
+use App\Services\WorkFromHomeLimitHandler;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -59,6 +60,11 @@ class Employee extends Authenticatable
     {
         return '<a class="btn btn-sm btn-link" target="_blank" href="'. url('admin/vacations') .'" data-toggle="tooltip" title="Just a demo custom button."><i class="
         la la-space-shuttle"></i> Vacations</a>';
+    }
+
+    public function isManager()
+    {
+        return $this->hasMany(Employee::class, 'manager_id')->count() > 0;
     }
 
     // public function resetPassword($crud = false)
@@ -157,6 +163,12 @@ class Employee extends Authenticatable
         }
 
         return 'not found';
+    }
+
+    public function getRequestCountForCurrentMonth()
+    {
+        $obj = new WorkFromHomeLimitHandler();
+        return $obj->max_in_month - $this->hasMany(WorkFromHome::class)->currentMonth()->count();
     }
     /*
     |--------------------------------------------------------------------------

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\ExcuseLimitService;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -82,4 +83,13 @@ class Excuse extends Model
     | MUTATORS
     |--------------------------------------------------------------------------
     */
+
+    protected function getRemainingsExcuseAttribute()
+    {
+        $excuseLimitService = new ExcuseLimitService($this->employee_id, now()->month, now()->year);
+        // return 'ss';
+        $seconds = $excuseLimitService->remainingSeconds();
+        $carbon = Carbon::createFromTimestamp($seconds);
+        return $carbon->diffInHours(Carbon::createFromTimestamp(0));
+    }
 }

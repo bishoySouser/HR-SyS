@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\WorkFromHomeLimitHandler;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -52,6 +53,12 @@ class WorkFromHome extends Model
     |--------------------------------------------------------------------------
     */
 
+    public function scopeCurrentMonth($query)
+    {
+        return $query->whereMonth('day', Carbon::now()->month)
+                     ->whereYear('day', Carbon::now()->year)->where('status', 'Approved');
+    }
+
     /*
     |--------------------------------------------------------------------------
     | ACCESSORS
@@ -67,4 +74,5 @@ class WorkFromHome extends Model
     | MUTATORS
     |--------------------------------------------------------------------------
     */
+
 }
