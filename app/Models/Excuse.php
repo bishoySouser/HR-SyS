@@ -67,16 +67,16 @@ class Excuse extends Model
     | ACCESSORS
     |--------------------------------------------------------------------------
     */
-    /**
-     * Prepare a date for array / mass assignment.
-     *
-     * @param  string  $value
-     * @return string|null
-     */
-    protected function setDateAttribute($value)
-    {
-        $this->attributes['date'] = Carbon::parse($value)->format('Y-m-d');
-    }
+    // /**
+    //  * Prepare a date for array / mass assignment.
+    //  *
+    //  * @param  string  $value
+    //  * @return string|null
+    //  */
+    // protected function setDateAttribute($value)
+    // {
+    //     $this->attributes['date'] = Carbon::parse($value)->format('Y-m-d');
+    // }
 
     /*
     |--------------------------------------------------------------------------
@@ -87,7 +87,7 @@ class Excuse extends Model
     protected function getRemainingsExcuseAttribute()
     {
         $excuseLimitService = new ExcuseLimitService($this->employee_id, now()->month, now()->year);
-        // return 'ss';
+
         $seconds = $excuseLimitService->remainingSeconds();
         $carbon = Carbon::createFromTimestamp($seconds);
         return $carbon->diffInHours(Carbon::createFromTimestamp(0));

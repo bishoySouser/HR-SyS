@@ -99,7 +99,7 @@ class ExcuseCrudController extends CrudController
         ],);
 
         CRUD::field('time')->type('time')->max(2);
-        CRUD::field('date')->type('date');
+        CRUD::field('date');
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:

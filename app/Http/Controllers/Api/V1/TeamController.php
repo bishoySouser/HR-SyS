@@ -3,6 +3,14 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\V1\UpdateTeamRequest;
+use App\Http\Resources\V1\ExcuseResource;
+use App\Http\Resources\V1\VacationResource;
+use App\Http\Resources\V1\WorkFromHomeResource;
+use App\Jobs\V1\UpdateExcuseRequest;
+use App\Jobs\V1\UpdateTimeOffRequest;
+use App\Jobs\V1\UpdateWorkFromHomeRequest;
+use App\Jobs\V1\UpdateWorkFromRequest;
 use App\Models\Employee;
 use App\Models\Excuse;
 use App\Models\Vacation;
@@ -78,8 +86,11 @@ class TeamController extends Controller
         return response()->json($formattedRequests);
     }
 
-    public function updateStatus(Request $request)
+    public function updateTeamRequest(UpdateTeamRequest $request)
     {
+        $manager = auth()->user();
+
+
         $response = [
             'status' => true,
             'status_code' => 422,
@@ -87,7 +98,36 @@ class TeamController extends Controller
             'data' => []
         ];
 
-        return response()->json($response, 422);
+        try {
+            $requestData = null;
+
+            switch ($request->type) {
+                case 'WORK FROM HOME':
+                    UpdateWorkFromHomeRequest::dispatch($request->id, $request->action, $manager->id);
+                    $requestData = new WorkFromHomeResource( WorkFromHome::findOrFail($request->id) );
+                    break;
+                case 'EXCUSE':
+                    UpdateExcuseRequest::dispatch($request->id, $request->action, $manager->id);
+                    $requestData = new ExcuseResource( Excuse::findOrFail($request->id) );
+                    break;
+                case 'TIME OFF':
+                    UpdateTimeOffRequest::dispatch($request->id, $request->action, $manager->id);
+                    $requestData = new VacationResource( Vacation::findOrFail($request->id) );
+                    break;
+                default:
+                    return response()->json(['error' => 'Invalid request type'], 400);
+            }
+
+            return response()->json([
+                'status' => true,
+                'status_code' => 201,
+                'message' => "Request has been queued for processing.",
+                'data' => $requestData
+            ], 201);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 400);
+        }
+
     }
 
 }
