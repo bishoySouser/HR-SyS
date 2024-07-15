@@ -43,6 +43,7 @@ Route::middleware('auth:sanctum')->group(function() {
     // Request all for team (manager)
     Route::prefix('team')->middleware('manager')->group(function() {
         Route::get('', "TeamController@index");
+        Route::patch('', "TeamController@updateStatus");
     });
 
     // events

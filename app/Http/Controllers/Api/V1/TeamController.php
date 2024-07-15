@@ -41,38 +41,53 @@ class TeamController extends Controller
         foreach ($excuses as $excuse) {
 
             $formattedRequests[] = [
-                'id' => $excuse->employee->id,
+                'id' => $excuse->id,
+                'empID' => $excuse->employee->id,
                 'name' => $excuse->employee->full_name,
                 'type' => 'EXCUSE',
                 'date' => Carbon::parse($excuse->date)->format('D , F d,Y'),
                 'details' => $excuse->type == 'early_leave' ? "Early Leave $excuse->time Hours" : "Late Arrival $excuse->time Hours",
-                'remaining' => "$excuse->remainingsExcuse",
+                'remaining' => "Excuses: $excuse->remainingsExcuse Remaining",
             ];
         }
 
         foreach ($workFromHome as $wfh) {
 
             $formattedRequests[] = [
-                'id' => $wfh->employee->id,
+                'id' => $wfh->id,
+                'empID' => $wfh->employee->id,
                 'name' => $wfh->employee->full_name,
                 'type' => 'WORK FROM HOME',
                 'date' => Carbon::parse($wfh->day)->format('D , F d,Y'),
-                'remaining' => $wfh->employee->getRequestCountForCurrentMonth(),
+                'remaining' => "Work From Home Requests: " . $wfh->employee->getRequestCountForCurrentMonth(),
             ];
         }
 
         foreach ($vacations as $vacation) {
             $formattedRequests[] = [
-                'id' => $vacation->balance->employee->id,
+                'id' => $vacation->id,
+                'empID' => $vacation->balance->employee->id,
                 'name' => $vacation->balance->employee->full_name,
                 'type' => 'TIME OFF',
-                'to' => Carbon::parse($vacation->start_date)->format('D , F d,Y'),
+                'from' => Carbon::parse($vacation->start_date)->format('D , F d,Y'),
                 'to' => Carbon::parse($vacation->end_date)->format('D , F d,Y'),
-                'remaining' => $vacation->balance->remaining_days,
+                'remaining' => "Vacation Requests: " . $vacation->balance->remaining_days,
             ];
         }
 
         return response()->json($formattedRequests);
+    }
+
+    public function updateStatus(Request $request)
+    {
+        $response = [
+            'status' => true,
+            'status_code' => 422,
+            'message' => 'Update',
+            'data' => []
+        ];
+
+        return response()->json($response, 422);
     }
 
 }
