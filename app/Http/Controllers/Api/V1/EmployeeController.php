@@ -21,7 +21,7 @@ class EmployeeController extends Controller
                 'id' => $employee->id,
                 'parentId' => $employee->manager_id ?: null, // Assuming you have a manager_id field
                 'fullName' => $employee->full_name,
-                'jobTitle' => $employee->job_title,
+                'jobTitle' => $employee->job->title,
                 'email' => $employee->email,
                 'phone' => $employee->phone_number,
                 'image' => $employee->profile_pic,
