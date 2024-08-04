@@ -38,10 +38,16 @@ class User extends Controller
 
         $token = $user->createToken($user->name.'-AuthToken')->plainTextToken;
 
+        $data = [
+            'firstName' => $user->fname,
+            'profileImp' => $user->profile_pic
+        ];
+
         return response()->json([
             'access_token' => $token,
             'token_type' => 'Bearer',
-            'isManager' => $user->isManager()
+            'isManager' => $user->isManager(),
+            'data' => $data
         ]);
     }
 
