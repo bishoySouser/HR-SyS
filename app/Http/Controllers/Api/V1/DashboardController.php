@@ -58,6 +58,7 @@ class DashboardController extends Controller
             'employee_info' => $employeeInfo,
             'work_from_home_days_left' => $workFromHomeDaysLeft,
             'nearest_holiday' => $nearestHoliday,
+            'time' => date("h:i:sa")
         ];
 
         return response()->json([
