@@ -49,6 +49,7 @@ class DashboardController extends Controller
 
         $nearestHoliday = $this->getNearestHoliday();
 
+        date_default_timezone_set('Africa/Cairo');
         $data = [
             'todayDate' => $today->format('d M Y'),
             'username' => $user->fname,
