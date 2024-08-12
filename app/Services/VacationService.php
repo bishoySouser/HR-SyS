@@ -38,4 +38,13 @@ class VacationService
         $leaveBalance->remaining_days -= $vacation->duration;
         $leaveBalance->save();
     }
+
+    public function hasPendingVacation($userId)
+    {
+        return Vacation::whereHas('balance', function ($query) use ($userId) {
+            $query->where('employee_id', $userId);
+        })
+        ->where('status', 'pending')
+        ->exists();
+    }
 }

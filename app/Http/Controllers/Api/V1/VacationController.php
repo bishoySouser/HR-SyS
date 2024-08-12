@@ -10,6 +10,7 @@ use App\Models\Vacation;
 use App\Services\VacationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Response;
 
 class VacationController extends Controller
 {
@@ -45,6 +46,15 @@ class VacationController extends Controller
      */
     public function store(StoreVacationRequest $request)
     {
+        $user = Auth::user();
+
+        if ($this->vacationService->hasPendingVacation($user->id)) {
+            return response()->json([
+                'status' => false,
+                'status_code' => Response::HTTP_UNPROCESSABLE_ENTITY,
+                'message' => 'You already have a pending vacation request.',
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
 
         $balance_id = $this->vacationService->getBalanceIdForCurrentYear();
 
