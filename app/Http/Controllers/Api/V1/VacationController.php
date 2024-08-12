@@ -46,28 +46,22 @@ class VacationController extends Controller
      */
     public function store(StoreVacationRequest $request)
     {
-        $user = Auth::user();
+        try {
+            $vacation = $this->vacationService->createVacation($request->validated());
 
-        if ($this->vacationService->hasPendingVacation($user->id)) {
+            return response()->json([
+                'status' => true,
+                'status_code' => 201,
+                'message' => 'Vacation request submitted successfully',
+                'data' => new VacationResource($vacation)
+            ], 201);
+        } catch (\Exception $e) {
             return response()->json([
                 'status' => false,
-                'status_code' => Response::HTTP_UNPROCESSABLE_ENTITY,
-                'message' => 'You already have a pending vacation request.',
-            ], Response::HTTP_UNPROCESSABLE_ENTITY);
+                'status_code' => 422,
+                'message' => $e->getMessage(),
+            ], 422);
         }
-
-        $balance_id = $this->vacationService->getBalanceIdForCurrentYear();
-
-        $data_to_create = [...$request->all(), 'balance_id' => $balance_id];
-
-        $vacation = Vacation::create($data_to_create);
-
-        return response()->json([
-            'status' => true,
-            'status_code' => 201,
-            'message' => 'Vacation request submitted successfully',
-            'data' => new VacationResource($vacation)
-        ], 201);
     }
 
 }

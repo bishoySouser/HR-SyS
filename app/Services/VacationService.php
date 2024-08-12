@@ -10,26 +10,34 @@ use Illuminate\Support\Facades\Auth;
 
 class VacationService
 {
-    public function getBalanceIdForCurrentYear()
+    public function getBalanceForCurrentYear()
     {
         $user = Auth::user();
         $currentYear = Carbon::now()->year;
 
-        $leaveBalance = VacationBalance::where('employee_id', $user->id)
+        return VacationBalance::where('employee_id', $user->id)
             ->where('year', $currentYear)
             ->first();
+    }
 
-        if (!$leaveBalance) {
-            // Handle the case when the leave balance is not found for the current year
-            // For example, you could create a new record with default values
-            $leaveBalance = VacationBalance::create([
-                'employee_id' => $user->id,
-                'year' => $currentYear,
-                'remaining_days' => 21, // Set the default remaining days as needed
-            ]);
+    public function canRequestVacation($requestedDays)
+    {
+        $user = Auth::user();
+        $balance = $this->getBalanceForCurrentYear();
+
+        if (!$balance) {
+            return [false, 'No balance found. Please check with HR.'];
         }
 
-        return $leaveBalance->id;
+        if ($this->hasPendingVacation($user->id)) {
+            return [false, 'You already have a pending vacation request.'];
+        }
+
+        if (!$this->hasEnoughBalance($balance, $requestedDays)) {
+            return [false, 'Insufficient balance for the requested vacation days.'];
+        }
+
+        return [true, ''];
     }
 
     public function handleHrApproval(Vacation $vacation)
@@ -46,5 +54,34 @@ class VacationService
         })
         ->where('status', 'pending')
         ->exists();
+    }
+
+    private function hasEnoughBalance(VacationBalance $balance, $requestedDays)
+    {
+        return $balance->remaining_days >= $requestedDays;
+    }
+
+    public function createVacation(array $data)
+    {
+        $user = Auth::user();
+        $balance = $this->getBalanceForCurrentYear();
+
+        if (!$balance) {
+            throw new \Exception('No balance found. Please check with HR.');
+        }
+
+        [$canRequest, $message] = $this->canRequestVacation($data['duration']);
+
+        if (!$canRequest) {
+            throw new \Exception($message);
+        }
+
+        return Vacation::create([
+            'balance_id' => $balance->id,
+            'start_date' => $data['start_date'],
+            'end_date' => $data['end_date'],
+            'duration' => $data['duration'],
+            'status' => 'pending',
+        ]);
     }
 }

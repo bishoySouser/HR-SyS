@@ -58,6 +58,10 @@ class VacationBalance extends Model
     | SCOPES
     |--------------------------------------------------------------------------
     */
+    public function scopeCurrentYear($query)
+    {
+        return $query->where('year', now()->year);
+    }
 
     /*
     |--------------------------------------------------------------------------
@@ -70,4 +74,17 @@ class VacationBalance extends Model
     | MUTATORS
     |--------------------------------------------------------------------------
     */
+    protected function usedDays(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                return $this->vacations()->where('status', 'approved')->sum('duration');
+            }
+        );
+    }
+
+    public function hasEnoughBalance($requestedDays)
+    {
+        return $this->remaining_days >= $requestedDays;
+    }
 }
