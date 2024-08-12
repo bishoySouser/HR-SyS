@@ -6,6 +6,7 @@ use App\Models\Vacation;
 use App\Models\VacationBalance;
 use App\Mail\VacationRejectionNotification;
 use App\Mail\VacationApprovalNotification;
+use App\Mail\VacationRequestNotification;
 use Illuminate\Support\Facades\Mail;
 
 class VacationObserver
@@ -14,6 +15,12 @@ class VacationObserver
     /**
      * Handle the Vacation "updated" event.
      */
+    public function created(Vacation $vacation): void
+    {
+        echo "ss";
+        $this->sendRequestNotificationToManager($vacation);
+    }
+
     public function updated(Vacation $vacation): void
     {
         $oldStatus = $vacation->getOriginal('status');
@@ -61,6 +68,17 @@ class VacationObserver
         $employee = $vacation->balance->employee;
         $remainingDays = $vacation->balance->remaining_days;
         Mail::to($employee->email)->send(new VacationApprovalNotification($vacation, $remainingDays));
+    }
+
+    private function sendRequestNotificationToManager(Vacation $vacation)
+    {
+        $employee = $vacation->balance->employee;
+        // $department = $employee->department;
+        $manager = $employee->manager;
+
+        // if ($manager) {
+            Mail::to($manager->email)->send(new VacationRequestNotification($vacation));
+        // }
     }
 
 
