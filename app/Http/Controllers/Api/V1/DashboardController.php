@@ -20,7 +20,7 @@ class DashboardController extends Controller
      */
     public function index(Request $request)
     {
-        $user = auth()->user();
+        $user = auth()->guard('api')->user();
         $today = Carbon::now();
         $currentYear = $today->year;
         $currentMonth = $today->month;
