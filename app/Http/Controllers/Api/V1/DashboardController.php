@@ -69,7 +69,8 @@ class DashboardController extends Controller
             'status_code' => 200,
             'message' => 'dashboard information',
             'data' => $data,
-            'token' => $token
+            'token' => $token,
+            'user' => $user
         ],200);
     }
 
