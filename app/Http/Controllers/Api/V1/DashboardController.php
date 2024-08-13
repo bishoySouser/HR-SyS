@@ -62,7 +62,7 @@ class DashboardController extends Controller
             'time' => date("h:i:sa")
         ];
 
-        $token = $user->createToken('auth_token')->plainTextToken;
+        $token = $request->bearerToken();
 
         return response()->json([
             'status' => true,
