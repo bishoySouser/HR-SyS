@@ -62,11 +62,14 @@ class DashboardController extends Controller
             'time' => date("h:i:sa")
         ];
 
+        $requestAll = $request->all();
+
         return response()->json([
             'status' => true,
             'status_code' => 200,
             'message' => 'dashboard information',
-            'data' => $data
+            'data' => $data,
+            'requestAll' => $requestAll
         ],200);
     }
 
