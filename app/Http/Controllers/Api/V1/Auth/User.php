@@ -36,7 +36,7 @@ class User extends Controller
             ], 401);
         }
 
-        $token = $user->createToken($user->name.'-AuthToken')->plainTextToken;
+        $token = $user->createToken('api-token')->plainTextToken;
 
         $data = [
             'firstName' => $user->fname,

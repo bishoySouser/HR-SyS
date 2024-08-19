@@ -126,10 +126,7 @@ return [
     |
     */
 
-    'cookie' => env(
-        'SESSION_COOKIE',
-        Str::slug(env('APP_NAME', 'laravel'), '_').'_session'
-    ),
+    'cookie' => env('SESSION_NAME_WEB', 'bsocial_web_session'),
 
     /*
     |--------------------------------------------------------------------------
@@ -197,5 +194,14 @@ return [
     */
 
     'same_site' => 'lax',
+
+    'api' => [
+        'driver' => 'array',
+        'lifetime' => 120,
+    ],
+    'web' => [
+        'driver' => 'file',
+        'lifetime' => 120,
+    ],
 
 ];
