@@ -40,9 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-        'api' => [
-            'driver' => 'sanctum',
-            'provider' => 'employees', // Change this if needed
+
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'users',
         ],
 
         'employee' => [
