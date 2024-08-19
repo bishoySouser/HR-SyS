@@ -17,7 +17,6 @@ class VacationObserver
      */
     public function created(Vacation $vacation): void
     {
-        echo "ss";
         $this->sendRequestNotificationToManager($vacation);
     }
 
