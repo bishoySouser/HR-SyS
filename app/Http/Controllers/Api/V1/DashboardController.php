@@ -20,6 +20,7 @@ class DashboardController extends Controller
      */
     public function index(Request $request)
     {
+        \Log::info('Session data: ', session()->all());
         $user = auth()->guard('api')->user();
         $today = Carbon::now();
         $currentYear = $today->year;
