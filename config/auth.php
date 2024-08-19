@@ -44,6 +44,11 @@ return [
             'driver' => 'sanctum',
             'provider' => 'employees', // Change this if needed
         ],
+
+        'employee' => [
+            'driver' => 'sanctum',
+            'provider' => 'employees',
+        ],
     ],
 
     /*
