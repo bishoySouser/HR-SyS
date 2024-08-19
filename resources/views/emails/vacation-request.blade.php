@@ -1,4 +1,4 @@
-<h1>New Vacation Request</h1>
+<h1>{{$vacation->balance->employee->fname}} - Vacation Request</h1>
 
 <p>Employee {{ $vacation->balance->employee->full_name }} has requested a vacation:</p>
 

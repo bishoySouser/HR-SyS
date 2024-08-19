@@ -25,7 +25,7 @@ class VacationRequestNotification extends Mailable
 
     public function build()
     {
-        return $this->subject('New Vacation Request')
+        return $this->subject($this->vacation->employee->fname.' - Vacation Request')
                     ->view('emails.vacation-request');
     }
 
