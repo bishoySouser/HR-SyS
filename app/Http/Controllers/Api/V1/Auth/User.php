@@ -13,7 +13,6 @@ class User extends Controller
 {
     public function login(Request $request)
     {
-        return "sss";
         $loginUserData = Validator::make($request->all(), [
             'email' => 'required|string|email',
             'password' => 'required|min:8',
