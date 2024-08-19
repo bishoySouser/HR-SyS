@@ -287,7 +287,7 @@ return [
     // The guard that protects the Backpack admin panel.
     // If null, the config.auth.defaults.guard value will be used.
     // 'guard' => 'backpack',
-    'guard' => null,
+    'guard' => 'admin',
 
     // The password reset configuration for Backpack.
     // If null, the config.auth.defaults.passwords value will be used.

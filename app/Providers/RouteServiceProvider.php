@@ -43,7 +43,7 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
 
-            Route::middleware(['web', \App\Http\Middleware\AdminSession::class])
+            Route::middleware(['web'])
                 ->prefix('adminPanel')
                 ->group(base_path('routes/admin.php'));
         });

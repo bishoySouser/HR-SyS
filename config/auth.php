@@ -40,7 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'users',
+        ],
         'api' => [
             'driver' => 'sanctum',
             'provider' => 'employees', // Change this if needed
@@ -69,7 +72,6 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
-
         'employees' => [
             'driver' => 'eloquent',
             'model' => App\Models\Employee::class,
