@@ -5,10 +5,11 @@ namespace App\Services;
 use App\Models\LeaveBalance;
 use App\Models\Vacation;
 use App\Models\VacationBalance;
+use App\Services\Interfaces\LeaveRequestInterface;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
-class VacationService
+class VacationService implements LeaveRequestInterface
 {
     public function getBalanceForCurrentYear()
     {
@@ -20,7 +21,7 @@ class VacationService
             ->first();
     }
 
-    public function canRequestVacation($requestedDays)
+    public function canRequest($requestedDays): array
     {
         $user = Auth::user();
         $balance = $this->getBalanceForCurrentYear();
@@ -29,7 +30,7 @@ class VacationService
             return [false, 'No balance found. Please check with HR.'];
         }
 
-        if ($this->hasPendingVacation($user->id)) {
+        if ($this->hasPending($user->id)) {
             return [false, 'You already have a pending vacation request.'];
         }
 
@@ -47,10 +48,10 @@ class VacationService
         $leaveBalance->save();
     }
 
-    public function hasPendingVacation($userId)
+    public function hasPending($employeeId): bool
     {
-        return Vacation::whereHas('balance', function ($query) use ($userId) {
-            $query->where('employee_id', $userId);
+        return Vacation::whereHas('balance', function ($query) use ($employeeId) {
+            $query->where('employee_id', $employeeId);
         })
         ->where('status', 'pending')
         ->exists();
@@ -70,7 +71,7 @@ class VacationService
             throw new \Exception('No balance found. Please check with HR.');
         }
 
-        [$canRequest, $message] = $this->canRequestVacation($data['duration']);
+        [$canRequest, $message] = $this->canRequest($data['duration']);
 
         if (!$canRequest) {
             throw new \Exception($message);
