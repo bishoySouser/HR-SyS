@@ -73,10 +73,10 @@ class Excuse extends Model
     //  * @param  string  $value
     //  * @return string|null
     //  */
-    // protected function setDateAttribute($value)
-    // {
-    //     $this->attributes['date'] = Carbon::parse($value)->format('Y-m-d');
-    // }
+    protected function setDateAttribute($value)
+    {
+        $this->attributes['date'] = Carbon::parse($value)->format('Y-m-d');
+    }
 
     /*
     |--------------------------------------------------------------------------

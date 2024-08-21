@@ -16,6 +16,7 @@ class WorkFromHomeService implements LeaveRequestInterface
     public function canRequest($requestData): array
     {
         $employee = Employee::findOrFail($requestData['employee_id']);
+        $duration = Employee::findOrFail($requestData['employee_id']);
 
         if ($this->hasPending($employee->id)) {
             return [false, 'You already have a pending Work from home request.'];

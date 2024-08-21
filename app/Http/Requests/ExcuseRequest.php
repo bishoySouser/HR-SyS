@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Rules\TimeRange;
 
 class ExcuseRequest extends FormRequest
 {
@@ -26,7 +27,7 @@ class ExcuseRequest extends FormRequest
     {
         return [
             'type' => 'required|in:early_leave,late_arrival',
-            'time' => 'required|date_format:H:i|in:02:00',
+            'time' => ['required', 'date_format:H:i', new TimeRange()],
             'employee_id' => 'required|exists:employes,id',
             'date' => 'required|date',
             'status' => 'required|in:Pending,Accepted by manager,Approved,Cancelled',

@@ -13,40 +13,57 @@ use Illuminate\Support\Facades\Auth;
 
 class ExcuseController extends Controller
 {
+    protected $excuseLimitService;
+
+    public function __construct(ExcuseLimitService $excuseLimitService)
+    {
+        $this->excuseLimitService = $excuseLimitService;
+    }
+
     public function index()
     {
-        $user = auth()->user(); // More concise way to get authenticated user
+        $user = auth()->user();
 
         $excuses = $user->excuses()
-                    ->with('employee') // Eager load related employee data
-                    ->latest() // Order by latest creation date
-                    ->paginate(10); // Paginate results for efficiency
+                    ->with('employee')
+                    ->latest()
+                    ->paginate(10);
 
         return response()->json([
             'status' => true,
             'status_code' => 200,
             'message' => 'Excuses list of employee',
             'data' => new ExcuseCollection($excuses)
-        ],200);
+        ], 200);
     }
 
     public function store(StoreExcuseRequest $request)
     {
-        $employee_id = Auth::id();
+        $employee = auth()->user();
         $excuseTimeSeconds = TimeConverter::convertTimeToSeconds($request->input('time'));
 
-        $excuseLimitService = new ExcuseLimitService($employee_id, now()->month, now()->year);
+        $requestData = [
+            'employee_id' => $employee->id,
+            'date' => $request->date,
+            'duration' => $excuseTimeSeconds
+        ];
 
-        if ($excuseLimitService->exceedsMonthlyLimit($excuseTimeSeconds)) {
+        [$canRequest, $message] = $this->excuseLimitService->canRequest($requestData);
+
+        if (!$canRequest) {
             return response()->json([
                 'status' => false,
                 'status_code' => 422,
-                'message' => 'Excuse limit exceeded for this month. You have ' . $excuseLimitService->remainingSeconds() . ' seconds remaining',
+                'message' => $message,
                 'data' => []
             ], 422);
         }
-
-        $data_to_create = [...$request->all(), 'employee_id' => $employee_id, 'status' => 'Pending'];
+        // print_r($request->all());
+        $data_to_create = [
+            ...$request->all(),
+            'employee_id' => $employee->id,
+            'status' => 'Pending'
+        ];
 
         $excuse = Excuse::create($data_to_create);
 
@@ -56,6 +73,5 @@ class ExcuseController extends Controller
             'message' => 'Excuse request submitted successfully',
             'data' => new ExcuseResource($excuse)
         ], 201);
-
     }
 }
