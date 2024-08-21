@@ -8,6 +8,8 @@ use App\Observers\EmployeeObserver;
 use App\Observers\EventObserver;
 use App\Models\Vacation;
 use App\Observers\VacationObserver;
+use App\Models\WorkFromHome;
+use App\Observers\WorkFromHomeObserver;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -27,8 +29,9 @@ class AppServiceProvider extends ServiceProvider
     {
         // parent::boot();
 
-        // Employee::observe(EmployeeObserver::class);
-        // Event::observe(EventObserver::class);
+        Employee::observe(EmployeeObserver::class);
+        Event::observe(EventObserver::class);
         Vacation::observe(VacationObserver::class);
+        WorkFromHome::observe(WorkFromHomeObserver::class);
     }
 }

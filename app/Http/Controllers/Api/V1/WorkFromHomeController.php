@@ -8,24 +8,30 @@ use App\Http\Resources\V1\WorkFromHomeCollection;
 use App\Http\Resources\V1\WorkFromHomeResource;
 use App\Models\Employee;
 use App\Models\WorkFromHome;
+use App\Services\WorkFromHomeService;
 use App\Services\WorkFromHomeLimitHandler;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
 class WorkFromHomeController extends Controller
 {
+    protected $workFromHomeService;
+
+    public function __construct(WorkFromHomeService $workFromHomeService)
+    {
+        $this->workFromHomeService = $workFromHomeService;
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $user = auth()->user(); // More concise way to get authenticated user
+        $user = auth()->user();
 
         $list = $user->workFromHomes()
-                    ->with('employee') // Eager load related employee data
-                    ->latest() // Order by latest creation date
-                    ->paginate(10); // Paginate results for efficiency
+                    ->with('employee')
+                    ->latest()
+                    ->paginate(10);
 
         return response()->json([
             'status' => true,
@@ -41,25 +47,29 @@ class WorkFromHomeController extends Controller
     public function store(StoreWorkFromHomeRequest $request)
     {
         $employee = Employee::find(auth()->user()->id);
-        $limitHandler = new WorkFromHomeLimitHandler();
 
-        // Check if the employee has already submitted 2 work from home requests for the current month
-        $currentMonth = Carbon::now()->month;
-        $workFromHomeCountThisMonth = $employee->workFromHomes()
-            ->whereMonth('day', $currentMonth)
-            ->count();
+        // Check if the employee can request work from home
+        $requestData = [
+            'employee_id' => $employee->id,
+            'day' => $request->input('day')
+        ];
 
-        // Check if the employee has reached the work from home limit
-        if ($limitHandler->hasReachedLimit($employee)) {
+        [$canRequest, $message] = $this->workFromHomeService->canRequest($requestData);
+
+        if (!$canRequest) {
             return response()->json([
                 'status' => false,
                 'status_code' => 422,
-                'message' => 'You have already submitted the maximum number of work from home requests for this month.',
+                'message' => $message,
                 'data' => []
             ], 422);
         }
 
-        $data_to_create = [...$request->all(), 'employee_id' => $employee->id, 'status' => 'Pending'];
+        $data_to_create = [
+            ...$request->all(),
+            'employee_id' => $employee->id,
+            'status' => 'Pending'
+        ];
 
         $workFromHome = WorkFromHome::create($data_to_create);
 
@@ -69,6 +79,5 @@ class WorkFromHomeController extends Controller
             'message' => 'Work from home request submitted successfully',
             'data' => new WorkFromHomeResource($workFromHome)
         ], 201);
-
     }
 }
