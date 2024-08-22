@@ -38,8 +38,8 @@ class AdminController extends Controller
         $employees = Employee::count();
 
         $newcomers = Employee::with('department')
-                                ->select('full_name', 'department_id', 'email', DB::raw("DATE_FORMAT(hire_date, '%M %d,%Y') as hire_date"))
-                                ->orderBy('hire_date', 'desc')
+                                ->select('id', 'full_name', 'department_id', 'email', DB::raw("DATE_FORMAT(hire_date, '%M %d,%Y') as hire_date_format", 'hire_date'))
+                                ->orderBy('hire_date', 'DESC')
                                 ->take(5)
                                 ->get();
 

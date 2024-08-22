@@ -62,8 +62,8 @@
                 @foreach ($newcomers as $item)
                     <tr>
                         <td>
-                            <div> {{ $item->full_name }} </div>
-                            <div class="small text-muted">Hire date: {{ $item->hire_date }}</div>
+                           <a href="{{ route('employee.show', [$item->id]) }}" target="_blank"> <div> {{ $item->full_name }} </div> </a>
+                            <div class="small text-muted">Hire date: {{ $item->hire_date_format }}</div>
                         </td>
                         <td class="text-center">
                             <div>{{ $item->email }}</div>
