@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Admin\Vacations;
 
 use App\Http\Requests\VacationBalanceRequest;
+use App\Models\VacationBalance;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Alert;
+
 
 /**
  * Class VacationBalanceCrudController
@@ -16,7 +19,7 @@ class VacationBalanceCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation { destroy as traitDestroy; }
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
     use \App\Traits\CrudPermissionTrait;
 
@@ -139,5 +142,22 @@ class VacationBalanceCrudController extends CrudController
     protected function setupUpdateOperation()
     {
         $this->setupCreateOperation();
+    }
+
+    public function destroy($id)
+    {
+
+        $this->crud->hasAccessOrFail('delete');
+
+        try {
+            $response = $this->crud->delete($id);
+
+            return $response;
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'Delete failed',
+                'message' => $e->getMessage()
+            ], 422);
+        }
     }
 }
