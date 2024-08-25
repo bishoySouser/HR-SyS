@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Insurance\SocialInsurance;
 use App\Models\Insurance\MedicalInsurance;
 use App\Services\WorkFromHomeLimitHandler;
+use App\Services\WorkFromHomeService;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -167,7 +168,7 @@ class Employee extends Authenticatable
 
     public function getRequestCountForCurrentMonth()
     {
-        $obj = new WorkFromHomeLimitHandler();
+        $obj = new WorkFromHomeService();
         return $obj->max_in_month - $this->hasMany(WorkFromHome::class)->currentMonth()->count();
     }
     /*
