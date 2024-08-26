@@ -22,6 +22,7 @@
     <li class="nav-item"><a class="nav-link" href="{{ backpack_url('department') }}"><i class="nav-icon la la-building"></i> Departments</a></li>
     <li class="nav-item"><a class="nav-link" href="{{ backpack_url('job') }}"><i class="nav-icon la la-briefcase"></i> Jobs</a></li>
     <li class="nav-item"><a class="nav-link" href="{{ backpack_url('employee') }}"><i class="nav-icon la la-male"></i> Employees</a></li>
+    <li class="nav-item"><a class="nav-link" href="{{ backpack_url('trashed-employee') }}"><i class="nav-icon la la-trash" style="color: red;"></i> Trashed Employees</a></li>
 </ul>
 
 <!-- Vacation and Attendance Section -->
