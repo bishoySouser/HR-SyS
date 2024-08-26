@@ -34,6 +34,7 @@ class WorkFromHomeRequestNotification extends Notification
                         ->line('Request Details:')
                         ->line('Employee Name: ' . $this->workFromHome->employee->full_name)
                         ->line('Requested Date: ' . \Carbon\Carbon::parse($this->workFromHome->day)->format('d-m-Y'))
+                        ->action('Review Request', config('app.url_employee').'/requests')
                         ->line('Thank you for reviewing this request.');
     }
 

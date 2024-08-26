@@ -29,6 +29,7 @@ class ExcuseRequestNotification extends Notification
                     ->subject('New Excuse Request')
                     ->line('A new excuse request has been submitted by ' . $this->excuse->employee->full_name)
                     ->line('Date: ' . $this->excuse->date)
-                    ->line('Time: ' . $this->excuse->time);
+                    ->line('Time: ' . $this->excuse->time)
+                    ->action('Review Request', config('app.url_employee').'/requests');
     }
 }

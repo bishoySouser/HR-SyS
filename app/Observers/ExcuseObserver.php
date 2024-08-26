@@ -30,16 +30,16 @@ class ExcuseObserver
      * @param  \App\Models\Excuse  $excuse
      * @return void
      */
-    // public function updated(Excuse $excuse)
-    // {
-    //     // If the status is approved, send an email to HR
-    //     // if ($excuse->status === 'Approved') {
-    //     //     Mail::to('hr@example.com')->send(new ExcuseApprovalMail($excuse));
-    //     // }
+    public function updated(Excuse $excuse)
+    {
+        // If the status is approved, send an email to HR
+        // if ($excuse->status === 'Approved') {
+        //     Mail::to('hr@example.com')->send(new ExcuseApprovalMail($excuse));
+        // }
 
-    //     // If the status is approved or cancelled, send an email to the employee
-    //     if ($excuse->status === 'Approved' || $excuse->status === 'Cancelled') {
-    //         Mail::to($excuse->employee->email)->send(new ExcuseStatusMail($excuse));
-    //     }
-    // }
+        // If the status is approved or cancelled, send an email to the employee
+        if ($excuse->status === 'Approved' || $excuse->status === 'Cancelled') {
+            Mail::to($excuse->employee->email)->send(new ExcuseStatusMail($excuse));
+        }
+    }
 }
