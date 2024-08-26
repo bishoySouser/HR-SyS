@@ -57,8 +57,7 @@ class ExcuseLimitService implements LeaveRequestInterface
             ->get();
 
         $monthRequests = $requestsPerMonth->firstWhere('month', $month);
-        print_r($monthRequests->request_count);
-        print_r($excuseTimeInSeconds);
+
         return $monthRequests->request_count + $excuseTimeInSeconds > static::$LIMIT;
     }
 
