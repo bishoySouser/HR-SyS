@@ -9,3 +9,4 @@
 </ul>
 
 <p>Please review and approve/reject this request.</p>
+<p>Url: <a href="{{config('app.url_employee').'/requests'}}">link</p>

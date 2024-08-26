@@ -56,6 +56,7 @@ return [
     */
 
     'url' => env('APP_URL', 'http://localhost'),
+    'url_employee' => 'https://apps.bsocial-eg.com/NEW_HR_SYSTEM',
 
     'asset_url' => env('ASSET_URL'),
 
