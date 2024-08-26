@@ -119,11 +119,11 @@ class VacationBalanceCrudController extends CrudController
             'min' => '1',
         ]);
 
-        CRUD::addField([
-            'name' => 'expiry_date',
-            'type' => 'date',
-            'label' => 'Expiry date'
-        ]);
+        // CRUD::addField([
+        //     'name' => 'expiry_date',
+        //     'type' => 'date',
+        //     'label' => 'Expiry date'
+        // ]);
 
 
         /**

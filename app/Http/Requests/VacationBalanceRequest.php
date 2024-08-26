@@ -28,7 +28,7 @@ class VacationBalanceRequest extends FormRequest
             'year' => 'required|numeric',
             'employee_id' => 'required|exists:employes,id',
             'remaining_days' => 'required|numeric|min:1',
-            'expiry_date' => 'required|date|after:today',
+            'expiry_date' => 'nullable|date|after:today',
         ];
     }
 
