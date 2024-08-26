@@ -121,7 +121,7 @@ class TeamController extends Controller
             return response()->json([
                 'status' => true,
                 'status_code' => 201,
-                'message' => "Request has been queued for processing.",
+                'message' => "Your request is being processed.",
                 'data' => $requestData
             ], 201);
         } catch (\Exception $e) {
