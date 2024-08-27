@@ -85,7 +85,7 @@ return [
     // ------
 
     // Menu logo. You can replace this with an <img> tag if you have a logo.
-    'project_logo'   => '<b>HRSysem</b>v2',
+    'project_logo'   => '<b>HRSystem</b>v2',
 
     // Show / hide breadcrumbs on admin panel pages.
     'breadcrumbs' => true,
