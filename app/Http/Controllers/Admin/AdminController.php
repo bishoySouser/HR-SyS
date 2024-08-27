@@ -5,6 +5,8 @@ namespace  App\Http\Controllers\Admin;
 use App\Models\Department;
 use App\Models\Employee;
 use App\Models\Job;
+use App\Models\Vacation;
+use App\Models\VacationBalance;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 
@@ -27,28 +29,33 @@ class AdminController extends Controller
      */
     public function dashboard()
     {
-        $this->data['title'] = trans('backpack::base.dashboard'); // set the page title
-        $this->data['breadcrumbs'] = [
-            trans('backpack::crud.admin')     => backpack_url('dashboard'),
-            trans('backpack::base.dashboard') => false,
+        $data = [
+            'departments_count' => Department::count(),
+            'jobs_count' => Job::count(),
+            'employees_count' => Employee::count(),
+            'newcomers' => Employee::with('department')->orderBy('hire_date', 'desc')->take(5)->get(),
         ];
 
-        $departments = Department::count();
-        $jobs = Job::count();
-        $employees = Employee::count();
+        // Data for Salary Range Distribution
+        $salaryRanges = [
+            '0-5000' => Job::whereBetween('max_salary', [0, 5000])->count(),
+            '5001-10000' => Job::whereBetween('max_salary', [5001, 10000])->count(),
+            '10001-15000' => Job::whereBetween('max_salary', [10001, 15000])->count(),
+            '15001+' => Job::where('max_salary', '>', 15000)->count(),
+        ];
+        $data['salaryLabels'] = array_keys($salaryRanges);
+        $data['salaryData'] = array_values($salaryRanges);
 
-        $newcomers = Employee::with('department')
-                                ->select('id', 'full_name', 'department_id', 'email', DB::raw("DATE_FORMAT(hire_date, '%M %d,%Y') as hire_date_format", 'hire_date'))
-                                ->orderBy('hire_date', 'DESC')
-                                ->take(5)
-                                ->get();
+        $data['salaryRangesByJob'] = $this->getSalaryRangesByJob();
 
-        $this->data['departments_count'] = $departments;
-        $this->data['jobs_count'] = $jobs;
-        $this->data['employees_count'] = $employees;
-        $this->data['newcomers'] = $newcomers;
+        $data['remainingLeaveDays'] = $this->getRemainingLeaveDays();
+        $data['vacationStatusDistribution'] = $this->getVacationStatusDistribution();
+        $data['monthlyVacationDays'] = $this->getMonthlyVacationDays();
+        $data['avgVacationDurationByMonth'] = $this->getAvgVacationDurationByMonth();
 
-        return view(backpack_view('dashboard'), $this->data);
+        // return $data;
+
+        return view(backpack_view('dashboard'), $data);
     }
 
     /**
@@ -60,5 +67,52 @@ class AdminController extends Controller
     {
         // The '/admin' route is not to be used as a page, because it breaks the menu's active state.
         return redirect(backpack_url('dashboard'));
+    }
+
+    private function getSalaryRangesByJob()
+    {
+        return DB::table('jobs')
+            ->select('title', 'min_salary', 'max_salary')
+            ->get();
+    }
+
+    private function getRemainingLeaveDays()
+    {
+        return VacationBalance::with('employee')
+            ->where('year', date('Y'))
+            ->orderBy('remaining_days', 'desc')
+            ->take(2)
+            ->get();
+    }
+
+    private function getVacationStatusDistribution()
+    {
+        return Vacation::select('status', DB::raw('count(*) as count'))
+            ->groupBy('status')
+            ->get();
+    }
+
+    private function getMonthlyVacationDays()
+    {
+        return Vacation::select(
+            DB::raw('DATE_FORMAT(start_date, "%Y-%m") as month'),
+            DB::raw('SUM(duration) as total_days')
+        )
+        ->where('status', 'hr_approved')
+        ->groupBy('month')
+        ->orderBy('month')
+        ->get();
+    }
+
+    private function getAvgVacationDurationByMonth()
+    {
+        return Vacation::select(
+            DB::raw('DATE_FORMAT(start_date, "%Y-%m") as month'),
+            DB::raw('AVG(duration) as avg_duration')
+        )
+        ->where('status', 'hr_approved')
+        ->groupBy('month')
+        ->orderBy('month')
+        ->get();
     }
 }
