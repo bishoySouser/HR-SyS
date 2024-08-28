@@ -9,6 +9,7 @@ use App\Models\Excuse;
 use App\Models\Holiday;
 use App\Models\Vacation;
 use App\Models\WorkFromHome;
+use Backpack\Settings\app\Models\Setting;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use DB;
@@ -20,7 +21,6 @@ class DashboardController extends Controller
      */
     public function index(Request $request)
     {
-        \Log::info('Session data: ', session()->all());
         $user = auth()->guard('api')->user();
         $today = Carbon::now();
         $currentYear = $today->year;
@@ -56,9 +56,11 @@ class DashboardController extends Controller
             'username' => $user->fname,
             'vacation_days_left' => $vacationDaysLeft,
             'excuse_hours_remaining' => round($excuseHoursRemaining, 2),
+            'excuseLimit' => Setting::get('excuses_count'),
             'pending_requests' => $pendingRequests,
             'employee_info' => $employeeInfo,
             'work_from_home_days_left' => $workFromHomeDaysLeft,
+            'workFormHomeLimit' => Setting::get('work_from_home_count'),
             'nearest_holiday' => $nearestHoliday,
             'time' => date("h:i:sa")
         ];

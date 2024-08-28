@@ -4,12 +4,13 @@ namespace App\Services;
 
 use App\Services\Interfaces\LeaveRequestInterface;
 use App\Models\Excuse;
+use Backpack\Settings\app\Models\Setting;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
 class ExcuseLimitService implements LeaveRequestInterface
 {
-    static $LIMIT = 14400;
+    protected $limit;
     protected $monthlyUsage;
     protected $employeeId;
     protected $month;
@@ -28,6 +29,11 @@ class ExcuseLimitService implements LeaveRequestInterface
         }
 
         return [true, ''];
+    }
+
+    private function getLimit(): int
+    {
+        return Setting::get('excuses_count') * 60 * 60;
     }
 
     public function hasPending($employeeId): bool
@@ -58,11 +64,11 @@ class ExcuseLimitService implements LeaveRequestInterface
 
         $monthRequests = $requestsPerMonth->firstWhere('month', $month);
 
-        return $monthRequests->request_count + $excuseTimeInSeconds > static::$LIMIT;
+        return $monthRequests->request_count + $excuseTimeInSeconds > $this->getLimit();
     }
 
     public function remainingSeconds()
     {
-        return static::$LIMIT - $this->monthlyUsage;
+        return $this->getLimit() - $this->monthlyUsage;
     }
 }
