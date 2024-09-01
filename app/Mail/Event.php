@@ -11,6 +11,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Carbon\Carbon;
 
 class Event extends Mailable
 {
@@ -21,14 +22,28 @@ class Event extends Mailable
     public function __construct(ModelsEvent $event)
     {
         $this->event = $event;
+
+
+        $this->event->date = $this->parseDate();
     }
 
     public function build()
     {
-        return $this->subject('Email Invitation, ')
+        return $this->subject($this->event->name)
                     ->view('emails.event-mail')
                     ->with([
                         'event' => $this->event,
                     ]);
+    }
+
+    private function parseDate(): array
+    {
+        $date = Carbon::parse($this->event->date);
+
+        return [
+            'day' => $date->format('d'),
+            'month_year' => $date->format('F Y'),
+            'time' => $date->format('h:i a')
+        ];
     }
 }
