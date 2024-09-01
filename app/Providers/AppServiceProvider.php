@@ -32,7 +32,7 @@ class AppServiceProvider extends ServiceProvider
         // parent::boot();
 
         Employee::observe(EmployeeObserver::class);
-        Event::observe(EventObserver::class);
+        // Event::observe(EventObserver::class);
         Vacation::observe(VacationObserver::class);
         WorkFromHome::observe(WorkFromHomeObserver::class);
         Excuse::observe(ExcuseObserver::class);

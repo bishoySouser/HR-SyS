@@ -134,6 +134,7 @@ public function store(EventRequest $request)
     }
 
     $email = new MailEvent($event);
+
     Mail::to($emailsOfEmployees)->send($email);
 
 

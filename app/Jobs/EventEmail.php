@@ -20,10 +20,12 @@ class EventEmail implements ShouldQueue
      * Create a new job instance.
      */
     public function __construct(
-        public Event $event
+        public Event $event,
+        public $employeeEmails
     )
     {
         $this->event = $event;
+        $this->employeeEmails;
     }
 
     /**
@@ -33,8 +35,6 @@ class EventEmail implements ShouldQueue
     {
         $email = new MailEvent($this->event);
         $event = Event::with('employees')->get();
-        var_dump($event);
-        dd('ss');
         Mail::to($this->employeeEmails)->send($email);
     }
 }
