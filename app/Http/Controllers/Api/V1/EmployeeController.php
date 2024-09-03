@@ -12,20 +12,25 @@ class EmployeeController extends Controller
 {
     public function getEmployeeTree()
     {
-        $employees = Employee::all();
+        $employees = Employee::withTrashed()->get();
 
         $tree = [];
 
         foreach ($employees as $employee) {
+
+            $isManager = Employee::where('manager_id', $employee->id)->exists();
+            $isTrashed = $employee->trashed();
+
             $node = [
                 'id' => $employee->id,
-                'parentId' => $employee->manager_id ?: null, // Assuming you have a manager_id field
-                'fullName' => $employee->full_name,
+                'parentId' => $employee->manager_id ?: null,
+                'fullName' => $isTrashed && $isManager ? 'missed' : $employee->full_name,
                 'jobTitle' => $employee->job->title,
-                'email' => $employee->email,
-                'phone' => $employee->phone_number,
-                'image' => $employee->profile_pic,
+                'email' => $isTrashed && $isManager ? 'missed' : $employee->email,
+                'phone' => $isTrashed && $isManager ? 'missed' : $employee->phone_number,
+                'image' => $isTrashed && $isManager ? 'missed' : $employee->profile_pic,
                 'department' => $employee->department->name,
+                'isDeleted' => $isTrashed,
             ];
 
             $tree[] = $node;
