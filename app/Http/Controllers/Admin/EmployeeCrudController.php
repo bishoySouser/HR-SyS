@@ -89,6 +89,20 @@ class EmployeeCrudController extends CrudController
     }
 
     /**
+     * Define what happens when the list operation is loaded.
+     *
+     * @see  https://backpackforlaravel.com/docs/crud-operation-list-entries
+     * @return void
+     */
+    protected function setupShowOperation()
+    {
+        $this->autoSetupShowOperation();
+
+        // $this->crud->addButtonFromModelFunction('line', 'upload_attach', 'uploadAttachButton', 'beginning');
+
+    }
+
+    /**
      * Define what happens when the Create operation is loaded.
      *
      * @see https://backpackforlaravel.com/docs/crud-operation-create

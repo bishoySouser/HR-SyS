@@ -64,17 +64,21 @@ class Employee extends Authenticatable
         la la-space-shuttle"></i> Vacations</a>';
     }
 
+    /**
+     * Return the HTML for the upload attach button.
+     *
+     * @return string
+     */
+    public function uploadAttachButton(Object|bool $crud = false)
+    {
+        $id = $crud->getCurrentEntryId();
+        return '<a href="' . backpack_url("employee/{$id}/upload-attach") . '" class="btn btn-sm btn-link"><i class="la la-upload"></i> Upload Attachment</a>';
+    }
+
     public function isManager()
     {
         return $this->hasMany(Employee::class, 'manager_id')->count() > 0;
     }
-
-    // public function resetPassword($crud = false)
-    // {
-    //     $employee_id = $this->id;
-    //     return view('your_view', compact('employee_id'));
-    //     // return '<a class="btn btn-sm btn-link" href="'.route('resetPassword', $this->id).'" data-toggle="tooltip" title="Reset password."><i class="la la-unlock-alt"></i> Reset password </a>';
-    // }
 
     /*
     |--------------------------------------------------------------------------

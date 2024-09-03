@@ -35,6 +35,10 @@ Route::group([
     Route::crud('trashed-employee', 'TrashedEmployeeCrudController');
     Route::get('trashed-employee/{id}/restore', 'TrashedEmployeeCrudController@restore')->name('trashed-employee.restore');
 
+    Route::get('employee/{id}/upload-attach', function () {
+        return 'uploading attach for employees';
+    });
+
     Route::crud('attendance', 'AttendanceCrudController');
     Route::crud('work-from-home', 'WorkFromHomeCrudController');
     Route::crud('excuse', 'ExcuseCrudController');
