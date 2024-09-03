@@ -33,7 +33,8 @@ class AdminController extends Controller
             'departments_count' => Department::count(),
             'jobs_count' => Job::count(),
             'employees_count' => Employee::count(),
-            'newcomers' => Employee::with('department')->orderBy('hire_date', 'desc')->take(5)->get(),
+            'newcomers' => Employee::select('id', 'full_name', 'department_id', 'email', DB::raw("DATE_FORMAT(hire_date, '%M %d,%Y') as hire_date_format", 'hire_date'))
+                                    ->with('department')->orderBy('hire_date', 'desc')->take(5)->get(),
         ];
 
         // Data for Salary Range Distribution
