@@ -68,6 +68,7 @@ class EmployeeCrudController extends CrudController
     {
 
         CRUD::column('id');
+        $this->crud->enableBulkActions();
         CRUD::column('full_name');
         CRUD::column('profile_pic')->type('image');
         CRUD::column('hire_date');
@@ -80,9 +81,10 @@ class EmployeeCrudController extends CrudController
         CRUD::button('resetPassword')->stack('line')->view('crud::buttons.reset-password');
         // CRUD::addButtonFromView('top', $name, $view, $position);
 
+        CRUD::addButton('top', 'bulk_delete', 'view', 'crud::buttons.bulk_delete');
+
 
         CRUD::setOperationSetting('lineButtonsAsDropdown', true);
-
 
 
         // $this->crud->addButtonFromModelFunction('line', 'open_google', 'openVacations', 'end');
@@ -265,6 +267,29 @@ class EmployeeCrudController extends CrudController
         $password = base64_encode($password);  // Encode to a string
 
         return $password;
+    }
+
+    public function bulkDelete(Request $request)
+    {
+        // Get the IDs from the request
+        $ids = $request->input('ids');
+
+        // Validate the input to make sure 'ids' is an array
+        if (!is_array($ids) || empty($ids)) {
+            return response()->json(['message' => 'Invalid or empty IDs provided.'], 400);
+        }
+
+        // Check if the records exist in the database
+        $items = Employee::whereIn('id', $ids)->get();
+
+        if ($items->isEmpty()) {
+            return response()->json(['message' => 'No items found with the given IDs.'], 404);
+        }
+
+        // Delete the found items
+        Employee::whereIn('id', $ids)->delete();
+
+        return response()->json(['message' => 'Selected items have been deleted.']);
     }
 
 }

@@ -31,6 +31,7 @@ Route::group([
     Route::crud('vacation', 'Vacations\VacationCrudController');
     Route::crud('employee', 'EmployeeCrudController');
     Route::post('employee/resetPassword/empployee', 'EmployeeCrudController@resetPassword')->name('resetPassword');
+    Route::post('/employee/bulk-delete', 'EmployeeCrudController@bulkDelete')->name('employee.bulk-delete');
 
     Route::crud('trashed-employee', 'TrashedEmployeeCrudController');
     Route::get('trashed-employee/{id}/restore', 'TrashedEmployeeCrudController@restore')->name('trashed-employee.restore');
