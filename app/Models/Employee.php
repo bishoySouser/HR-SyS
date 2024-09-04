@@ -48,7 +48,8 @@ class Employee extends Authenticatable
                         'manager_id',
                         'department_id',
                         'updated_at',
-                        'created_at'
+                        'created_at',
+                        'deleted_at',
                     ];
     // protected $hidden = [];
     // protected $dates = [];
@@ -78,6 +79,11 @@ class Employee extends Authenticatable
     public function isManager()
     {
         return $this->hasMany(Employee::class, 'manager_id')->count() > 0;
+    }
+
+    public function subordinates()
+    {
+        return $this->hasMany(Employee::class, 'manager_id');
     }
 
     /*

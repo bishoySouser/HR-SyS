@@ -7,30 +7,38 @@ use App\Http\Resources\V1\EmployeeResource;
 use App\Models\Employee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Builder;
 
 class EmployeeController extends Controller
 {
     public function getEmployeeTree()
     {
-        $employees = Employee::withTrashed()->get();
+        $employees = Employee::where(function (Builder $query) {
+                        $query->whereNull('deleted_at')
+                            ->orWhere(function (Builder $query) {
+                                $query->whereNotNull('deleted_at')
+                                    ->whereHas('subordinates');
+                            });
+                    })
+                    ->withTrashed()
+                    ->get();
 
         $tree = [];
 
         foreach ($employees as $employee) {
 
-            $isManager = Employee::where('manager_id', $employee->id)->exists();
             $isTrashed = $employee->trashed();
 
             $node = [
                 'id' => $employee->id,
-                'parentId' => $employee->manager_id ?: null,
-                'fullName' => $isTrashed && $isManager ? 'missed' : $employee->full_name,
+                'parentId' => $employee->manager_id,
+                'fullName' => $isTrashed ? 'missed' : $employee->full_name,
                 'jobTitle' => $employee->job->title,
-                'email' => $isTrashed && $isManager ? 'missed' : $employee->email,
-                'phone' => $isTrashed && $isManager ? 'missed' : $employee->phone_number,
-                'image' => $isTrashed && $isManager ? 'missed' : $employee->profile_pic,
+                'email' =>  $isTrashed ? 'missed' : $employee->email,
+                'phone' =>  $isTrashed ? 'missed' : $employee->phone_number,
+                'image' =>  $isTrashed ? 'missed' : $employee->profile_pic,
                 'department' => $employee->department->name,
-                'isDeleted' => $isTrashed,
+                // 'isDeleted' => ,
             ];
 
             $tree[] = $node;
