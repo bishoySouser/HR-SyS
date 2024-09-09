@@ -76,3 +76,4 @@
 
 
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('setting') }}'><i class='nav-icon la la-cog'></i> <span>Settings</span></a></li>
+<li class="nav-item"><a class="nav-link" href="{{ backpack_url('employee-of-the-month') }}"><i class="nav-icon la la-question"></i> Employee of the months</a></li>
