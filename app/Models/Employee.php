@@ -182,6 +182,27 @@ class Employee extends Authenticatable
         $obj = new WorkFromHomeService();
         return $obj->max_in_month - $this->hasMany(WorkFromHome::class)->currentMonth()->count();
     }
+
+    // public function employeeOfTheMonth()
+    // {
+    //     return $this->hasMany(EmployeeOfTheMonth::class);
+    // }
+
+    // // Method to calculate how many times an employee was chosen
+    // public function getTimesSelected()
+    // {
+    //     return $this->employeeOfTheMonth()->count();
+    // }
+
+    // // Method to calculate selection rate based on hire date and number of months
+    // public function getSelectionRate()
+    // {
+    //     $hireDate = $this->hire_date;
+    //     $monthsWorked = now()->diffInMonths($hireDate);
+
+    //     $timesSelected = $this->getTimesSelected();
+    //     return ($monthsWorked > 0) ? ($timesSelected / $monthsWorked) * 100 : 0;
+    // }
     /*
     |--------------------------------------------------------------------------
     | MUTATORS
