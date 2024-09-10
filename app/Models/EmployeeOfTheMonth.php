@@ -36,6 +36,10 @@ class EmployeeOfTheMonth extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
+    public function employee()
+    {
+        return $this->belongsTo(Employee::class);
+    }
 
     /*
     |--------------------------------------------------------------------------
@@ -51,7 +55,7 @@ class EmployeeOfTheMonth extends Model
     public function getMonthAttribute($value)
     {
         // Optionally format it for display
-        return date('Y-m', strtotime($value));
+        return date('Y M', strtotime($value));
     }
 
     /*

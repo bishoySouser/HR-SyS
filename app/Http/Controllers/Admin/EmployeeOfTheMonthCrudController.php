@@ -15,7 +15,7 @@ class EmployeeOfTheMonthCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
+    // use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
 
@@ -30,6 +30,17 @@ class EmployeeOfTheMonthCrudController extends CrudController
         CRUD::setRoute(config('backpack.base.route_prefix') . '/employee-of-the-month');
         CRUD::setEntityNameStrings('employee of the month', 'employee of the months');
     }
+    
+    protected function autoSetupShowOperation()
+    {
+        CRUD::addColumn([
+            'name' => 'employee.full_name', // Assuming 'full_name' is the attribute name for the employee full name
+            'label' => 'Employee Name',
+            'type' => 'text',
+        ]);
+
+        CRUD::column('month');   
+    }
 
     /**
      * Define what happens when the List operation is loaded.
@@ -39,13 +50,16 @@ class EmployeeOfTheMonthCrudController extends CrudController
      */
     protected function setupListOperation()
     {
+        
+        CRUD::addColumn([
+            'name' => 'employee.full_name', // Assuming 'full_name' is the attribute name for the employee full name
+            'label' => 'Employee Name',
+            'type' => 'text',
+        ]);
 
+        CRUD::column('month');
+        
 
-        /**
-         * Columns can be defined using the fluent syntax or array syntax:
-         * - CRUD::column('price')->type('number');
-         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']);
-         */
     }
 
     /**
