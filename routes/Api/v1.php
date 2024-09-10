@@ -22,6 +22,10 @@ Route::middleware('auth:sanctum')->group(function() {
         Route::get('tree', 'EmployeeController@getEmployeeTree');
     });
 
+    Route::group(['prefix' => 'employee-of-the-month'], function() {
+        Route::get('', 'EmployeeOfTheMonthController@index');
+    });
+
     // vacations
     Route::prefix('vacations')->group(function () {
         Route::get('', 'VacationController@index');
