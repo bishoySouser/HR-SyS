@@ -128,7 +128,7 @@ class DashboardController extends Controller
             ->where('status', '!=', 'Cancelled')
             ->count();
 
-        $workFromHomeDaysLimit = 2;
+        $workFromHomeDaysLimit = Setting::get('work_from_home_count');
         return max(0, $workFromHomeDaysLimit - $workFromHomeDaysUsed);
     }
 

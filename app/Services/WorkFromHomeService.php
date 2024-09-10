@@ -5,13 +5,23 @@ namespace App\Services;
 use App\Services\Interfaces\LeaveRequestInterface;
 use App\Models\Employee;
 use App\Models\WorkFromHome;
+use Backpack\Settings\app\Models\Setting;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 
 class WorkFromHomeService implements LeaveRequestInterface
 {
-    public $max_in_month = 2;
+    private $limitInMonth;
+
+    /**
+     * Get the value of limitInMonth
+     */ 
+    public function getLimitInMonth()
+    {
+        $this->limitInMonth = Setting::get('work_from_home_count');
+        return $this->limitInMonth;
+    }
 
     public function canRequest($requestData): array
     {
@@ -56,6 +66,8 @@ class WorkFromHomeService implements LeaveRequestInterface
 
         $monthRequests = $requestsPerMonth->firstWhere('month', $month);
 
-        return $monthRequests->request_count >= $this->max_in_month;
+        return $monthRequests->request_count >= $this->getLimitInMonth();
     }
+
+    
 }

@@ -180,7 +180,7 @@ class Employee extends Authenticatable
     public function getRequestCountForCurrentMonth()
     {
         $obj = new WorkFromHomeService();
-        return $obj->max_in_month - $this->hasMany(WorkFromHome::class)->currentMonth()->count();
+        return $obj->getLimitInMonth() - $this->hasMany(WorkFromHome::class)->currentMonth()->count();
     }
     /*
     |--------------------------------------------------------------------------
