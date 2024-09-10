@@ -27,21 +27,20 @@ class EmployeeOfTheMonthRequest extends FormRequest
      */
     public function rules()
     {
-        $employeeId = $this->route('id') ?? $this->input('employee_id');
         $month = $this->input('month');
-
         return [
-            'employee_id' => 'required|exists:employes,id',
+            'employee_id' => [
+                'required',
+                'exists:employes,id',
+                Rule::unique('employee_of_the_month')->where(function ($query) use ($month) {
+                    return $query->where('employee_id', $this->input('employee_id'))
+                    ->whereMonth('month', date('m', strtotime($month)))
+                    ->whereYear('month', date('Y', strtotime($month)));
+                })
+            ],
             'month' => [
                 'required',
                 'date_format:Y-m',
-                Rule::unique('employee_of_the_month')
-                    ->where(function ($query) use ($employeeId, $month) {
-                        $query->where('employee_id', $employeeId)
-                            ->whereMonth('month', date('m', strtotime($month)))
-                            ->whereYear('month', date('Y', strtotime($month)));
-                    })
-                    ->ignore($this->route('id')),
             ],
         ];
     }
@@ -70,7 +69,7 @@ class EmployeeOfTheMonthRequest extends FormRequest
             'employee_id.exists' => 'The selected employee does not exist.',
             'month.required' => 'The month field is required.',
             'month.date_format' => 'The month must be in the format YYYY-MM.',
-            'month.unique' => 'The employee has already been selected for the given month.',
+            'employee_id.unique' => 'The employee has already been selected for the given month.',
         ];
     }
 
