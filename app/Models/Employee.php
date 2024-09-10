@@ -122,6 +122,11 @@ class Employee extends Authenticatable
         return $this->hasMany(WorkFromHome::class);
     }
 
+    public function employeeOfTheMonth()
+    {
+        return $this->hasMany(EmployeeOfTheMonth::class);
+    }
+
     /**
      * Get the social insurance associated with the employee.
      */
