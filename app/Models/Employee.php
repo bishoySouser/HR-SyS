@@ -171,9 +171,9 @@ class Employee extends Authenticatable
         $names = explode(' ', $fullName);
 
         // Check if the full name has at least two parts
-        if (count($names) >= 2) {
+        if (count($names) >= 3) {
             // Return the first and second names
-            return $names[0] . ' ' . $names[1];
+            return $names[0] . ' ' . $names[2];
         }
 
         // Return the full name if it has less than two parts
