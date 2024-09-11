@@ -6,7 +6,7 @@
 </head>
 <body>
     <h1>Work From Home Status Update</h1>
-    <p>Dear {{ $workFromHome->employee->name }},</p>
+    <p>Dear {{ $workFromHome->employee->fname }},</p>
     <p>This email is to inform you that your work from home request has been {{ $workFromHome->status }}.</p>
     <ul>
         <li>Date: {{ \Carbon\Carbon::parse($workFromHome->day)->format('F j, Y') }}</li>

@@ -9,7 +9,7 @@
     <p>Dear HR Team,</p>
     <p>The following work from home request has been approved:</p>
     <ul>
-        <li>Employee: {{ $workFromHome->employee->name }}</li>
+        <li>Employee: {{ $workFromHome->employee->fname }}</li>
         <li>Date: {{ \Carbon\Carbon::parse($workFromHome->day)->format('F j, Y') }}</li>
         <li>Status: {{ $workFromHome->status }}</li>
     </ul>
