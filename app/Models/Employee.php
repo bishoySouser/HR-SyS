@@ -163,6 +163,23 @@ class Employee extends Authenticatable
         return $parts[0] ?? null;
     }
 
+    public function getFirstAndSecondNameAttribute()
+    {
+        $fullName = $this->full_name; // Assuming full_name is the field
+
+        // Split the full name by spaces
+        $names = explode(' ', $fullName);
+
+        // Check if the full name has at least two parts
+        if (count($names) >= 2) {
+            // Return the first and second names
+            return $names[0] . ' ' . $names[1];
+        }
+
+        // Return the full name if it has less than two parts
+        return $fullName;
+    }
+
     public function getJobTitleAttribute()
     {
         return $this->job->grades . ' ' . $this->job->title;
