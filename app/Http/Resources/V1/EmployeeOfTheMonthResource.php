@@ -4,9 +4,11 @@ namespace App\Http\Resources\V1;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Carbon\Carbon;
 
 class EmployeeOfTheMonthResource extends JsonResource
 {
+
     /**
      * Transform the resource into an array.
      *
@@ -14,16 +16,11 @@ class EmployeeOfTheMonthResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $date = Carbon::createFromFormat('Y-m-d', $this->getRawOriginal('month'));
+
         return [
-            'employee_id' => $this->employee_id,
-            'employee' => $this->when(
-                $this->relationLoaded('employee') && $this->employee_id,
-                function () {
-                    return new EmployeeResource($this->employee_id);
-                },
-                null
-            ),
-            'month' => $this->month,
+            'employee' => $this->whenLoaded('employee', new EmployeeResource( $this->employee )),
+            'month' => $date->format('Y F'),
         ];
     }
 }
