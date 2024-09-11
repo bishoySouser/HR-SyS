@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\V1\EmployeeOfTheMonthCollection;
 use App\Models\Employee;
+use App\Models\EmployeeOfTheMonth;
 use App\Models\VacationBalance;
 use App\Models\Excuse;
 use App\Models\Holiday;
@@ -50,7 +52,12 @@ class DashboardController extends Controller
 
         $nearestHoliday = $this->getNearestHoliday();
 
+        $latestEmployeeOfMonth = EmployeeOfTheMonth::latest('month')
+                                    ->take(10)
+                                    ->get();
+
         date_default_timezone_set('Africa/Cairo');
+
         $data = [
             'todayDate' => $today->format('d M Y'),
             'username' => $user->fname,
@@ -62,7 +69,8 @@ class DashboardController extends Controller
             'work_from_home_days_left' => $workFromHomeDaysLeft,
             'workFormHomeLimit' => Setting::get('work_from_home_count'),
             'nearest_holiday' => $nearestHoliday,
-            'time' => date("h:i:sa")
+            'time' => date("h:i:sa"),
+            'EmployeeOfTheMonth' =>  new EmployeeOfTheMonthCollection($latestEmployeeOfMonth)
         ];
 
         $token = $request->bearerToken();
