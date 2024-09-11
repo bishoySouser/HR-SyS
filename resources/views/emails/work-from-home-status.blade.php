@@ -18,6 +18,5 @@
         <p>Please let us know if you have any questions or concerns.</p>
     @endif
     <p>Thank you,</p>
-    <p>The Management Team</p>
 </body>
 </html>

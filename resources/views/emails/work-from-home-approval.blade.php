@@ -15,6 +15,5 @@
     </ul>
     <p>Please take the necessary actions to accommodate this request.</p>
     <p>Thank you,</p>
-    <p>The Management Team</p>
 </body>
 </html>
