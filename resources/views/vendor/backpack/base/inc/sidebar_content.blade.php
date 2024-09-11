@@ -21,6 +21,7 @@
 <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item"><a class="nav-link" href="{{ backpack_url('department') }}"><i class="nav-icon la la-building"></i> Departments</a></li>
     <li class="nav-item"><a class="nav-link" href="{{ backpack_url('job') }}"><i class="nav-icon la la-briefcase"></i> Jobs</a></li>
+    <li class="nav-item"><a class="nav-link" href="{{ backpack_url('employee-of-the-month') }}"><i class="nav-icon la la-certificate"></i> EOM</a></li>
     <li class="nav-item"><a class="nav-link" href="{{ backpack_url('employee') }}"><i class="nav-icon la la-male"></i> Employees</a></li>
     <li class="nav-item"><a class="nav-link" href="{{ backpack_url('trashed-employee') }}"><i class="nav-icon la la-trash" style="color: red;"></i> Trashed Employees</a></li>
 </ul>
@@ -76,4 +77,3 @@
 
 
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('setting') }}'><i class='nav-icon la la-cog'></i> <span>Settings</span></a></li>
-<li class="nav-item"><a class="nav-link" href="{{ backpack_url('employee-of-the-month') }}"><i class="nav-icon la la-question"></i> Employee of the months</a></li>
