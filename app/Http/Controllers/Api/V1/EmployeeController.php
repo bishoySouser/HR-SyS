@@ -52,29 +52,6 @@ class EmployeeController extends Controller
         ],200);
 
     }
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Employee $employee)
-    {
-        //
-    }
 
     /**
      * get profile
@@ -84,6 +61,20 @@ class EmployeeController extends Controller
         $employee = Auth::user();
 
         return new EmployeeResource($employee);
+    }
+
+    public function getManagersWithoutTheirOwnManager()
+    {
+        $employee = Auth::user();
+
+        $managers = $employee->getAllManagersWithoutTheirManagers();
+
+        return response()->json([
+            'status' => true,
+            'status_code' => 200,
+            'message' => 'Managers list without their own manager',
+            'data' => $managers
+        ],200);
     }
 
 }

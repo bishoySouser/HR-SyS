@@ -70,6 +70,7 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'manager' => \App\Http\Middleware\EmployeeIsManager::class,
+        'is_not_manager' => \App\Http\Middleware\EmployeeIsNotManager::class,
         'set.api.session' => \App\Http\Middleware\SetApiSessionName::class,
     ];
 }

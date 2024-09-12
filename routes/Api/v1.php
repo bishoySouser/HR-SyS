@@ -15,14 +15,12 @@ Route::middleware('auth:sanctum')->group(function() {
     // dashboard
     Route::get('/dashboard', 'DashboardController@index');
 
-    // departments
-
-
     // employees
     Route::group(['prefix' => 'employees'], function() {
         Route::apiResource('', EmployeeController::class);
         Route::get('profile', 'EmployeeController@getProfile');
         Route::get('tree', 'EmployeeController@getEmployeeTree');
+        Route::get('managers-wihtout-your-employee', 'EmployeeController@getManagersWithoutTheirOwnManager')->middleware('is_not_manager');
     });
 
     // employee of the months
