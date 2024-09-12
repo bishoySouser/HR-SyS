@@ -36,8 +36,22 @@ class Department extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
+    // Define relationship to employees
+    public function employees()
+    {
+        return $this->hasMany(Employee::class);
+    }
+
+    // Define relationship to the manager
     public function manager() {
         return $this->belongsTo(Employee::class);
+    }
+
+    public function getNonManagerEmployees()
+    {
+        return $this->employees()
+            ->where('id', '!=', $this->manager_id)
+            ->get();
     }
     /*
     |--------------------------------------------------------------------------

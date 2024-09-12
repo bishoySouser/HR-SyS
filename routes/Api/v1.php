@@ -15,6 +15,9 @@ Route::middleware('auth:sanctum')->group(function() {
     // dashboard
     Route::get('/dashboard', 'DashboardController@index');
 
+    // departments
+
+
     // employees
     Route::group(['prefix' => 'employees'], function() {
         Route::apiResource('', EmployeeController::class);
@@ -22,6 +25,7 @@ Route::middleware('auth:sanctum')->group(function() {
         Route::get('tree', 'EmployeeController@getEmployeeTree');
     });
 
+    // employee of the months
     Route::group(['prefix' => 'employee-of-the-month'], function() {
         Route::get('', 'EmployeeOfTheMonthController@index');
     });
@@ -47,6 +51,7 @@ Route::middleware('auth:sanctum')->group(function() {
     // Request all for team (manager)
     Route::prefix('team')->middleware('manager')->group(function() {
         Route::get('', "TeamController@index");
+        Route::get('employes', 'TeamController@getEmployeesOfTeam');
         Route::patch('', "TeamController@updateTeamRequest");
     });
 

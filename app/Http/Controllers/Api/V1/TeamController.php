@@ -11,6 +11,7 @@ use App\Jobs\V1\UpdateExcuseRequest;
 use App\Jobs\V1\UpdateTimeOffRequest;
 use App\Jobs\V1\UpdateWorkFromHomeRequest;
 use App\Jobs\V1\UpdateWorkFromRequest;
+use App\Models\Department;
 use App\Models\Employee;
 use App\Models\Excuse;
 use App\Models\Vacation;
@@ -18,6 +19,7 @@ use App\Models\WorkFromHome;
 use App\Services\WorkFromHomeLimitHandler;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class TeamController extends Controller
 {
@@ -128,6 +130,20 @@ class TeamController extends Controller
             return response()->json(['error' => $e->getMessage()], 400);
         }
 
+    }
+
+    public function getEmployeesOfTeam()
+    {
+        $manager = Auth::user();
+
+        $employees = Employee::select('full_name as Name')->where('manager_id', $manager->id)->get();
+
+        return response()->json([
+            'status' => true,
+            'status_code' => 200,
+            'message' => 'employees list of department',
+            'data' => $employees,
+        ],200);
     }
 
 }
