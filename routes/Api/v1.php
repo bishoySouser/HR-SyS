@@ -21,6 +21,12 @@ Route::middleware('auth:sanctum')->group(function() {
         Route::get('profile', 'EmployeeController@getProfile');
         Route::get('tree', 'EmployeeController@getEmployeeTree');
         Route::get('managers-wihtout-your-employee', 'EmployeeController@getManagersWithoutTheirOwnManager')->middleware('is_not_manager');
+
+        // employee-rate
+        Route::prefix('rate')->group(function() {
+            Route::post('managers', 'EmployeeRateController@managerRate');
+            Route::post('team', 'EmployeeRateController@voteEmployeeOfTeam');
+        });
     });
 
     // employee of the months
@@ -70,6 +76,8 @@ Route::middleware('auth:sanctum')->group(function() {
         Route::post('', 'ItTicketController@store');
         Route::get('', 'ItTicketController@index');
     });
+
+
 });
 
 
