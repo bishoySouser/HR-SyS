@@ -86,13 +86,18 @@ class Employee extends Authenticatable
         return $this->hasMany(Employee::class, 'manager_id');
     }
 
+    /**
+     * get all managers without CEO and thier owner manager
+     */
     public function getAllManagersWithoutTheirManagers()
     {
-        return self::select('full_name as Name')
-                ->whereHas('subordinates')
-                ->where('id' , '!=', $this->manager_id)
-                ->where('manager_id' , '>', 0)
-                ->get();
+        $managers = self::select('full_name as Name')
+                        ->whereHas('subordinates')
+                        ->where('id' , '!=', $this->manager_id)
+                        ->where('manager_id' , '>', 0)
+                        ->get();
+
+        return $managers;
     }
 
     /*
