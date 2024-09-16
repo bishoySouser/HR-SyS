@@ -91,6 +91,7 @@ class Employee extends Authenticatable
         return self::select('full_name as Name')
                 ->whereHas('subordinates')
                 ->where('id' , '!=', $this->manager_id)
+                ->where('manager_id' , '>', 0)
                 ->get();
     }
 
