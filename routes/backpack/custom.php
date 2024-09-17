@@ -54,6 +54,6 @@ Route::group([
     Route::crud('policy-document', 'PolicyDocumentCrudController');
     Route::crud('holiday', 'HolidayCrudController');
     Route::crud('employee-of-the-month', 'EmployeeOfTheMonthCrudController');
-    Route::crud('employee-in-team', 'EmployeeInTeamCrudController');
+
     Route::crud('best-employee-in-team', 'BestEmployeeInTeamCrudController');
 }); // this should be the absolute last line of this file
