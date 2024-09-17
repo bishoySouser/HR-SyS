@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id(); // Primary key
             $table->foreignId('manager_id')->constrained('employes')->onDelete('cascade'); // FK to employees (manager)
             $table->foreignId('employee_id')->constrained('employes')->onDelete('cascade'); // FK to employees (best employee)
-            $table->foreignId('department_id')->constrained('departments')->onDelete('cascade'); // FK to departments
             $table->date('vote_date'); // Date of the vote
             $table->timestamps(); // Created and updated at timestamps
         });

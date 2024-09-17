@@ -10,71 +10,110 @@ use Carbon\Carbon;
 
 class BestEmployeeInTeamService
 {
+    private Employee $manager;
+    private Employee $employee;
+    private Carbon $voteDate;
+
+    public function setManager(Employee $manager): self
+    {
+        $this->manager = $manager;
+        return $this;
+    }
+
+    public function getManager(): Employee
+    {
+        return $this->manager;
+    }
+
+    public function setEmployee(Employee $employee): self
+    {
+        $this->employee = $employee;
+        return $this;
+    }
+
+    public function getEmployee(): Employee
+    {
+        return $this->employee;
+    }
+
+    public function setVoteDate(): self
+    {
+        $this->voteDate = Carbon::now()->startOfMonth();
+        return $this;
+    }
+
+    public function getVoteDate(): Carbon
+    {
+        return $this->voteDate;
+    }
+
+    public function hasManagerVotedThisMonth(): bool
+    {
+        // Check if the manager has already voted in the current month
+        return BestEmployeeInTeam::where('manager_id', $this->manager->id)
+            ->whereYear('vote_date', $this->voteDate->year)
+            ->whereMonth('vote_date', $this->voteDate->month)
+            ->exists();
+    }
+
     /**
      * Vote for the best employee in the team
      *
-     * @param int $managerId
-     * @param int $employeeId
-     * @param int $departmentId
-     * @param string $voteDate
      * @return BestEmployeeInTeam|false
      */
-    public function voteForBestEmployee(int $managerId, int $employeeId, int $departmentId, string $voteDate)
+    public function voteForBestEmployee()
     {
-        // Validate that the manager is in the same department as the employee
-        if (!$this->validateManagerAndEmployee($managerId, $employeeId, $departmentId)) {
-            return false;
+        $this->setVoteDate();
+        // Check if the manager has already voted this month
+        if ($this->hasManagerVotedThisMonth()) {
+            throw new \Exception('Manager has already voted this month.'); // Manager has already voted, no further votes allowed this month
+        }
+
+        if (!$this->validateManagerAndEmployee()) {
+            throw new \Exception("The manager isn't direct manager for this employee .");
         }
 
         // Check if a vote already exists for this month
-        $existingVote = $this->getVoteForMonth($managerId, $departmentId, $voteDate);
+        $existingVote = $this->getVoteForMonth();
 
         if ($existingVote) {
-            // Update existing vote
-            $existingVote->employee_id = $employeeId;
-            $existingVote->vote_date = $voteDate;
+            $existingVote->employee_id = $this->employee->id;
+            $existingVote->vote_date = $this->voteDate;
             $existingVote->save();
             return $existingVote;
         }
 
         // Create new vote
-        // return BestEmployeeInTeam::create([
-        //     'manager_id' => $managerId,
-        //     'employee_id' => $employeeId,
-        //     'department_id' => $departmentId,
-        //     'vote_date' => $voteDate,
-        // ]);
+        return BestEmployeeInTeam::create([
+            'manager_id' => $this->manager->id,
+            'employee_id' => $this->employee->id,
+            'vote_date' => $this->voteDate,
+        ]);
     }
 
     /**
      * Get the best employee vote for a specific month
      *
-     * @param int $managerId
-     * @param int $departmentId
-     * @param string $voteDate
      * @return BestEmployeeInTeam|null
      */
-    public function getVoteForMonth(int $managerId, int $departmentId, string $voteDate)
+    public function getVoteForMonth()
     {
-        $date = Carbon::parse($voteDate);
-        return BestEmployeeInTeam::where('manager_id', $managerId)
-            ->where('department_id', $departmentId)
-            ->whereYear('vote_date', $date->year)
-            ->whereMonth('vote_date', $date->month)
+        return BestEmployeeInTeam::where('manager_id', $this->manager->id)
+            ->whereYear('vote_date', $this->voteDate->year)
+            ->whereMonth('vote_date', $this->voteDate->month)
             ->first();
     }
 
     /**
      * Get all votes for a specific department in a given month
      *
-     * @param int $departmentId
      * @param string $monthYear
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function getVotesForDepartmentAndMonth(int $departmentId, string $monthYear)
+    public function getVotesForDepartmentAndMonth(string $monthYear)
     {
         $date = Carbon::parse($monthYear);
-        return BestEmployeeInTeam::where('department_id', $departmentId)
+        return BestEmployeeInTeam::where('department_id', $this->department->id)
             ->whereYear('vote_date', $date->year)
             ->whereMonth('vote_date', $date->month)
             ->get();
@@ -101,22 +140,12 @@ class BestEmployeeInTeamService
     /**
      * Validate that the manager is in the same department as the employee
      *
-     * @param int $managerId
-     * @param int $employeeId
-     * @param int $departmentId
      * @return bool
      */
-    private function validateManagerAndEmployee(int $managerId, int $employeeId, int $departmentId): bool
+    private function validateManagerAndEmployee(): bool
     {
-        $manager = Employee::find($managerId);
-        $employee = Employee::find($employeeId);
-
-        if (!$manager || !$employee) {
-            return false;
-        }
-
-        return $manager->department_id === $departmentId &&
-               $employee->department_id === $departmentId &&
-               $employee->manager_id === $managerId;
+        echo($this->manager->id );
+        // echo($this->department->id );
+        return $this->employee->manager_id === $this->manager->id;
     }
 }

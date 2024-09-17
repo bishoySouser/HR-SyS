@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Models\Department;
+use App\Models\Employee;
 use App\Services\BestEmployeeInTeamService;
 use Illuminate\Http\Request;
 
@@ -22,19 +24,40 @@ class EmployeeRateController extends Controller
 
     public function voteEmployeeOfTeam(Request $request)
     {
-        $managerId = auth()->id();
+        try {
+            $managerId = auth()->id();
 
-        $result = $this->bestEmployeeService->voteForBestEmployee(
-            $managerId,
-            $request->input('employee_id'),
-            $request->input('department_id'),
-            $request->input('vote_date')
-        );
+            // Retrieve manager, employee, and department models
+            $manager = Employee::find($managerId);
+            $employee = Employee::find($request->input('employee_id'));
 
-        if ($result) {
-            return response()->json(['message' => 'Vote recorded successfully']);
-        } else {
-            return response()->json(['message' => 'Vote failed'], 400);
+            // If any of the required models are missing, return an error
+            if (!$manager || !$employee) {
+                return response()->json(['message' => 'Invalid manager, employee, or department'], 400);
+            }
+
+            // Set the manager, employee, department, and vote date in the service
+            $this->bestEmployeeService
+                ->setManager($manager)
+                ->setEmployee($employee);
+
+            // Cast the vote
+            $result = $this->bestEmployeeService->voteForBestEmployee();
+
+            return response()->json([
+                'status' => true,
+                'status_code' => 201,
+                'message' => 'Vote recorded successfully',
+                'data' => $result
+            ], 201);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => false,
+                'status_code' => 422,
+                'message' => $e->getMessage(),
+            ], 422);
         }
+
     }
 }

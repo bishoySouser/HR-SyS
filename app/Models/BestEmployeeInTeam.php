@@ -8,5 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class BestEmployeeInTeam extends Model
 {
     use HasFactory;
-    protected $table = 'employee_of_the_month';
+    protected $table = 'best_employee_in_team';
+    protected $fillable = [
+        'manager_id',
+        'employee_id',
+        'vote_date'
+    ];
 }
