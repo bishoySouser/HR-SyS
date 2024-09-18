@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\EmployeeResource;
+use App\Models\BestManagerInCompany;
 use App\Models\Employee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -66,6 +67,20 @@ class EmployeeController extends Controller
     public function getManagersWithoutTheirOwnManager()
     {
         $employee = Auth::user();
+        // check managers rated in current team
+        if (!BestManagerInCompany::availableVoteDate()) {
+            return response()->json([
+                'status' => false,
+                'status_code' => 422,
+                'message' => 'Voting is not available at this time.',
+            ], 422);
+        } elseif (BestManagerInCompany::voted()) {
+            return response()->json([
+                'status' => false,
+                'status_code' => 422,
+                'message' => 'Your has already voted this month.',
+            ], 422);
+        }
 
         $managers = $employee->getAllManagersWithoutTheirManagers();
 

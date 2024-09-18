@@ -40,7 +40,7 @@ class BestEmployeeInTeam extends Model
         $manager = Auth::user();
         $currentDate = Carbon::now()->startOfMonth();
 
-        return BestEmployeeInTeam::where('manager_id', $manager->id)
+        return self::where('manager_id', $manager->id)
                 ->whereYear('vote_date', $currentDate->year)
                 ->whereMonth('vote_date', $currentDate->month)
                 ->exists();
