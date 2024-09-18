@@ -80,3 +80,5 @@
 
 
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('best-employee-in-team') }}"><i class="nav-icon la la-question"></i> Best employee in teams</a></li>
+
+<li class="nav-item"><a class="nav-link" href="{{ backpack_url('best-manager-in-company') }}"><i class="nav-icon la la-question"></i> Best manager in companies</a></li>

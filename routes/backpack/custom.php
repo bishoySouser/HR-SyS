@@ -56,4 +56,5 @@ Route::group([
     Route::crud('employee-of-the-month', 'EmployeeOfTheMonthCrudController');
 
     Route::crud('best-employee-in-team', 'BestEmployeeInTeamCrudController');
+    Route::crud('best-manager-in-company', 'BestManagerInCompanyCrudController');
 }); // this should be the absolute last line of this file
