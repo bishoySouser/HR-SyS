@@ -113,8 +113,7 @@ class BestEmployeeInTeamService
     public function getVotesForDepartmentAndMonth(string $monthYear)
     {
         $date = Carbon::parse($monthYear);
-        return BestEmployeeInTeam::where('department_id', $this->department->id)
-            ->whereYear('vote_date', $date->year)
+        return BestEmployeeInTeam::whereYear('vote_date', $date->year)
             ->whereMonth('vote_date', $date->month)
             ->get();
     }
