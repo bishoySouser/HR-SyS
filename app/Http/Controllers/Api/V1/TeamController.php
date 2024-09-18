@@ -136,7 +136,7 @@ class TeamController extends Controller
     {
         $manager = Auth::user();
 
-        $employees = Employee::select('full_name as Name')->where('manager_id', $manager->id)->get();
+        $employees = Employee::select('id' ,'full_name as Name')->where('manager_id', $manager->id)->get();
 
         return response()->json([
             'status' => true,

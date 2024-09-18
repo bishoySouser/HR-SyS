@@ -91,7 +91,7 @@ class Employee extends Authenticatable
      */
     public function getAllManagersWithoutTheirManagers()
     {
-        $managers = self::select('full_name as Name')
+        $managers = self::select('id' ,'full_name as Name')
                         ->whereHas('subordinates')
                         ->where('id' , '!=', $this->manager_id)
                         ->where('manager_id' , '>', 0)
