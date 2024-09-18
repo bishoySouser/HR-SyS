@@ -144,8 +144,6 @@ class BestEmployeeInTeamService
      */
     private function validateManagerAndEmployee(): bool
     {
-        echo($this->manager->id );
-        // echo($this->department->id );
         return $this->employee->manager_id === $this->manager->id;
     }
 }
