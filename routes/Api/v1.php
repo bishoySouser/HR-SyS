@@ -24,8 +24,8 @@ Route::middleware('auth:sanctum')->group(function() {
 
         // employee-rate
         Route::prefix('rate')->group(function() {
-            Route::post('managers', 'EmployeeRateController@managerRate');
-            Route::post('team', 'EmployeeRateController@voteEmployeeOfTeam');
+            Route::post('managers', 'EmployeeRateController@managerRate')->middleware('is_not_manager');
+            Route::post('team', 'EmployeeRateController@voteEmployeeOfTeam')->middleware('manager');
         });
     });
 

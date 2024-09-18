@@ -11,6 +11,7 @@ use App\Jobs\V1\UpdateExcuseRequest;
 use App\Jobs\V1\UpdateTimeOffRequest;
 use App\Jobs\V1\UpdateWorkFromHomeRequest;
 use App\Jobs\V1\UpdateWorkFromRequest;
+use App\Models\BestEmployeeInTeam;
 use App\Models\Department;
 use App\Models\Employee;
 use App\Models\Excuse;
@@ -135,6 +136,21 @@ class TeamController extends Controller
     public function getEmployeesOfTeam()
     {
         $manager = Auth::user();
+
+        // check managers rated in current team
+        if (!BestEmployeeInTeam::availableVoteDate()) {
+            return response()->json([
+                'status' => false,
+                'status_code' => 422,
+                'message' => 'Voting is not available at this time.',
+            ], 422);
+        } elseif (BestEmployeeInTeam::voted()) {
+            return response()->json([
+                'status' => false,
+                'status_code' => 422,
+                'message' => 'Your has already voted this month.',
+            ], 422);
+        }
 
         $employees = Employee::select('id' ,'full_name as Name')->where('manager_id', $manager->id)->get();
 
