@@ -32,7 +32,7 @@ class BestEmployeeInTeam extends Model
         $lastDay = (int) $currentDate->format('t');
 
         // Check if the current day is between the 25th and the last day of the month
-        return $day >= 25 && $day <= $lastDay;
+        return $day >= 18 && $day <= $lastDay;
     }
 
     public static function voted()
