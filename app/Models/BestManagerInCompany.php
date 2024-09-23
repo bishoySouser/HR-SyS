@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
+use Backpack\Settings\app\Models\Setting;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
@@ -24,15 +25,14 @@ class BestManagerInCompany extends Model
     {
         // Get the current date
         $currentDate = new \DateTime();
+        $from = (int) Setting::get('revaluation_employee_from');
+        $to = (int) Setting::get('revaluation_employee_to');
 
         // Get the day of the current month
         $day = (int) $currentDate->format('d');
 
-        // Get the last day of the current month
-        $lastDay = (int) $currentDate->format('t');
-
-        // Check if the current day is between the 25th and the last day of the month
-        return $day >= 18 && $day <= $lastDay;
+        // Check if the current day is between the 25th and the 29th of the month
+        return $day >= $from && $day <= $to;
     }
 
     public static function voted()
