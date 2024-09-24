@@ -27,6 +27,7 @@
     <li class="nav-item"><a class="nav-link" href="{{ backpack_url('trashed-employee') }}"><i class="nav-icon la la-trash" style="color: red;"></i> Trashed Employees</a></li>
 </ul>
 
+
 <li class=" nav-header mt-2">EOM (Voted)</li>
 
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('best-employee-in-team') }}"><i class="nav-icon la la-vote-yea"></i> Best employee in teams</a></li>

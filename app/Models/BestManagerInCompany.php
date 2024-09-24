@@ -55,4 +55,5 @@ class BestManagerInCompany extends Model
                 ->exists();
 
     }
+
 }

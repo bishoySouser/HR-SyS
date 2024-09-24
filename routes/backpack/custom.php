@@ -53,8 +53,12 @@ Route::group([
     Route::crud('it-ticket', 'ItTicketCrudController');
     Route::crud('policy-document', 'PolicyDocumentCrudController');
     Route::crud('holiday', 'HolidayCrudController');
+
     Route::crud('employee-of-the-month', 'EmployeeOfTheMonthCrudController');
 
     Route::crud('best-employee-in-team', 'BestEmployeeInTeamCrudController');
     Route::crud('best-manager-in-company', 'BestManagerInCompanyCrudController');
+
+    // Report
+    Route::get('report/eom', 'Reports\EmployeeOfTheMonth@report')->name('employee.of.month.report');
 }); // this should be the absolute last line of this file

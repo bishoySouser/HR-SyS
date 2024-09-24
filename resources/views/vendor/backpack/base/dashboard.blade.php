@@ -136,6 +136,36 @@
             </div>
         </div>
     </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">Top 5 Best Managers</div>
+        <div class="card-body p-0">
+          <table class="table table-responsive-sm table-striped mb-0">
+            <thead class="thead-light">
+              <tr>
+                <th>Manager Name</th>
+                <th class="text-center">Vote Date</th>
+                <th class="text-center">Total Votes</th>
+              </tr>
+            </thead>
+            <tbody>
+                @foreach ($bestManagers as $manager)
+                    <tr>
+                        <td>{{ $manager->manager_name }}</td>
+                        <td class="text-center">{{ \Carbon\Carbon::parse($manager->vote_date)->format('F, Y') }}</td>
+                        <td class="text-center">{{ $manager->total_votes }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+</div>
+
 
 @endsection
 

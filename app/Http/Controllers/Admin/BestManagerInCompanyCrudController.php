@@ -43,11 +43,6 @@ class BestManagerInCompanyCrudController extends CrudController
         CRUD::column('manager_id');
         CRUD::column('vote_date');
 
-        /**
-         * Columns can be defined using the fluent syntax or array syntax:
-         * - CRUD::column('price')->type('number');
-         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']);
-         */
     }
 
     /**

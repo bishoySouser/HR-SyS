@@ -54,6 +54,14 @@ class AdminController extends Controller
         $data['monthlyVacationDays'] = $this->getMonthlyVacationDays();
         $data['avgVacationDurationByMonth'] = $this->getAvgVacationDurationByMonth();
 
+        $data['bestManagers'] = DB::table('best_manager_in_company as bm')
+                                    ->join('employes as e', 'bm.manager_id', '=', 'e.id')
+                                    ->select('e.full_name as manager_name', 'bm.vote_date', DB::raw('COUNT(bm.manager_id) as total_votes'))
+                                    ->groupBy('bm.manager_id', 'bm.vote_date', 'e.full_name')
+                                    ->orderBy('total_votes', 'desc')
+                                    ->take(5)
+                                    ->get();
+
         // return $data;
 
         return view(backpack_view('dashboard'), $data);
