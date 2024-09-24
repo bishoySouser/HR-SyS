@@ -22,7 +22,11 @@ class PermissionSeeder extends Seeder
         // create permission for each combination of table.level
         // \DB::table('permissions')->delete();
         collect([ // tables
-            'holidays',
+            'settings',
+            'best_employee_in_team',
+            'best_manager_in_company',
+            'employee_of_the_month'
+            // 'holidays',
             // 'roles',
             // 'courses',
             // 'departments',
