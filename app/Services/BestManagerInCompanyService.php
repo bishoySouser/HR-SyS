@@ -64,7 +64,7 @@ class BestManagerInCompanyService
         $this->setVoteDate();
 
         if ($this->hasEmployeeVotedThisMonth()) {
-            throw new \Exception('Employee has already voted this month.');
+            throw new \Exception('You have already voted for this month');
         }
 
         if (!$this->validateEmployeeAndManager()) {

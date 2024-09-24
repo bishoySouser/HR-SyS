@@ -78,7 +78,7 @@ class EmployeeController extends Controller
             return response()->json([
                 'status' => false,
                 'status_code' => 422,
-                'message' => 'Your has already voted this month.',
+                'message' => 'You have already voted for this month',
             ], 422);
         }
 
