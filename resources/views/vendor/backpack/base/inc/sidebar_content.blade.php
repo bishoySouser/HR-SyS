@@ -73,6 +73,7 @@
 @role('Track EOM|HR|Super-Admin')
 <li class=" nav-header mt-2">EOM</li>
 <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item"><a class="nav-link" href="{{ backpack_url('report/eom') }}"><i class="nav-icon la la-chart-bar"></i> Charts track</a></li>
     <li class="nav-item"><a class="nav-link" href="{{ backpack_url('employee-of-the-month') }}"><i class="nav-icon la la-star"></i> EOM</a></li>
     <li class="nav-item"><a class="nav-link" href="{{ backpack_url('best-employee-in-team') }}"><i class="nav-icon la la-vote-yea"></i> Best employee in teams</a></li>
 
