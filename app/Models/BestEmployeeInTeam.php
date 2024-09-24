@@ -21,6 +21,12 @@ class BestEmployeeInTeam extends Model
         'vote_date'
     ];
 
+    public function getVoteDateAttribute($value)
+    {
+        // Optionally format it for display
+        return date('Y M', strtotime($value));
+    }
+
     public function manager() {
         return $this->belongsTo(Employee::class);
     }

@@ -30,6 +30,12 @@ class BestManagerInCompany extends Model
         return $this->belongsTo(Employee::class);
     }
 
+    public function getVoteDateAttribute($value)
+    {
+        // Optionally format it for display
+        return date('Y M', strtotime($value));
+    }
+
     public static function availableVoteDate()
     {
         // Get the current date
