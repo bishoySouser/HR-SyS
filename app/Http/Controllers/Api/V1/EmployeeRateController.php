@@ -40,7 +40,9 @@ class EmployeeRateController extends Controller
             // Set the manager, employee, department, and vote date in the service
             $this->bestManagerService
                 ->setEmployee($employee)
-                ->setManager($manager);
+                ->setManager($manager)
+                ->setReason($request->input('reson'));
+
 
             // Cast the vote
             $result = $this->bestManagerService->voteForBestManager();
@@ -78,7 +80,8 @@ class EmployeeRateController extends Controller
             // Set the manager, employee, department, and vote date in the service
             $this->bestEmployeeService
                 ->setManager($manager)
-                ->setEmployee($employee);
+                ->setEmployee($employee)
+                ->setReason($request->input('reson'));
 
             // Cast the vote
             $result = $this->bestEmployeeService->voteForBestEmployee();

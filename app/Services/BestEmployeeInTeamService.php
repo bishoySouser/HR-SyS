@@ -12,6 +12,7 @@ class BestEmployeeInTeamService
 {
     private Employee $manager;
     private Employee $employee;
+    private String $reason;
     private Carbon $voteDate;
 
     public function setManager(Employee $manager): self
@@ -34,6 +35,17 @@ class BestEmployeeInTeamService
     public function getEmployee(): Employee
     {
         return $this->employee;
+    }
+
+    public function getReason(): String
+    {
+        return $this->reason;
+    }
+
+    public function setReason($reason): self
+    {
+        $this->reason = $reason;
+        return $this;
     }
 
     public function setVoteDate(): self
@@ -78,6 +90,7 @@ class BestEmployeeInTeamService
 
         if ($existingVote) {
             $existingVote->employee_id = $this->employee->id;
+            $existingVote->reason = $this->reason;
             $existingVote->vote_date = $this->voteDate;
             $existingVote->save();
             return $existingVote;
@@ -87,6 +100,7 @@ class BestEmployeeInTeamService
         return BestEmployeeInTeam::create([
             'manager_id' => $this->manager->id,
             'employee_id' => $this->employee->id,
+            'reason' => $this->reason,
             'vote_date' => $this->voteDate,
         ]);
     }
