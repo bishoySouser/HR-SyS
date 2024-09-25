@@ -18,6 +18,7 @@ class BestEmployeeInTeam extends Model
     protected $fillable = [
         'manager_id',
         'employee_id',
+        'reason',
         'vote_date'
     ];
 

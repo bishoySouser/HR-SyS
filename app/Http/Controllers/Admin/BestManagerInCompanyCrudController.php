@@ -17,7 +17,7 @@ class BestManagerInCompanyCrudController extends CrudController
     // use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
     // use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
-    // use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
@@ -29,6 +29,21 @@ class BestManagerInCompanyCrudController extends CrudController
         CRUD::setModel(\App\Models\BestManagerInCompany::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/best-manager-in-company');
         CRUD::setEntityNameStrings('best manager in company', 'best manager in companies');
+    }
+
+    protected function setupShowOperation()
+    {
+        CRUD::column('employee_id');
+        CRUD::column('manager_id');
+        // CRUD::column('reason');
+        CRUD::addColumn(['name' => 'reason', 'type' => 'text', 'limit' => '500']);
+        CRUD::column('vote_date');
+
+        /**
+         * Columns can be defined using the fluent syntax or array syntax:
+         * - CRUD::column('price')->type('number');
+         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']);
+         */
     }
 
     /**
