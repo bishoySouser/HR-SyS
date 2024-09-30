@@ -23,7 +23,9 @@ class EventController extends Controller
         $events = Event::whereDate('date', $date)
             ->get()
             ->map(function ($event) {
-                return $event->name;
+                return [
+                    'name' => $event->name
+                ];
             });
 
         $employees_have_vacation = Vacation::with('balance.employee')
