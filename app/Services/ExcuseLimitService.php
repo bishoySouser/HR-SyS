@@ -49,8 +49,8 @@ class ExcuseLimitService implements LeaveRequestInterface
     {
         // $this->monthlyUsage = Excuse::forTimeInMonthBySecound($requestData['employee_id'], now()->month, now()->year);
 
-        $hasRecords = Excuse::where('employee_id', $requestData['employee_id']);
         $month = Carbon::parse($requestData['date'])->month;
+        $hasRecords = Excuse::where('employee_id', $requestData['employee_id'])->whereMonth('date', $month);
 
         if (!$hasRecords->exists()) {
             return false;
@@ -62,7 +62,8 @@ class ExcuseLimitService implements LeaveRequestInterface
             ->groupBy(DB::raw('MONTH(date)'))
             ->get();
 
-        $monthRequests = $requestsPerMonth->firstWhere('month', $month);
+
+            $monthRequests = $requestsPerMonth->firstWhere('month', $month);
 
         return $monthRequests->request_count + $excuseTimeInSeconds > $this->getLimit();
     }
