@@ -54,7 +54,7 @@ class WorkFromHomeService implements LeaveRequestInterface
         $day = $requestData['day'];
         $month = Carbon::parse($day)->month;
 
-        $hasRecords = WorkFromHome::where('employee_id', $employeeId);
+        $hasRecords = WorkFromHome::where('employee_id', $employeeId)->whereMonth('day', $month);
 
         if (!$hasRecords->exists()) {
             return false;
