@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\HolidayRequest;
+use App\Models\Holiday;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
@@ -72,6 +73,42 @@ class HolidayCrudController extends CrudController
          * - CRUD::addField(['name' => 'price', 'type' => 'number']));
          */
     }
+
+    // public function store(HolidayRequest $request)
+    // {
+    //     $event = new Holiday();
+    //     $event->name = $request->name;
+    //     $event->from_date = $request->from_date;
+    //     $event->to_date = $request->to_date;
+    //     $event->subject = $request->subject;
+
+    //     $event->save();
+
+    //     $event->employees()->attach($request->employees);
+
+    //     $eventAfterCreated = Event::find($event->id);
+
+    //     $emailsOfEmployees = [];
+
+    //     foreach ($eventAfterCreated->employees as $employee) {
+    //         $emailsOfEmployees[] = $employee->email;
+    //     }
+
+    //     $email = new MailEvent($event);
+
+    //     Mail::to($emailsOfEmployees)->send($email);
+
+
+    //     // Check if save_back or save_edit button was submitted
+    //     if ($request->has('save_back')) {
+    //         return redirect()->url('admin/event')->with('success', 'Event created successfully!');
+    //     } else if ($request->has('save_edit')) {
+    //         return redirect()->route('admin.event.edit', $event->id)->with('success', 'Event created successfully!');
+    //     } else {
+    //         // Handle unexpected case (no button submitted)
+    //         return redirect()->back()->with('error', 'Unexpected error occurred!');
+    //     }
+    // }
 
     /**
      * Define what happens when the Update operation is loaded.
