@@ -67,6 +67,7 @@ class Job extends CrudController
             'options'     => [
                 'internship' => 'internship',
                 'junior' => 'junior',
+                'mid-level' => 'mid-level',
                 'executive' => 'executive',
                 'senior' => 'senior',
                 'team-lead' => 'team-lead',
