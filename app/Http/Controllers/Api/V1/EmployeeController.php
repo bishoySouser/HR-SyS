@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\EmployeeResource;
 use App\Models\BestManagerInCompany;
 use App\Models\Employee;
+use App\Services\TeamManagementService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Builder;
@@ -89,6 +90,20 @@ class EmployeeController extends Controller
             'status_code' => 200,
             'message' => 'Managers list without their own manager',
             'data' => $managers
+        ],200);
+    }
+
+    public function getAllTeam()
+    {
+        $user = Auth::user();
+        $team = new TeamManagementService();
+        $team = $team->getTeamMembers($user);
+
+        return response()->json([
+            'status' => true,
+            'status_code' => 200,
+            'message' => 'Employee list.',
+            'data' => EmployeeResource::collection($team)
         ],200);
     }
 

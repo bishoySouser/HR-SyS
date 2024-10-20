@@ -144,6 +144,7 @@ class TeamController extends Controller
                 'status_code' => 422,
                 'message' => 'Voting is not available at this time.',
             ], 422);
+
         } elseif (BestEmployeeInTeam::voted()) {
             return response()->json([
                 'status' => false,

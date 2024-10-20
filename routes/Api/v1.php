@@ -21,6 +21,7 @@ Route::middleware('auth:sanctum')->group(function() {
         Route::get('profile', 'EmployeeController@getProfile');
         Route::get('tree', 'EmployeeController@getEmployeeTree');
         Route::get('managers-wihtout-your-employee', 'EmployeeController@getManagersWithoutTheirOwnManager')->middleware('is_not_manager');
+        Route::get('get-all-team', 'EmployeeController@getAllTeam')->middleware('manager');
 
         // employee-rate
         Route::prefix('rate')->group(function() {
