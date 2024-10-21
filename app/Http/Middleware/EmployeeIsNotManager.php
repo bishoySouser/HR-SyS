@@ -15,7 +15,7 @@ class EmployeeIsNotManager
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!auth()->check() || auth()->user()->isManager()) {
+        if ( auth()->user()->isManager() ) {
             return response()->json([
                 'error' => 'Access denied. This area is for non-managers only.'
             ], 403);

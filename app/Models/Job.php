@@ -21,7 +21,12 @@ class Job extends Model
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
-    // protected $fillable = [];
+    protected $fillable = [
+        'grades',
+        'title',
+        'min_salary',
+        'max_salary'
+    ];
     // protected $hidden = [];
     // protected $dates = [];
 
