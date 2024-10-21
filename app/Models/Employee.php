@@ -93,10 +93,13 @@ class Employee extends Authenticatable
      */
     public function getAllManagersWithoutTheirManagers()
     {
-        $managers = self::select('id' ,'full_name as Name')
-                        ->whereHas('subordinates')
-                        ->where('id' , '!=', $this->manager_id)
-                        ->where('manager_id' , '>', 0)
+        $managers = self::select('id', 'full_name as Name')
+                        ->whereHas('job', function($query) {
+                            $query->where('grades', 'manager');
+                        })
+                        ->where('id', '!=', $this->manager_id)
+                        ->whereNotNull('manager_id')
+                        ->orderBy('name', 'ASC')
                         ->get();
 
         return $managers;
