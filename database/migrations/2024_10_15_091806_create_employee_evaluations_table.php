@@ -60,7 +60,7 @@ return new class extends Migration
                 $table->enum('seeks_training', ['improvement_required', 'satisfactory', 'good', 'excellent']);
 
             // Text fields
-            $table->text('achievements')->nullable();
+            $table->text('employees_achievements')->nullable();
             $table->text('performance_and_progress');
             $table->text('new_goals_to_achieve');
 
