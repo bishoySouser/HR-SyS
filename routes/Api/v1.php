@@ -69,7 +69,7 @@ Route::middleware('auth:sanctum')->group(function() {
         Route::post('', 'CourseController@store');
     });
 
-    //policy-documents
+    // policy-documents
     Route::get('policy-documents', 'PolicyDocumentController@index');
 
     // it-tickets
@@ -78,6 +78,8 @@ Route::middleware('auth:sanctum')->group(function() {
         Route::get('', 'ItTicketController@index');
     });
 
+    // evaluations
+    Route::post('evaluations', 'EmployeesEvaluationController@store');
 
 });
 

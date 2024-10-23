@@ -4,8 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\StoreEmployeesEvaluationRequest;
-use App\Models\EmployeeEvaluation;
-use Illuminate\Http\Request;
+use App\Jobs\V1\Evaluation\CreateEvaluation;
 
 class EmployeesEvaluationController extends Controller
 {
@@ -14,15 +13,17 @@ class EmployeesEvaluationController extends Controller
         try {
             $validatedData = $request->validated();
 
-            // Add evaluator_id from authenticated user
-            $validatedData['evaluator_id'] = auth()->id();
+            CreateEvaluation::dispatchAfterResponse(
+                $validatedData,
+                auth()->id()
+            );
 
-            $evaluation = EmployeeEvaluation::create($validatedData);
-
+            // Return the response with the evaluation model
             return response()->json([
                 'message' => 'Evaluation created successfully',
-                'data' => $evaluation->load(['employee', 'evaluator'])
+                'data' => []
             ], 201);
+
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Failed to create evaluation',
