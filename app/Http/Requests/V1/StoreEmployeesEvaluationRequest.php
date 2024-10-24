@@ -23,6 +23,15 @@ class StoreEmployeesEvaluationRequest extends FormRequest
     {
         return [
             'employee_id' => 'required|exists:employes,id',
+            'year' => [
+                'required',
+                'numeric',
+                function($attribute, $value, $fail) {
+                    if ($value < now()->year) {
+                        $fail("The {$attribute} must be the current year or a future year.");
+                    }
+                }
+            ],
             'evaluation_type' => 'required|in:quarter_1,quarter_2,quarter_3,quarter_4,end_of_probation,end_of_year',
 
             // Approach to work

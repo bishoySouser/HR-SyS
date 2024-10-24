@@ -13,21 +13,25 @@ class EmployeesEvaluationController extends Controller
         try {
             $validatedData = $request->validated();
 
-            CreateEvaluation::dispatchAfterResponse(
+            CreateEvaluation::dispatchSync(
                 $validatedData,
                 auth()->id()
             );
 
             // Return the response with the evaluation model
             return response()->json([
+                'status' => true,
+                'status_code' => 201,
                 'message' => 'Evaluation created successfully',
                 'data' => []
-            ], 201);
+            ], 200);
 
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Failed to create evaluation',
-                'error' => $e->getMessage()
+                'status' => false,
+                'status_code' => 500,
+                'errors' => $e->getMessage(),
             ], 500);
         }
     }

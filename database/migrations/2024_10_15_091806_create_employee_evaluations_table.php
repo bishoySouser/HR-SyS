@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('employee_id')->constrained('employes')->onDelete('cascade');
             $table->foreignId('evaluator_id')->constrained('employes')->onDelete('cascade');
+            $table->integer('year');
             $table->enum('evaluation_type', [
                 'quarter_1', 'quarter_2', 'quarter_3', 'quarter_4',
                 'end_of_probation', 'end_of_year'

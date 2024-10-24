@@ -3,6 +3,7 @@
 namespace App\Jobs\V1\Evaluation;
 
 use App\Models\EmployeeEvaluation;
+use App\Services\Evaluations\EvaluatorValidation;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -32,6 +33,12 @@ class CreateEvaluation implements ShouldQueue
     public function handle(): EmployeeEvaluation
     {
         try {
+            $validatorService = new EvaluatorValidation();
+
+            if (!$validatorService->isValidEvaluator($this->data['employee_id'], $this->evaluatorId)) {
+                throw new \InvalidArgumentException('Invalid evaluator for this employee');
+            }
+
             // Merge evaluator_id with evaluation data
             $this->data['evaluator_id'] = $this->evaluatorId;
 
