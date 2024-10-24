@@ -110,6 +110,41 @@ class Employee extends Authenticatable
     | RELATIONS
     |--------------------------------------------------------------------------
     */
+     /**
+     * get list evaluation for employee don't evaluate this year
+     */
+    public function getAvaliableEvaluation(): array
+    {
+        $allEvaluations = [
+            'quarter_1',
+            'quarter_2',
+            'quarter_3',
+            'quarter_4',
+            'end_of_probation',
+            'end_of_year'
+        ];
+
+        $completedEvaluations = $this->evaluationsAsEmployee()
+            ->where('year', date('Y'))
+            ->pluck('evaluation_type')
+            ->toArray();
+
+        return [
+            'completed' => $completedEvaluations,
+            'pending' => array_values(array_diff( $allEvaluations, $completedEvaluations))
+        ];
+    }
+
+    public function evaluationsAsEmployee()
+    {
+        return $this->hasMany(EmployeeEvaluation::class, 'employee_id');
+    }
+
+    public function evaluationsAsEvaluator()
+    {
+        return $this->hasMany(EmployeeEvaluation::class, 'evaluator_id');
+    }
+
     public function job()
     {
         return $this->belongsTo(Job::class);
@@ -128,6 +163,7 @@ class Employee extends Authenticatable
     {
         return $this->belongsToMany(Event::class);
     }
+
 
     public function itTickets() {
         return $this->hasMany(ItTicket::class);

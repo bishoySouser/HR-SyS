@@ -38,6 +38,13 @@ class EmployeeResource extends JsonResource
             'contractPeriods' => $this->contract_periods,
             'socailInsurance' => $this->socialInsurance ? 'yes' : 'no',
             'medicalInsurance' => $this->medicalInsurance ? 'yes' : 'no',
+            'evaluations' => $this->getAvaliableEvaluation()
+            // 'evaluations' => $this->when(
+            //     $this->relationLoaded('evaluationsAsEmployee'),
+            //     function () {
+            //         return EvaluationResource::collection($this->evaluationsAsEmployee);
+            //     }
+            // ),
         ];
     }
 }

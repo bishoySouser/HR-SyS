@@ -25,4 +25,29 @@ class EmployeeEvaluation extends Model
     {
         return $this->belongsTo(Employee::class, 'evaluator_id');
     }
+
+    /**
+     * get list evaluation for employee don't evaluate this year
+     */
+    public function getAvaliableEvaluation(): array
+    {
+        $allEvaluations = [
+            'quarter_1',
+            'quarter_2',
+            'quarter_3',
+            'quarter_4',
+            'end_of_probation',
+            'end_of_year'
+        ];
+
+        $completedEvaluations = $this->reviewsAsEmployee()
+            ->where('year', date('Y'))
+            ->pluck('evaluation_type')
+            ->toArray();
+
+        return [
+            'completed' => $completedEvaluations,
+            'pending' => array_values(array_diff( $allEvaluations, $completedEvaluations))
+        ];
+    }
 }
