@@ -63,12 +63,17 @@ class VacationCrudController extends CrudController
     protected function setupListOperation()
     {
         $this->crud->addColumn([
-            'name' => 'employee.full_name', // Name of the column
-            'label' => 'Employee Name', // Label for the column header
-            'type' => 'closure', // Use a closure to retrieve the data
-            'function' => function ($entry) {
-                return $entry->balance->employee->full_name; // Access the full_name through relationships
-            },
+            'name' => 'employee.full_name',
+            'label' => 'Employee Name',
+            'type' => 'relationship',
+            'entity' => 'employee',
+            'attribute' => 'full_name',
+            'model' => 'App\Models\Employee',
+            'searchLogic' => function ($query, $column, $searchTerm) {
+                $query->orWhereHas('employee', function ($q) use ($searchTerm) {
+                    $q->where('full_name', 'LIKE', '%'.$searchTerm.'%');
+                });
+            }
         ]);
         CRUD::column('balance_id');
         CRUD::column('start_date');
