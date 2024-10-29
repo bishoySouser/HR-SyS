@@ -67,7 +67,7 @@ class StoreEmployeesEvaluationRequest extends FormRequest
             'problem_solving' => 'required|integer|between:1,4',
 
             // Willingness to learn
-            'willingness_to_learn' => 'required|integer|between:1,4',
+            // 'willingness_to_learn' => 'required|integer|between:1,4',
             'open_to_ideas' => 'required|integer|between:1,4',
             'seeks_training' => 'required|integer|between:1,4',
 
