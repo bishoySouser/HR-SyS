@@ -23,6 +23,7 @@ class EmployeeResource extends JsonResource
             'phoneNumber' => $this->phone_number,
             'education' => $this->eduction,
             'jobTitle' => $this->job_title ,
+            'department' => $this->department->name,
             'manager' => $this->when(
                 $this->relationLoaded('manager') && $this->manager,
                 function () {

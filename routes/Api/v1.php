@@ -79,7 +79,8 @@ Route::middleware('auth:sanctum')->group(function() {
     });
 
     // evaluations
-    Route::post('evaluations', 'EmployeesEvaluationController@store');
+    Route::post('evaluations', 'EmployeesEvaluationController@store')->middleware('manager');
+    Route::get('evaluations/pdf/{id}', 'EmployeesEvaluationController@generatePDF');
 
 });
 

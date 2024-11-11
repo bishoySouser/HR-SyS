@@ -218,6 +218,18 @@ class Employee extends Authenticatable
         return $parts[0] ?? null;
     }
 
+    /**
+     * get first name and second name
+     */
+    public function getUsernameAttribute()
+    {
+        // Split the full name into an array of parts
+        $parts = explode(' ', $this->full_name);
+
+        // Return the first part (first name)
+        return $parts[0] . " " . $parts[1] ?? null;
+    }
+
     public function getFirstAndSecondNameAttribute()
     {
         $fullName = $this->full_name; // Assuming full_name is the field

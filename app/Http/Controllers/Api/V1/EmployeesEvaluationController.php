@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Http\Requests\V1\StoreEmployeesEvaluationRequest;
+use App\Http\Resources\V1\EvaluationResource;
 use App\Jobs\V1\Evaluation\CreateEvaluation;
+use App\Models\EmployeeEvaluation;
 
 class EmployeesEvaluationController extends Controller
 {
@@ -34,5 +37,15 @@ class EmployeesEvaluationController extends Controller
                 'errors' => $e->getMessage(),
             ], 500);
         }
+    }
+
+    public function generatePDF($evaluation_id)
+    {
+        $data = EmployeeEvaluation::findOrFail($evaluation_id);
+        $data =  (new EvaluationResource($data))->toArray(request());
+
+
+        $pdf = Pdf::loadView('pdfs.evaluation', $data);
+        return $pdf->download('evaluation.pdf');
     }
 }

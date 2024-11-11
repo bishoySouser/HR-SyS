@@ -2,19 +2,27 @@
 
 namespace App\Models;
 
+use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class EmployeeEvaluation extends Model
 {
+    use CrudTrait;
     use HasFactory;
 
     protected $guarded = ['id'];
 
-    protected $casts = [
-        'employee_id' => 'integer',
-        'evaluator_id' => 'integer',
-    ];
+    public $timestamps = [ "created_at" ];
+
+    // protected $fillable = [
+    //     'employee_id'
+    // ];
+
+    // protected $casts = [
+    //     'employee_id' => 'integer',
+    //     'evaluator_id' => 'integer',
+    // ];
 
     public function employee()
     {

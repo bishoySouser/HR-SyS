@@ -61,4 +61,5 @@ Route::group([
 
     // Report
     Route::get('report/eom', 'Reports\EmployeeOfTheMonth@report')->name('employee.of.month.report');
+    Route::crud('employee-evaluation', 'EmployeeEvaluationCrudController');
 }); // this should be the absolute last line of this file
