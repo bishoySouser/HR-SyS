@@ -25,7 +25,7 @@ return new class extends Migration
                 // Approach to work
                 $table->enum('follows_instructions', ['satisfactory', 'good', 'very good',  'excellent']);
                 $table->enum('accepts_constructive_criticism', ['satisfactory', 'good', 'very good',  'excellent']);
-                $table->enum('flexible_&_adaptable', ['satisfactory', 'good', 'very good',  'excellent']);
+                $table->enum('flexible_and_adaptable', ['satisfactory', 'good', 'very good',  'excellent']);
 
                 // Technical Skills
                 $table->enum('job_knowledge', ['satisfactory', 'good', 'very good',  'excellent']);

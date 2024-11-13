@@ -2348,16 +2348,24 @@
                 <p class="c14"><span class="c21">Accepts constructive criticism </span></p>
             </td>
             <td class="c15" colspan="1" rowspan="1">
-                <p class="c6"><span class="c0"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px">{!! $acceptsConstructiveCriticism == 'satisfactory' ? '*' : '' !!}</span>
+                </p>
             </td>
             <td class="c12" colspan="2" rowspan="1">
-                <p class="c6"><span class="c0"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px">{!! $acceptsConstructiveCriticism == 'good' ? '*' : '' !!}</span>
+                </p>
             </td>
             <td class="c4" colspan="2" rowspan="1">
-                <p class="c1"><span class="c8"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px"> {!! $acceptsConstructiveCriticism == 'very good' ? '*' : '' !!}</span>
+                </p>
             </td>
             <td class="c4" colspan="1" rowspan="1">
-                <p class="c6"><span class="c0"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px">{!! $acceptsConstructiveCriticism == 'excellent' ? '*' : '' !!}</span>
+                </p>
             </td>
         </tr>
         <tr class="c16">
@@ -2365,16 +2373,24 @@
                 <p class="c14"><span class="c21">Flexible &amp; adaptable </span></p>
             </td>
             <td class="c15" colspan="1" rowspan="1">
-                <p class="c6"><span class="c0"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px">{!! $flexibleAndAdaptable == 'satisfactory' ? '*' : '' !!}</span>
+                </p>
             </td>
             <td class="c12" colspan="2" rowspan="1">
-                <p class="c6"><span class="c0"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px">{!! $flexibleAndAdaptable == 'good' ? '*' : '' !!}</span>
+                </p>
             </td>
             <td class="c4" colspan="2" rowspan="1">
-                <p class="c1"><span class="c8"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px"> {!! $flexibleAndAdaptable == 'very good' ? '*' : '' !!}</span>
+                </p>
             </td>
             <td class="c4" colspan="1" rowspan="1">
-                <p class="c6"><span class="c0"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px">{!! $flexibleAndAdaptable == 'excellent' ? '*' : '' !!}</span>
+                </p>
             </td>
         </tr>
 
@@ -2389,16 +2405,24 @@
                 <p class="c14"><span class="c21">Job Knowledge </span></p>
             </td>
             <td class="c15" colspan="1" rowspan="1">
-                <p class="c6"><span class="c0"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px">{!! $jobKnowledge == 'satisfactory' ? '*' : '' !!}</span>
+                </p>
             </td>
             <td class="c12" colspan="2" rowspan="1">
-                <p class="c6"><span class="c0"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px">{!! $jobKnowledge == 'good' ? '*' : '' !!}</span>
+                </p>
             </td>
             <td class="c4" colspan="2" rowspan="1">
-                <p class="c1"><span class="c8"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px"> {!! $jobKnowledge == 'very good' ? '*' : '' !!}</span>
+                </p>
             </td>
             <td class="c4" colspan="1" rowspan="1">
-                <p class="c6"><span class="c0"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px">{!! $jobKnowledge == 'excellent' ? '*' : '' !!}</span>
+                </p>
             </td>
         </tr>
         <tr class="c16">
@@ -2406,16 +2430,24 @@
                 <p class="c14"><span class="c21">Follows Procedures</span></p>
             </td>
             <td class="c15" colspan="1" rowspan="1">
-                <p class="c6"><span class="c0"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px">{!! $followsProcedures == 'satisfactory' ? '*' : '' !!}</span>
+                </p>
             </td>
             <td class="c12" colspan="2" rowspan="1">
-                <p class="c6"><span class="c0"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px">{!! $followsProcedures == 'good' ? '*' : '' !!}</span>
+                </p>
             </td>
             <td class="c4" colspan="2" rowspan="1">
-                <p class="c6"><span class="c0"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px"> {!! $followsProcedures == 'very good' ? '*' : '' !!}</span>
+                </p>
             </td>
             <td class="c4" colspan="1" rowspan="1">
-                <p class="c1"><span class="c8"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px">{!! $followsProcedures == 'excellent' ? '*' : '' !!}</span>
+                </p>
             </td>
         </tr>
         <tr class="c16">
@@ -2423,16 +2455,24 @@
                 <p class="c14"><span class="c21">Works to Full Potential</span></p>
             </td>
             <td class="c15" colspan="1" rowspan="1">
-                <p class="c6"><span class="c0"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px">{!! $worksFullPotential == 'satisfactory' ? '*' : '' !!}</span>
+                </p>
             </td>
             <td class="c12" colspan="2" rowspan="1">
-                <p class="c6"><span class="c0"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px">{!! $worksFullPotential == 'good' ? '*' : '' !!}</span>
+                </p>
             </td>
             <td class="c4" colspan="2" rowspan="1">
-                <p class="c1"><span class="c8"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px"> {!! $worksFullPotential == 'very good' ? '*' : '' !!}</span>
+                </p>
             </td>
             <td class="c4" colspan="1" rowspan="1">
-                <p class="c6"><span class="c0"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px">{!! $worksFullPotential == 'excellent' ? '*' : '' !!}</span>
+                </p>
             </td>
         </tr>
         <tr class="c16">
@@ -2440,16 +2480,24 @@
                 <p class="c14"><span class="c21">Learning new skills </span></p>
             </td>
             <td class="c15" colspan="1" rowspan="1">
-                <p class="c6"><span class="c0"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px">{!! $learningNewSkills == 'satisfactory' ? '*' : '' !!}</span>
+                </p>
             </td>
             <td class="c12" colspan="2" rowspan="1">
-                <p class="c6"><span class="c0"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px">{!! $learningNewSkills == 'good' ? '*' : '' !!}</span>
+                </p>
             </td>
             <td class="c4" colspan="2" rowspan="1">
-                <p class="c1"><span class="c8"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px"> {!! $learningNewSkills == 'very good' ? '*' : '' !!}</span>
+                </p>
             </td>
             <td class="c4" colspan="1" rowspan="1">
-                <p class="c6"><span class="c0"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px">{!! $learningNewSkills == 'excellent' ? '*' : '' !!}</span>
+                </p>
             </td>
         </tr>
 
@@ -2464,16 +2512,24 @@
                 <p class="c14"><span class="c21">Accuracy </span></p>
             </td>
             <td class="c15" colspan="1" rowspan="1">
-                <p class="c6"><span class="c0"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px">{!! $accuracy == 'satisfactory' ? '*' : '' !!}</span>
+                </p>
             </td>
             <td class="c12" colspan="2" rowspan="1">
-                <p class="c6"><span class="c0"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px">{!! $accuracy == 'good' ? '*' : '' !!}</span>
+                </p>
             </td>
             <td class="c4" colspan="2" rowspan="1">
-                <p class="c1"><span class="c8"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px"> {!! $accuracy == 'very good' ? '*' : '' !!}</span>
+                </p>
             </td>
             <td class="c4" colspan="1" rowspan="1">
-                <p class="c6"><span class="c0"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px">{!! $accuracy == 'excellent' ? '*' : '' !!}</span>
+                </p>
             </td>
         </tr>
         <tr class="c16">
@@ -2481,16 +2537,24 @@
                 <p class="c14"><span class="c21">Consistency</span></p>
             </td>
             <td class="c15" colspan="1" rowspan="1">
-                <p class="c6"><span class="c0"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px">{!! $consistency == 'satisfactory' ? '*' : '' !!}</span>
+                </p>
             </td>
             <td class="c12" colspan="2" rowspan="1">
-                <p class="c6"><span class="c0"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px">{!! $consistency == 'good' ? '*' : '' !!}</span>
+                </p>
             </td>
             <td class="c4" colspan="2" rowspan="1">
-                <p class="c1"><span class="c8"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px"> {!! $consistency == 'very good' ? '*' : '' !!}</span>
+                </p>
             </td>
             <td class="c4" colspan="1" rowspan="1">
-                <p class="c6"><span class="c0"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px">{!! $consistency == 'excellent' ? '*' : '' !!}</span>
+                </p>
             </td>
         </tr>
         <tr class="c16">
@@ -2498,16 +2562,24 @@
                 <p class="c14"><span class="c21">Follow-up </span></p>
             </td>
             <td class="c15" colspan="1" rowspan="1">
-                <p class="c6"><span class="c0"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px">{!! $followUp == 'satisfactory' ? '*' : '' !!}</span>
+                </p>
             </td>
             <td class="c12" colspan="2" rowspan="1">
-                <p class="c6"><span class="c0"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px">{!! $followUp == 'good' ? '*' : '' !!}</span>
+                </p>
             </td>
             <td class="c4" colspan="2" rowspan="1">
-                <p class="c1"><span class="c8"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px"> {!! $followUp == 'very good' ? '*' : '' !!}</span>
+                </p>
             </td>
             <td class="c4" colspan="1" rowspan="1">
-                <p class="c6"><span class="c0"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px">{!! $followUp == 'excellent' ? '*' : '' !!}</span>
+                </p>
             </td>
         </tr>
 
@@ -2522,16 +2594,24 @@
                 <p class="c14"><span class="c21">Completion of work on time</span></p>
             </td>
             <td class="c15" colspan="1" rowspan="1">
-                <p class="c6"><span class="c0"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px">{!! $completionOfWorkOnTime == 'satisfactory' ? '*' : '' !!}</span>
+                </p>
             </td>
             <td class="c12" colspan="2" rowspan="1">
-                <p class="c6"><span class="c0"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px">{!! $completionOfWorkOnTime == 'good' ? '*' : '' !!}</span>
+                </p>
             </td>
             <td class="c4" colspan="2" rowspan="1">
-                <p class="c1"><span class="c8"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px"> {!! $completionOfWorkOnTime == 'very good' ? '*' : '' !!}</span>
+                </p>
             </td>
             <td class="c4" colspan="1" rowspan="1">
-                <p class="c6"><span class="c0"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px">{!! $completionOfWorkOnTime == 'excellent' ? '*' : '' !!}</span>
+                </p>
             </td>
         </tr>
 
@@ -2546,16 +2626,24 @@
                 <p class="c14"><span class="c21">Shares information/knowledge</span></p>
             </td>
             <td class="c15" colspan="1" rowspan="1">
-                <p class="c6"><span class="c0"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px">{!! $shareInformationKnowledge == 'satisfactory' ? '*' : '' !!}</span>
+                </p>
             </td>
             <td class="c12" colspan="2" rowspan="1">
-                <p class="c6"><span class="c0"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px">{!! $shareInformationKnowledge == 'good' ? '*' : '' !!}</span>
+                </p>
             </td>
             <td class="c4" colspan="2" rowspan="1">
-                <p class="c1"><span class="c8"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px"> {!! $shareInformationKnowledge == 'very good' ? '*' : '' !!}</span>
+                </p>
             </td>
             <td class="c4" colspan="1" rowspan="1">
-                <p class="c6"><span class="c0"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px">{!! $shareInformationKnowledge == 'excellent' ? '*' : '' !!}</span>
+                </p>
             </td>
         </tr>
         <tr class="c16">
@@ -2563,16 +2651,24 @@
                 <p class="c14"><span class="c21">willingly</span></p>
             </td>
             <td class="c15" colspan="1" rowspan="1">
-                <p class="c6"><span class="c0"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px">{!! $willingly == 'satisfactory' ? '*' : '' !!}</span>
+                </p>
             </td>
             <td class="c12" colspan="2" rowspan="1">
-                <p class="c6"><span class="c0"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px">{!! $willingly == 'good' ? '*' : '' !!}</span>
+                </p>
             </td>
             <td class="c4" colspan="2" rowspan="1">
-                <p class="c1"><span class="c8"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px"> {!! $willingly == 'very good' ? '*' : '' !!}</span>
+                </p>
             </td>
             <td class="c4" colspan="1" rowspan="1">
-                <p class="c6"><span class="c0"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px">{!! $willingly == 'excellent' ? '*' : '' !!}</span>
+                </p>
             </td>
         </tr>
         <tr class="c16">
@@ -2580,16 +2676,24 @@
                 <p class="c14"><span class="c21">Reporting</span></p>
             </td>
             <td class="c15" colspan="1" rowspan="1">
-                <p class="c6"><span class="c0"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px">{!! $reporting == 'satisfactory' ? '*' : '' !!}</span>
+                </p>
             </td>
             <td class="c12" colspan="2" rowspan="1">
-                <p class="c6"><span class="c0"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px">{!! $reporting == 'good' ? '*' : '' !!}</span>
+                </p>
             </td>
             <td class="c4" colspan="2" rowspan="1">
-                <p class="c1"><span class="c8"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px"> {!! $reporting == 'very good' ? '*' : '' !!}</span>
+                </p>
             </td>
             <td class="c4" colspan="1" rowspan="1">
-                <p class="c6"><span class="c0"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px">{!! $reporting == 'excellent' ? '*' : '' !!}</span>
+                </p>
             </td>
         </tr>
 
@@ -2604,16 +2708,24 @@
                 <p class="c14"><span class="c21">Relationship with colleagues</span></p>
             </td>
             <td class="c15" colspan="1" rowspan="1">
-                <p class="c6"><span class="c0"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px">{!! $relationshipWithColleagues == 'satisfactory' ? '*' : '' !!}</span>
+                </p>
             </td>
             <td class="c12" colspan="2" rowspan="1">
-                <p class="c6"><span class="c0"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px">{!! $relationshipWithColleagues == 'good' ? '*' : '' !!}</span>
+                </p>
             </td>
             <td class="c4" colspan="2" rowspan="1">
-                <p class="c1"><span class="c8"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px"> {!! $relationshipWithColleagues == 'very good' ? '*' : '' !!}</span>
+                </p>
             </td>
             <td class="c4" colspan="1" rowspan="1">
-                <p class="c6"><span class="c0"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px">{!! $relationshipWithColleagues == 'excellent' ? '*' : '' !!}</span>
+                </p>
             </td>
         </tr>
         <tr class="c16">
@@ -2621,16 +2733,24 @@
                 <p class="c14"><span class="c21">Cooperation</span></p>
             </td>
             <td class="c15" colspan="1" rowspan="1">
-                <p class="c6"><span class="c0"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px">{!! $cooperation == 'satisfactory' ? '*' : '' !!}</span>
+                </p>
             </td>
             <td class="c12" colspan="2" rowspan="1">
-                <p class="c6"><span class="c0"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px">{!! $cooperation == 'good' ? '*' : '' !!}</span>
+                </p>
             </td>
             <td class="c4" colspan="2" rowspan="1">
-                <p class="c1"><span class="c8"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px"> {!! $cooperation == 'very good' ? '*' : '' !!}</span>
+                </p>
             </td>
             <td class="c4" colspan="1" rowspan="1">
-                <p class="c6"><span class="c0"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px">{!! $cooperation == 'excellent' ? '*' : '' !!}</span>
+                </p>
             </td>
         </tr>
         <tr class="c16">
@@ -2638,16 +2758,24 @@
                 <p class="c14"><span class="c21">Coordination</span></p>
             </td>
             <td class="c15" colspan="1" rowspan="1">
-                <p class="c6"><span class="c0"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px">{!! $coordination == 'satisfactory' ? '*' : '' !!}</span>
+                </p>
             </td>
             <td class="c12" colspan="2" rowspan="1">
-                <p class="c6"><span class="c0"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px">{!! $coordination == 'good' ? '*' : '' !!}</span>
+                </p>
             </td>
             <td class="c4" colspan="2" rowspan="1">
-                <p class="c1"><span class="c8"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px"> {!! $coordination == 'very good' ? '*' : '' !!}</span>
+                </p>
             </td>
             <td class="c4" colspan="1" rowspan="1">
-                <p class="c6"><span class="c0"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px">{!! $coordination == 'excellent' ? '*' : '' !!}</span>
+                </p>
             </td>
         </tr>
         <tr class="c16">
@@ -2655,16 +2783,24 @@
                 <p class="c14"><span class="c21">Team work</span></p>
             </td>
             <td class="c15" colspan="1" rowspan="1">
-                <p class="c6"><span class="c0"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px">{!! $teamWork == 'satisfactory' ? '*' : '' !!}</span>
+                </p>
             </td>
             <td class="c12" colspan="2" rowspan="1">
-                <p class="c6"><span class="c0"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px">{!! $teamWork == 'good' ? '*' : '' !!}</span>
+                </p>
             </td>
             <td class="c4" colspan="2" rowspan="1">
-                <p class="c1"><span class="c8"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px"> {!! $teamWork == 'very good' ? '*' : '' !!}</span>
+                </p>
             </td>
             <td class="c4" colspan="1" rowspan="1">
-                <p class="c6"><span class="c0"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px">{!! $teamWork == 'excellent' ? '*' : '' !!}</span>
+                </p>
             </td>
         </tr>
         <tr class="c16">
@@ -2672,16 +2808,24 @@
                 <p class="c14"><span class="c21">Punctuality/Attendance</span></p>
             </td>
             <td class="c15" colspan="1" rowspan="1">
-                <p class="c6"><span class="c0"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px">{!! $punctualityAttendance == 'satisfactory' ? '*' : '' !!}</span>
+                </p>
             </td>
             <td class="c12" colspan="2" rowspan="1">
-                <p class="c6"><span class="c0"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px">{!! $punctualityAttendance == 'good' ? '*' : '' !!}</span>
+                </p>
             </td>
             <td class="c4" colspan="2" rowspan="1">
-                <p class="c1"><span class="c8"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px"> {!! $punctualityAttendance == 'very good' ? '*' : '' !!}</span>
+                </p>
             </td>
             <td class="c4" colspan="1" rowspan="1">
-                <p class="c6"><span class="c0"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px">{!! $punctualityAttendance == 'excellent' ? '*' : '' !!}</span>
+                </p>
             </td>
         </tr>
         <tr class="c16">
@@ -2689,16 +2833,24 @@
                 <p class="c14"><span class="c21">Problem Solving</span></p>
             </td>
             <td class="c15" colspan="1" rowspan="1">
-                <p class="c6"><span class="c0"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px">{!! $problemSolving == 'satisfactory' ? '*' : '' !!}</span>
+                </p>
             </td>
             <td class="c12" colspan="2" rowspan="1">
-                <p class="c6"><span class="c0"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px">{!! $problemSolving == 'good' ? '*' : '' !!}</span>
+                </p>
             </td>
             <td class="c4" colspan="2" rowspan="1">
-                <p class="c1"><span class="c8"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px"> {!! $problemSolving == 'very good' ? '*' : '' !!}</span>
+                </p>
             </td>
             <td class="c4" colspan="1" rowspan="1">
-                <p class="c6"><span class="c0"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px">{!! $problemSolving == 'excellent' ? '*' : '' !!}</span>
+                </p>
             </td>
         </tr>
 
@@ -2713,16 +2865,24 @@
                 <p class="c14"><span class="c21">Open to ideas</span></p>
             </td>
             <td class="c15" colspan="1" rowspan="1">
-                <p class="c6"><span class="c0"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px">{!! $openToIdeas == 'satisfactory' ? '*' : '' !!}</span>
+                </p>
             </td>
             <td class="c12" colspan="2" rowspan="1">
-                <p class="c6"><span class="c0"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px">{!! $openToIdeas == 'good' ? '*' : '' !!}</span>
+                </p>
             </td>
             <td class="c4" colspan="2" rowspan="1">
-                <p class="c1"><span class="c8"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px"> {!! $openToIdeas == 'very good' ? '*' : '' !!}</span>
+                </p>
             </td>
             <td class="c4" colspan="1" rowspan="1">
-                <p class="c6"><span class="c0"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px">{!! $openToIdeas == 'excellent' ? '*' : '' !!}</span>
+                </p>
             </td>
         </tr>
         <tr class="c16">
@@ -2730,16 +2890,24 @@
                 <p class="c14"><span class="c21">Seeks Training</span></p>
             </td>
             <td class="c15" colspan="1" rowspan="1">
-                <p class="c6"><span class="c0"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px">{!! $seeksTraining == 'satisfactory' ? '*' : '' !!}</span>
+                </p>
             </td>
             <td class="c12" colspan="2" rowspan="1">
-                <p class="c6"><span class="c0"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px">{!! $seeksTraining == 'good' ? '*' : '' !!}</span>
+                </p>
             </td>
             <td class="c4" colspan="2" rowspan="1">
-                <p class="c1"><span class="c8"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px"> {!! $seeksTraining == 'very good' ? '*' : '' !!}</span>
+                </p>
             </td>
             <td class="c4" colspan="1" rowspan="1">
-                <p class="c6"><span class="c0"></span></p>
+                <p class="c6">
+                    <span class="c0" style="padding: 25px">{!! $seeksTraining == 'excellent' ? '*' : '' !!}</span>
+                </p>
             </td>
         </tr>
 

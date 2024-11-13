@@ -79,8 +79,11 @@ Route::middleware('auth:sanctum')->group(function() {
     });
 
     // evaluations
-    Route::post('evaluations', 'EmployeesEvaluationController@store')->middleware('manager');
-    Route::get('evaluations/pdf/{id}', 'EmployeesEvaluationController@generatePDF');
+    Route::group(['prefix' => 'evaluations'], function() {
+        Route::get('', 'EmployeesEvaluationController@index');
+        Route::post('', 'EmployeesEvaluationController@store')->middleware('manager');
+        Route::get('pdf/{id}', 'EmployeesEvaluationController@generatePDF')->name('evaluations.pdf');
+    });
 
 });
 

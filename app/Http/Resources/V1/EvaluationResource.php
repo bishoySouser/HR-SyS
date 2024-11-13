@@ -21,10 +21,42 @@ class EvaluationResource extends JsonResource
             'reviewer' => new EmployeeResource($this->evaluator),
             'year' => $this->year,
             'status' => $this->status,
-            // 'approach_to_work'
+
+            // approach_to_work
             'followsInstructions' => $this->follows_instructions,
             'acceptsConstructiveCriticism' => $this->accepts_constructive_criticism,
             'flexibleAndAdaptable' => $this->flexible_and_adaptable,
+
+            // technical_skills
+            'jobKnowledge' => $this->job_knowledge,
+            'followsProcedures' => $this->follows_procedures,
+            'worksFullPotential' => $this->works_full_potential,
+            'learningNewSkills' => $this->learning_new_skills,
+
+            // quality_of_work
+            'accuracy' => $this->accuracy,
+            'consistency' => $this->consistency,
+            'followUp' => $this->follow_up,
+
+            // handling_targets
+            'completionOfWorkOnTime' => $this->completion_of_work_on_time,
+
+            // communication_skills
+            'shareInformationKnowledge' => $this->getAttribute('share_information/knowledge'),
+            'willingly' => $this->willingly,
+            'reporting' => $this->reporting,
+
+            // interpersonal_skills
+            'relationshipWithColleagues' => $this->relationship_with_colleagues,
+            'cooperation' => $this->cooperation,
+            'coordination' => $this->coordination,
+            'teamWork' => $this->team_work,
+            'punctualityAttendance' => $this->punctuality_attendance,
+            'problemSolving' => $this->problem_solving,
+
+            // willingness_to_learn
+            'openToIdeas' => $this->open_to_ideas,
+            'seeksTraining' => $this->seeks_training,
 
 
             'employeesAchievements' => $this->employees_achievements,
