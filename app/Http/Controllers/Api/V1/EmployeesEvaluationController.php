@@ -9,6 +9,7 @@ use App\Http\Requests\V1\StoreEmployeesEvaluationRequest;
 use App\Http\Resources\V1\EvaluationResource;
 use App\Jobs\V1\Evaluation\CreateEvaluation;
 use App\Models\EmployeeEvaluation;
+use App\Services\V1\EvaluationFilter;
 use Illuminate\Http\Request;
 
 class EmployeesEvaluationController extends Controller
@@ -16,33 +17,38 @@ class EmployeesEvaluationController extends Controller
     public function index(Request $request)
     {
         $evaluatorId = auth()->id();
-        $query = EmployeeEvaluation::where('evaluator_id', $evaluatorId);
 
-        if ($request->has('employee_name')) {
-            $query->join('employees', 'employee_evaluations.employee_id', '=', 'employees.id')
-                  ->where('employees.name', 'like', '%' . $request->input('employee_name') . '%');
+        $evaluations = EmployeeEvaluation::with('employee')->where('evaluator_id', $evaluatorId);
+
+            // $filter = new EvaluationFilter();
+
+            // $filterItems = $filter->transform($request);
+        // return $request->query('employeeId');
+
+        if ($request->query('employeeId')) {
+            $evaluations = $evaluations->whereHas('employee', function($query) use (&$request) {
+                                $query->where('id', '=', $request->query('employeeId'));
+                            });
+                            // ->where([
+                            //     ['year', '=', $request->query('year')],
+                            //     ['evaluation_type', '=', $request->query('evaluationType')]
+                            // ]);
+
         }
 
-        if ($request->has('evaluation_year')) {
-            $query->whereYear('evaluation_date', $request->input('evaluation_year'));
+
+
+        if ($request->query('year')) {
+            $evaluations->where('year', $request->input('year'));
         }
 
-        if ($request->has('evaluation_type')) {
-            $query->where('evaluation_type', $request->input('evaluation_type'));
+        if ($request->has('evaluationType')) {
+            $evaluations->where('evaluation_type', $request->input('evaluationType'));
         }
 
-        $evaluations = $query->paginate(10);
+        $evaluations = $evaluations->paginate(10);
 
-        $evaluations =  EvaluationResource::collection($evaluations)->additional([
-                            'links' => [
-                                'print_pdf' => $evaluations->map(function($evaluation) {
-                                    return [
-                                        'id' => $evaluation->id,
-                                        'url' => route('evaluations.pdf', ['id' => $evaluation->id])
-                                    ];
-                                })
-                            ]
-                        ]);
+        $evaluations =  EvaluationResource::collection($evaluations);
 
         return response()->json([
                     'status' => true,

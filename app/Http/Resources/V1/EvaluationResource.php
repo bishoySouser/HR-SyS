@@ -64,6 +64,8 @@ class EvaluationResource extends JsonResource
             'newGoalsToAchieve' => $this->new_goals_to_achieve,
             'createdAt' => $this->created_at,
             // Add other evaluation fields as needed
+
+            'printPdf' => route('evaluations.pdf', ['id' => $this->id])
         ];
     }
 }

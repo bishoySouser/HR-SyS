@@ -7,14 +7,14 @@ use App\Services\ApiFilter;
 class EvaluationFilter extends ApiFilter
 {
     protected $safaParms = [
-        'id' => ['eq'],
         'evaluationType' => ['eq'],
+        'employeeId' => ['eq'],
         'year' => ['eq']
     ];
 
     protected $columnMap = [
-        'evaluationId' => 'customer_id',
         'evaluationType' => 'evaluation_type',
+        'employeeId' => 'employee.id',
         'year' => 'year',
     ];
 
