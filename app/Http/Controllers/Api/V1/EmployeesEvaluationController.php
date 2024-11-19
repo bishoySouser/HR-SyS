@@ -91,13 +91,7 @@ class EmployeesEvaluationController extends Controller
 
         try {
             $pdfGenerator = new EvaluationPdf($evaluation_id);
-            $pdf = $pdfGenerator->download(); // Changed from download() to get raw content
-
-            return response($pdf, 200, [
-                'Content-Type' => 'application/pdf',
-                'Content-Disposition' => 'attachment; filename="evaluation_' . $evaluation_id . '.pdf"',
-                'Content-Length' => strlen($pdf)
-            ]);
+            return $pdfGenerator->download();
         } catch (\Exception $e) {
             return response()->json([
                 'error' => 'Failed to generate PDF',

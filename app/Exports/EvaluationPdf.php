@@ -28,6 +28,12 @@ class EvaluationPdf implements InterfaceToPrint
     public function download()
     {
         $pdf = Pdf::loadView('pdfs.evaluation', $this->generate()->getData());
-        return $pdf->download('evaluation.pdf');
+
+        // For Axios handling, return the response with proper headers
+        return response($pdf->output(), 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'attachment; filename="evaluation_' . $this->evaluationId . '.pdf"',
+            'Content-Length' => strlen($pdf->output())
+        ]);
     }
 }
