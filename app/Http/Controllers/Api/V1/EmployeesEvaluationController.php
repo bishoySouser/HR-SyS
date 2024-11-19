@@ -42,7 +42,7 @@ class EmployeesEvaluationController extends Controller
             $evaluations->where('year', $request->input('year'));
         }
 
-        if ($request->has('evaluationType')) {
+        if ($request->query('evaluationType')) {
             $evaluations->where('evaluation_type', $request->input('evaluationType'));
         }
 
