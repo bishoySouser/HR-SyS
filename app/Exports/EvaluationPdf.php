@@ -27,13 +27,26 @@ class EvaluationPdf implements InterfaceToPrint
 
     public function download()
     {
-        $pdf = Pdf::loadView('pdfs.evaluation', $this->generate()->getData());
+        try {
+            // Direct PDF generation
+            $pdf = Pdf::loadView('pdfs.evaluation', $this->generate()->getData());
 
-        // For Axios handling, return the response with proper headers
-        return response($pdf->output(), 200, [
-            'Content-Type' => 'application/pdf',
-            'Content-Disposition' => 'attachment; filename="evaluation_' . $this->evaluationId . '.pdf"',
-            'Content-Length' => strlen($pdf->output())
-        ]);
+            // Save PDF to temporary file
+            $tempPath = storage_path('app/temp_evaluation.pdf');
+            $pdf->save($tempPath);
+
+            // Return file path for debugging
+            return response()->file($tempPath, [
+                'Content-Type' => 'application/pdf',
+                'Content-Disposition' => 'attachment; filename="evaluation.pdf"'
+            ]);
+        } catch (\Exception $e) {
+            // Detailed error logging
+            \Log::error('PDF Generation Error: ' . $e->getMessage());
+            return response()->json([
+                'error' => 'PDF generation failed',
+                'message' => $e->getMessage()
+            ], 500);
+        }
     }
 }
