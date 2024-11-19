@@ -67,7 +67,7 @@ class EvaluationResource extends JsonResource
 
             'printPdf' => [
                 "url" => route('evaluations.pdf', ['id' => $this->id]),
-                'sub-url' => "api/v1/evaluations/pdf/$this->id"
+                'sub-url' => "evaluations/pdf/$this->id"
             ]
         ];
     }
