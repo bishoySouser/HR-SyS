@@ -65,7 +65,10 @@ class EvaluationResource extends JsonResource
             'createdAt' => $this->created_at,
             // Add other evaluation fields as needed
 
-            'printPdf' => route('evaluations.pdf', ['id' => $this->id])
+            'printPdf' => [
+                "url" => route('evaluations.pdf', ['id' => $this->id]),
+                'sub-url' => "api/v1/evaluations/pdf/$this->id"
+            ]
         ];
     }
 }
