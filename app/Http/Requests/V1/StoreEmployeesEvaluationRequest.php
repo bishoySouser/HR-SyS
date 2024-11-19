@@ -37,7 +37,7 @@ class StoreEmployeesEvaluationRequest extends FormRequest
             // Approach to work
             'follows_instructions' => 'required|integer|between:1,4',
             'accepts_constructive_criticism' => 'required|integer|between:1,4',
-            'flexible_&_adaptable' => 'required|integer|between:1,4',
+            'flexible_and_adaptable' => 'required|integer|between:1,4',
 
             // Technical Skills
             'job_knowledge' => 'required|integer|between:1,4',
