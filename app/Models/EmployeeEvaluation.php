@@ -44,7 +44,6 @@ class EmployeeEvaluation extends Model
             'quarter_2',
             'quarter_3',
             'quarter_4',
-            'end_of_probation',
             'end_of_year'
         ];
 

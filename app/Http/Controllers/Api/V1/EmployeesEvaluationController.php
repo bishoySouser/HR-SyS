@@ -6,6 +6,7 @@ use App\Exports\EvaluationPdf;
 use App\Http\Controllers\Controller;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Http\Requests\V1\StoreEmployeesEvaluationRequest;
+use App\Http\Resources\V1\EvaluationCollection;
 use App\Http\Resources\V1\EvaluationResource;
 use App\Jobs\V1\Evaluation\CreateEvaluation;
 use App\Models\EmployeeEvaluation;
@@ -46,15 +47,15 @@ class EmployeesEvaluationController extends Controller
             $evaluations->where('evaluation_type', $request->input('evaluationType'));
         }
 
-        $evaluations = $evaluations->paginate(10);
+        $evaluations = new EvaluationCollection($evaluations->paginate(1));
 
-        $evaluations =  EvaluationResource::collection($evaluations);
+        // $evaluations =  EvaluationResource::collection($evaluations);
 
         return response()->json([
                     'status' => true,
                     'status_code' => 201,
                     'message' => 'Get evaluations list successfully',
-                    'data' => $evaluations
+                    'data' => $evaluations->appends($request->query())
                 ], 200);
     }
 
