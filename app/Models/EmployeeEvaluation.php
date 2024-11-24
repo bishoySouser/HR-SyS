@@ -23,6 +23,10 @@ class EmployeeEvaluation extends Model
     //     'employee_id' => 'integer',
     //     'evaluator_id' => 'integer',
     // ];
+    public function printPdf($crud = false)
+    {
+        return '<a class="btn btn-sm btn-link" target="_blank" href="'. route('evaluations.download', ['id' => $this->id]).'" data-toggle="tooltip" title="download evaluation file."><i class="la la-download"></i>PDF</a>';
+    }
 
     public function employee()
     {

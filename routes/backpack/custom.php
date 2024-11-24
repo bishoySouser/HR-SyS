@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\V1\EmployeesEvaluationController;
 use Illuminate\Support\Facades\Route;
 
 // --------------------------
@@ -62,4 +63,9 @@ Route::group([
     // Report
     Route::get('report/eom', 'Reports\EmployeeOfTheMonth@report')->name('employee.of.month.report');
     Route::crud('employee-evaluation', 'EmployeeEvaluationCrudController');
+
+    Route::prefix('admin')->group(function () {
+        Route::get('evaluations/pdf/{id}', [EmployeesEvaluationController::class, 'generatePdf'])
+            ->name('evaluations.download');
+    });
 }); // this should be the absolute last line of this file

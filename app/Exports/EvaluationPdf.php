@@ -10,19 +10,18 @@ use App\Interfaces\InterfaceToPrint;
 
 class EvaluationPdf implements InterfaceToPrint
 {
-    private $evaluationId;
+    private $evaluation;
 
     public function __construct($evaluationId)
     {
-        $this->evaluationId = $evaluationId;
+        $this->evaluation = EmployeeEvaluation::findOrFail($evaluationId);
+        $this->evaluation = (new EvaluationResource($this->evaluation));
     }
 
     public function generate(): View
     {
-        $data = EmployeeEvaluation::findOrFail($this->evaluationId);
-        $data = (new EvaluationResource($data))->toArray(request());
 
-        return view('pdfs.evaluation', $data);
+        return view('pdfs.evaluation', $this->evaluation->toArray(request()));
     }
 
     public function download()
@@ -35,10 +34,12 @@ class EvaluationPdf implements InterfaceToPrint
             $tempPath = storage_path('app/temp_evaluation.pdf');
             $pdf->save($tempPath);
 
+            $fileName = "evaluation_". $this->evaluation->employee->full_name . "_" . $this->evaluation->evaluation_type . "_" . $this->evaluation->year;
+            $fileName = $fileName . ".pdf";
             // Return file path for debugging
             return response()->file($tempPath, [
                 'Content-Type' => 'application/pdf',
-                'Content-Disposition' => 'attachment; filename="evaluation.pdf"'
+                'Content-Disposition' => 'attachment; filename="' . $fileName . '"'
             ]);
         } catch (\Exception $e) {
             // Detailed error logging

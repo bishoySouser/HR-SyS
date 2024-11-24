@@ -70,33 +70,10 @@ class EmployeeEvaluationCrudController extends CrudController
         CRUD::column('evaluator_id');
         CRUD::column('year')->type('text');
         CRUD::column('evaluation_type');
-        // CRUD::column('follows_instructions');
-        // CRUD::column('accepts_constructive_criticism');
-        // CRUD::column('flexible_&_adaptable');
-        // CRUD::column('job_knowledge');
-        // CRUD::column('follows_procedures');
-        // CRUD::column('works_full_potential');
-        // CRUD::column('learning_new_skills');
-        // CRUD::column('accuracy');
-        // CRUD::column('consistency');
-        // CRUD::column('follow_up');
-        // CRUD::column('completion_of_work_on_time');
-        // CRUD::column('share_information/knowledge');
-        // CRUD::column('willingly');
-        // CRUD::column('reporting');
-        // CRUD::column('relationship_with_colleagues');
-        // CRUD::column('cooperation');
-        // CRUD::column('coordination');
-        // CRUD::column('team_work');
-        // CRUD::column('punctuality_attendance');
-        // CRUD::column('problem_solving');
-        // CRUD::column('open_to_ideas');
-        // CRUD::column('seeks_training');
-        // CRUD::column('employees_achievements');
-        // CRUD::column('performance_and_progress');
-        // CRUD::column('new_goals_to_achieve');
         CRUD::column('created_at');
         CRUD::column('updated_at');
+
+        CRUD::addButtonFromModelFunction('line', 'print_pdf', 'printPdf', 'beginning');
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
