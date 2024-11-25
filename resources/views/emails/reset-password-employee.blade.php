@@ -163,7 +163,7 @@ table, td { color: #000000; } @media (max-width: 480px) { #u_content_text_1 .v-c
 <p style="line-height: 140%;">I hope this email finds you well.</p>
 <p style="line-height: 140%;"> </p>
 <p style="line-height: 140%;">I'm writing to inform you that the password reset process for your account has been successfully completed. Your new password has been generated and securely updated in our system.</p>
-<p style="line-height: 140%;">Below, you'll find your new login credentials:</p>
+<p style="line-height: 140%;">Below, you'll find your new <a style="font-style: italic" href="{{ config('app.url_employee') }}">login</a> credentials:</p>
   </div>
 
       </td>
@@ -246,6 +246,8 @@ table, td { color: #000000; } @media (max-width: 480px) { #u_content_text_1 .v-c
     <p style="line-height: 140%;">Please make sure to keep this information confidential and avoid sharing it with anyone. For security purposes, it's always a good idea to periodically update your password.</p>
 <p style="line-height: 140%;"> </p>
 <p style="line-height: 140%;">If you have any further questions or require assistance, please don't hesitate to reach out to our support team</p>
+<p style="line-height: 140%;"> </p>
+<p style="line-height: 140%;">please use the secure login link <a style="font-style: italic" href="{{ config('app.url_employee') }}">here</a> </p>
 <p style="line-height: 140%;"> </p>
 <p style="line-height: 140%;">Best regards,</p>
 <p style="line-height: 140%;">The HR Team</p>

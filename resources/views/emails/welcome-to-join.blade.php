@@ -194,7 +194,8 @@ table, td { color: #000000; } @media (max-width: 480px) { #u_content_heading_2 .
 <p style="line-height: 140%;">{{$employee->hire_date}}.</p>
 <p style="line-height: 140%;"> </p>
 <p style="line-height: 140%;"> We believe their expertise will be a valuable addition to our team. Their enthusiasm and dedication are already evident, and we are looking forward to having them onboard.</p>
-<p style="line-height: 140%;"> URL: <a href="{{URL('')}}"></a>{{URL('')}}</p>
+<p style="line-height: 140%;"> </p>
+<p style="line-height: 140%;">please use the secure login link <a style="font-style: italic" href="{{ config('app.url_employee') }}">here</a> </p>
   </div>
 
       </td>
