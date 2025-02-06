@@ -227,16 +227,7 @@ table, td { color: #ffffff; } @media (max-width: 480px) { #u_row_9.v-row-padding
             <a href="{{ $googleCalendarLink }}" class="button" target="_blank">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Google_Calendar_icon_%282020%29.svg/1200px-Google_Calendar_icon_%282020%29.svg.png" alt="Google Calendar" width="24">
             </a>
-
-        </td>
-    </tr>
-
-    <tr>
-        <td class="v-container-padding-padding" style="overflow-wrap:break-word;word-break:break-word;padding:5px 80px 30px 15px;font-family:'Raleway',sans-serif;" align="left">
-            <!-- Apple Calendar Link -->
-            <a href="{{ $appleCalendarLink }}" class="button apple" target="_blank">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Apple_Calendar_%28iOS%29.svg/2048px-Apple_Calendar_%28iOS%29.svg.png" alt="Apple Calendar" width="24">
-            </a>
+            Add to Google Calendar
         </td>
     </tr>
   </tbody>
