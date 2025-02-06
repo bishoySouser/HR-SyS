@@ -224,8 +224,9 @@ table, td { color: #ffffff; } @media (max-width: 480px) { #u_row_9.v-row-padding
     <tr>
         <td class="v-container-padding-padding" style="overflow-wrap:break-word;word-break:break-word;padding:5px 80px 30px 15px;font-family:'Raleway',sans-serif;" align="left">
             <!-- Google Calendar Link -->
-            <a href="{{ $googleCalendarLink }}" class="button" target="_blank">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Google_Calendar_icon_%282020%29.svg/1200px-Google_Calendar_icon_%282020%29.svg.png" alt="Google Calendar" width="24">
+            <a href="{{ $googleCalendarLink }}" class="button" target="_blank" style="color: white; text-decoration: none;">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Google_Calendar_icon_%282020%29.svg/1200px-Google_Calendar_icon_%282020%29.svg.png"
+                     alt="Google Calendar" width="24">
                 Add to Google Calendar
             </a>
         </td>
