@@ -78,9 +78,10 @@ class Employee extends Authenticatable
 
     public function isManager()
     {
-        return $this->hasMany(Employee::class, 'manager_id')->count() > 0;
-        // return $this->job->grades === 'manager' ? true : false;
+        $hasSubordinates = $this->hasMany(Employee::class, 'manager_id')->count() > 0;
+        $isManagerGrade =  $this->job->grades === 'manager' ? true : false;
 
+        return $hasSubordinates || $isManagerGrade;
     }
 
     public function subordinates()
