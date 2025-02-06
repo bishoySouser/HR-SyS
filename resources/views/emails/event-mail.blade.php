@@ -95,7 +95,7 @@ table, td { color: #ffffff; } @media (max-width: 480px) { #u_row_9.v-row-padding
 
 
 <!--[if !mso]><!--><link href="https://fonts.googleapis.com/css?family=Raleway:400,700&display=swap" rel="stylesheet" type="text/css"><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" rel="stylesheet" type="text/css"><!--<![endif]-->
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
 
 <body class="clean-body u_body" style="margin: 0;padding: 0;-webkit-text-size-adjust: 100%;background-color: #ffffff;color: #ffffff">
@@ -215,11 +215,29 @@ table, td { color: #ffffff; } @media (max-width: 480px) { #u_row_9.v-row-padding
     <tr>
       <td class="v-container-padding-padding" style="overflow-wrap:break-word;word-break:break-word;padding:5px 80px 30px 15px;font-family:'Raleway',sans-serif;" align="left">
 
-  <div class="v-text-align" style="font-size: 14px; color: #7e8c8d; line-height: 140%; text-align: left; word-wrap: break-word;">
-    <p style="line-height: 140%;">{{$event->desc}}</p>
-  </div>
-
+        <div class="v-text-align" style="font-size: 14px; color: #7e8c8d; line-height: 140%; text-align: left; word-wrap: break-word;">
+            <p style="line-height: 140%;">{{$event->desc}}</p>
+        </div>
       </td>
+    </tr>
+
+    <tr>
+        <td class="v-container-padding-padding" style="overflow-wrap:break-word;word-break:break-word;padding:5px 80px 30px 15px;font-family:'Raleway',sans-serif;" align="left">
+            <!-- Google Calendar Link -->
+            <a href="{{ $googleCalendarLink }}" class="button" target="_blank">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Google_Calendar_icon_%282020%29.svg/1200px-Google_Calendar_icon_%282020%29.svg.png" alt="Google Calendar" width="24">
+            </a>
+
+        </td>
+    </tr>
+
+    <tr>
+        <td class="v-container-padding-padding" style="overflow-wrap:break-word;word-break:break-word;padding:5px 80px 30px 15px;font-family:'Raleway',sans-serif;" align="left">
+            <!-- Apple Calendar Link -->
+            <a href="{{ $appleCalendarLink }}" class="button apple" target="_blank">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Apple_Calendar_%28iOS%29.svg/2048px-Apple_Calendar_%28iOS%29.svg.png" alt="Apple Calendar" width="24">
+            </a>
+        </td>
     </tr>
   </tbody>
 </table>
