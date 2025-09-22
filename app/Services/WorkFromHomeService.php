@@ -9,34 +9,45 @@ use Backpack\Settings\app\Models\Setting;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
-
 class WorkFromHomeService implements LeaveRequestInterface
 {
-    private $limitInMonth;
+    private int $limitInMonth;
 
     /**
-     * Get the value of limitInMonth
-     */ 
-    public function getLimitInMonth()
+     * Get the value of limitInMonth as int (with default).
+     */
+    public function getLimitInMonth(): int
     {
-        $this->limitInMonth = Setting::get('work_from_home_count');
+        $limit = Setting::get('work_from_home_count');
+
+        // ensure int and fallback to 1 if not set or invalid
+        $this->limitInMonth = intval($limit ?: 1);
+
         return $this->limitInMonth;
     }
 
+    /**
+     * Determines if the request can proceed.
+     * Returns [bool $allowed, string $message]
+     */
     public function canRequest($requestData): array
     {
-        $employee = Employee::findOrFail($requestData['employee_id']);
-        $duration = Employee::findOrFail($requestData['employee_id']);
+        // basic existence checks (avoid crashing on missing keys)
+        if (!isset($requestData['employee_id']) || !isset($requestData['day'])) {
+            return [false, 'Missing employee_id or day in request data.'];
+        }
 
+        $employee = Employee::findOrFail($requestData['employee_id']);
+
+        // check pending
         if ($this->hasPending($employee->id)) {
             return [false, 'You already have a pending Work from home request.'];
         }
 
+        // check limit
         if ($this->hasReachedLimit($requestData)) {
             return [false, 'You have reached the maximum work from home requests for this month.'];
         }
-
-
 
         return [true, ''];
     }
@@ -48,26 +59,32 @@ class WorkFromHomeService implements LeaveRequestInterface
             ->exists();
     }
 
-    private function hasReachedLimit($requestData)
+    /**
+     * Check if the employee reached the monthly limit for the given day.
+     */
+    private function hasReachedLimit($requestData): bool
     {
         $employeeId = $requestData['employee_id'];
         $day = $requestData['day'];
-        $month = Carbon::parse($day)->month;
 
-        $hasRecords = WorkFromHome::where('employee_id', $employeeId)->whereMonth('day', $month);
-
-        if (!$hasRecords->exists()) {
-            return false;
+        try {
+            $date = Carbon::parse($day);
+        } catch (\Exception $e) {
+            // invalid date -> treat as cannot request (or you may prefer to throw)
+            return true;
         }
 
-        $requestsPerMonth = $hasRecords->select(DB::raw('YEAR(day) as year, MONTH(day) as month, COUNT(*) as request_count'))
-            ->groupBy('year', 'month')  // Group by year and month
-            ->get();
+        $year = $date->year;
+        $month = $date->month;
 
-        $monthRequests = $requestsPerMonth->firstWhere('month', $month);
+        $limit = $this->getLimitInMonth();
 
-        return $monthRequests->request_count >= $this->getLimitInMonth();
+        // count requests for the same employee in the same year+month
+        $count = WorkFromHome::where('employee_id', $employeeId)
+            ->whereYear('day', $year)
+            ->whereMonth('day', $month)
+            ->count();
+
+        return $count >= $limit;
     }
-
-    
 }
