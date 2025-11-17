@@ -47,25 +47,32 @@ class ExcuseLimitService implements LeaveRequestInterface
 
     private function exceedsMonthlyLimit($requestData, $excuseTimeInSeconds)
     {
-        // $this->monthlyUsage = Excuse::forTimeInMonthBySecound($requestData['employee_id'], now()->month, now()->year);
-
         $month = Carbon::parse($requestData['date'])->month;
-        $hasRecords = Excuse::where('employee_id', $requestData['employee_id'])->whereMonth('date', $month);
+        $employeeId = $requestData['employee_id'];
 
-        if (!$hasRecords->exists()) {
+        // Check if employee has any records in this month
+        $hasRecordsQuery = Excuse::where('employee_id', $employeeId)
+            ->whereMonth('date', $month);
+
+        if (!$hasRecordsQuery->exists()) {
+           
             return false;
         }
 
-        $requestsPerMonth = $hasRecords->select(DB::raw('YEAR(date) as year, MONTH(date) as month, SUM(TIME_TO_SEC(time)) as request_count'))
+        $requestsPerMonth = $hasRecordsQuery
+            ->select(DB::raw('YEAR(date) as year, MONTH(date) as month, SUM(TIME_TO_SEC(time)) as request_count'))
             ->where('status', 'Approved')
             ->groupBy(DB::raw('YEAR(date)'))
             ->groupBy(DB::raw('MONTH(date)'))
             ->get();
 
+        
+        $monthRequests = $requestsPerMonth->firstWhere('month', $month);
 
-            $monthRequests = $requestsPerMonth->firstWhere('month', $month);
+        // fallback لو null
+        $usedSeconds = $monthRequests->request_count ?? 0;
 
-        return $monthRequests->request_count + $excuseTimeInSeconds > $this->getLimit();
+        return $usedSeconds + $excuseTimeInSeconds > $this->getLimit();
     }
 
     public function remainingSeconds()
